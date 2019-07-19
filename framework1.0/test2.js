@@ -105,7 +105,7 @@ function create() {
 function resetFrame(frame){
     var data = frame;
 
-    console.log(data);
+    // console.log(data);
     if(data == undefined || data.toString() == [].toString()){
         data = [];
 
@@ -242,7 +242,22 @@ function preloadUItexture(callback){
         'DEFF222FED',
         'DDDDDDDDDD'
     ];
+
     var load = [
+        '..........',
+        '....77....',
+        '...7777...',
+        '..777777..',
+        '.77777777.',
+        '....77....',
+        '....77....',
+        '....77....',
+        '....77....',
+        '....77....',
+        '..........',
+    ];
+
+    var download = [
         '..........',
         '....77....',
         '....77....',
@@ -255,14 +270,13 @@ function preloadUItexture(callback){
         '....77....',
         '..........',
 
-    ]
-
+    ];
     game.load.imageFromTexture('arrow', arrow, 2);
     game.load.imageFromTexture('plus', plus, 3);
     game.load.imageFromTexture('minus', minus, 3);
-    game.load.imageFromTexture('save', disk, 4);
+    game.load.imageFromTexture('save', download, 4);
     game.load.imageFromTexture('load', load, 4);
-
+    game.load.imageFromTexture('generate', disk, 4);
 
     // ct = function(f){
     //     return new Promise(function(resolve){
@@ -392,10 +406,17 @@ function createUI() {
     saveIcon.events.onInputDown.add(save, this);
 
     // Load Icon
-    loadIcon = game.add.sprite(750, 480, 'load');
+    loadIcon = game.add.sprite(700, 550, 'load');
     loadIcon.inputEnabled = true;
     loadIcon.input.useHandCursor = true;
     loadIcon.events.onInputDown.add(load, this);
+
+    // Generate Icon
+    loadIcon = game.add.sprite(750, 500, 'generate');
+    loadIcon.inputEnabled = true;
+    loadIcon.input.useHandCursor = true;
+    loadIcon.events.onInputDown.add(generate, this);
+
 }
 
 function createDrawingArea() {
@@ -757,12 +778,12 @@ function save() {
             date.toLocaleTimeString().split(' ')[0] :
             [parseInt(date.toLocaleTimeString().split(' ')[0].split(':')[0]) + 12].concat(
                 date.toLocaleTimeString().split(' ')[0].split(':').splice(1,3)).join(':')
-    ) + " - mapdate.json";
+    ) + " - mapdata.json";
 
     //  Save current frame
     frames[frame - 1] = cloneData();
 
-    // Download mapDate file
+    // Download mapData file
     // console.log(frames);
     // console.log(JSON.stringify(frames));
     dataDownload(JSON.stringify(frames),filename);
@@ -865,6 +886,33 @@ function dataDownload(content, filename) {
     }
 }
 
+function generate(){
+    var input = document.createElement('input');
+    input.style.display = 'none';
+    input.setAttribute("onchange", "mapConfigImport()");
+    input.id = "filesInput";
+    input.type = 'file';
+    document.body.appendChild(input);
+    input.click();
+}
+
+function mapConfigImport(){
+    //获取读取我文件的File对象
+    var selectedFile = document.getElementById('filesInput').files[0];
+    console.log(selectedFile);
+    var reader = new FileReader();//这是核心,读取操作就是由它完成.
+    reader.readAsText(selectedFile);//读取文件的内容,也可以读取文件的URL
+    reader.onload = function () {
+        //当读取完成后回调这个函数,然后此时文件的内容存储到了result中,直接操作即可
+        var str = reader.result;
+        // console.log(str);
+        document.body.removeChild(document.getElementById('filesInput'));
+        var js = document.createElement('script');
+        js.text = str;
+        document.body.appendChild(js);
+        console.log(mapConfig)
+    };
+}
 
 function shiftLeft() {
 
