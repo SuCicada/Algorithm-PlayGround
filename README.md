@@ -1,6 +1,6 @@
-# ResetWorld
+# APG——Algorithm PlayGround
 
-## frameword 2.2 
+## framework 2.2 
 2019/8/4 23:28
 
 <pre>
@@ -31,7 +31,7 @@
 </pre>
 
 
-<h2>framewor 2.0</h2>2019/8/1 17:28
+<h2>framework 2.0</h2>2019/8/1 17:28
 <pre>
 实现音乐播放（无法测试，电脑什么声音都不出）
 实现背景
