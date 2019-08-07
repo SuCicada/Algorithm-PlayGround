@@ -1,0 +1,59 @@
+{
+    "MapImg": {
+        "imgUrl": "",
+        "imgKey": "maza",
+        "rows": 2,
+        "columns": 2
+    },
+    "layers": {
+        "tileLayer": [
+            {
+                "mapId": "C",
+                "tileId": 2
+            },
+            {
+                "mapId": "D",
+                "tileId": 4
+            },
+            {
+                "mapId": "E",
+                "tileId": 1
+            },
+            {
+                "mapId": "F",
+                "tileId": 3
+            }
+        ],
+        "objectGroup": [
+            {
+                "mapId": "3",
+                "keyName": "chukou",
+                "imgKey": "",
+                "type": "object",
+                "frameId": 0
+            },
+            {
+                "mapId": "1",
+                "keyName": "numBlock"
+            }
+        ],
+        "characterGroup": [
+            {
+                "mapId": "0",
+                "keyName": "player",
+                "imgKey": "player",
+                "type": "player"
+            }
+        ]
+    },
+    "sprites": [
+        {
+            "x": 2,
+            "y": 2,
+            "properties": {
+                "bgColor": "rgba(169,111,42,0.39)",
+                "text": "9"
+            }
+        }
+    ]
+}
