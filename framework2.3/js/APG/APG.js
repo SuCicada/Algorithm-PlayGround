@@ -16,7 +16,7 @@ var HEIGHT;
 var MODE;
 
 // var BagBar = {};
-var MapArea = {};
+// var MapArea = {};
 var TileMapJson;   /* 用于存贮地图配置 */
 
 var APG = {};
@@ -30,7 +30,18 @@ APG.Assets = {};   /* 暂存帧贴图 */
 APG.Assets.music = {};
 APG.Assets.background = {};
 APG.Assets.mapImg = null;
-APG.Assets.scripts = ['Bag','Methods','Assets','Update'];
+APG.Assets.scripts = [
+    'Assets',
+    'Bag',
+    'Character',
+    'Game',
+    'Group',
+    'Methods',
+    'Sprite',
+    'Target',
+    'Tile',
+    'Update',
+];
 
 // APG.players = [{group:null,animations:{}}];
 // APG.objects = {};
@@ -58,7 +69,7 @@ APG.UDLRDir = {
 };
 
 // APG.Side = {x:0,y:0};  // 格子边长
-APG.TextStyle = null;
+// APG.TextStyle = null;
 
 APG.TargetGroups = {};
 APG.CharacterGroups = {};
@@ -70,7 +81,7 @@ APG.Bag.size = 0;
 APG.Bag.items = [];
 APG.Bag.views = [];
 
-APG.methods = {};
+APG.Methods = {};
 APG.Update = {};
 APG.Update.listenKey = {};
 APG.Update.listenKey.keyEventList = [];
@@ -79,7 +90,7 @@ APG.Update.collideWorldBounds = false;
 APG.Update.collision = {};
 APG.Update.collision.block = {};
 
-
+APG.Game = {};
 APG.Sprite = {};
 APG.Group = {};
 APG.Target = {};
@@ -88,7 +99,6 @@ APG.Character = {};
 
 var bootstrap = {
     init: function () {
-        console.log(11111)
         if (!(globalConfig.ScaleMode == "EXACT_FIT")){
             game.scale.pageAlignHorizontally = true;
             game.scale.pageAlignVertically = true;
@@ -105,7 +115,7 @@ var bootstrap = {
         let path;
         for(i=0;i<scripts.length;i++){
             let file = scripts[i].getAttribute("src");
-            if(file.substring(file.lastIndexOf('/'), file.lastIndexOf('.') == "APG")){
+            if(file && file.substring(file.lastIndexOf('/'), file.lastIndexOf('.') == "APG")){
                 path = file.substring(0, file.lastIndexOf('/')+1);
             }
         }
@@ -132,12 +142,12 @@ var preload = {
             };
         }
 
-        APG.Tile = {
-            height: 0,
-            width: 0,
-            scale: 0,
-        };
-        MapArea = {
+        // APG.Tile = {
+        //     height: 0,
+        //     width: 0,
+        //     scale: 0,
+        // };
+        APG.MapArea = {
             x: globalConfig.MapArea.x<=1? globalConfig.MapArea.x*WIDTH:  globalConfig.MapArea.x,
             y: globalConfig.MapArea.y<=1? globalConfig.MapArea.y*HEIGHT: globalConfig.MapArea.y,
             width : WIDTH * 0.8,
@@ -145,8 +155,8 @@ var preload = {
             rows: 0,   /* 棋盘世界的行列数*/
             columns: 0,
         };
-        MapArea.offsetX = MapArea.x;
-        MapArea.offsetY = MapArea.y;
+        APG.MapArea.offsetX = APG.MapArea.x;
+        APG.MapArea.offsetY = APG.MapArea.y;
 
 
 
@@ -154,9 +164,10 @@ var preload = {
         TileMapJson = game.cache.getJSON('mazajson');
 
         /* Tile大小, 强制方形 */
-        var side = Math.min(MapArea.height / TileMapJson.height,
-            MapArea.width  / TileMapJson.width);
-        APG.Tile.height = APG.Tile.width = side;
+        var side = Math.min(APG.MapArea.height / TileMapJson.height,
+            APG.MapArea.width  / TileMapJson.width);
+        APG.Tile.width = side;
+        APG.Tile.height = side;
         console.log("APG.Tile side: " + side);
 
         /* 使用新的除去旧的, 算出需要对对象拉伸的量,
@@ -171,10 +182,10 @@ var preload = {
         TileMapJson.tilewidth =  APG.Tile.width;
 
         /* 根据实际环境, 更新了地图区域信息 */
-        MapArea.width = APG.Tile.width * TileMapJson.width;
-        MapArea.height = APG.Tile.height * TileMapJson.height;
-        MapArea.rows = MapArea.width / APG.Tile.width;
-        MapArea.columns = MapArea.height / APG.Tile.height;
+        APG.MapArea.width = APG.Tile.width * TileMapJson.width;
+        APG.MapArea.height = APG.Tile.height * TileMapJson.height;
+        APG.MapArea.rows = APG.MapArea.width / APG.Tile.width;
+        APG.MapArea.columns = APG.MapArea.height / APG.Tile.height;
     },
     preload: function(){
         let Assets = globalConfig.Assets;
@@ -231,7 +242,7 @@ var startGame = {
 
         // APG.Side.x = APG.Tile.width;
         // APG.Side.y = APG.Tile.height;
-        APG.TextStyle = { font: "48px Arial", fill: "#ff0044", align:"center" };
+        // APG.TextStyle = { font: "48px Arial", fill: "#ff0044", align:"center" };
 
         /*==== 按键 ======*/
         var defaultKays = ['cursors'];
@@ -248,7 +259,9 @@ var startGame = {
         }
 
         /* 你的 init */
-        YourGame.init();
+        if(APG.DeveloperModel.init){
+            APG.DeveloperModel.init.apply(APG.DeveloperModel);
+        }
     },
     preload: function(){
         /* 这里就放一些补充的材料, 还有你的 */
@@ -263,7 +276,10 @@ var startGame = {
         APG.Assets.spritesheets = [];
 
         /* 你的 preload */
-        YourGame.preload();
+
+        if(APG.DeveloperModel.preload){
+            APG.DeveloperModel.preload.apply(APG.DeveloperModel);
+        }
     },
     create: function(){
         let Assets = globalConfig.Assets;
@@ -280,9 +296,9 @@ var startGame = {
         ** 推荐这两个名字取得一样
         */
         APG.Tilemap.addTilesetImage(Assets.mapImg.imgKey, Assets.mapImg.imgKey);
-        APG.Layer = APG.Tilemap.createLayer("layer1", MapArea.width, MapArea.height);
+        APG.Layer = APG.Tilemap.createLayer("layer1", APG.MapArea.width, APG.MapArea.height);
         APG.Layer.fixedToCamera = false;
-        APG.Layer.position.set(MapArea.x, MapArea.y);
+        APG.Layer.position.set(APG.MapArea.x, APG.MapArea.y);
         APG.Layer.resizeWorld();
 
 
@@ -319,7 +335,7 @@ var startGame = {
                     let bg = s[0].bgColor;
                     let text = s[0].text;
                     if (bg && text) {
-                        APG.methods.loadTextBitMap(s, text, bg);
+                        APG.Target.loadTextBitMap(s, text, bg);
                     }
                 });
             }
@@ -328,12 +344,12 @@ var startGame = {
             group.forEach(function(s){
                 s.x *= APG.Tile.scale;
                 s.y *= APG.Tile.scale;
-                /*相对距离,相对于MapArea, 棋盘坐标*/
+                /*相对距离,相对于APG.MapArea, 棋盘坐标*/
                 s.relx = s.x / APG.Tile.width;
                 s.rely = s.y / APG.Tile.height;
 
-                s.x += MapArea.x;
-                s.y += MapArea.y;
+                s.x += APG.MapArea.x;
+                s.y += APG.MapArea.y;
                 s.scale.setTo(1);
                 s.scale.setTo(APG.Tile.width / s.width,
                     APG.Tile.height / s.height);
@@ -345,7 +361,7 @@ var startGame = {
 
                 /* 将对象的物理检测体缩小,不然可能会在瓷砖边上就碰撞 */
                 game.physics.enable(s, Phaser.Physics.ARCADE);
-                APG.methods.setBody(s,0.6,0.6,0.2,0.2);
+                APG.Sprite.setBody(s,0.6,0.6,0.2,0.2);
 
             });
             /* 标识名 */
@@ -379,8 +395,8 @@ var startGame = {
                 s.oldx = s.relx;
                 s.oldy = s.rely;
 
-                s.x += MapArea.x;
-                s.y += MapArea.y;
+                s.x += APG.MapArea.x;
+                s.y += APG.MapArea.y;
                 s.scale.setTo(1);
                 s.scale.setTo(Math.min(APG.Tile.width / s.width, APG.Tile.height / s.height));
                 /* 设置人物方向 */
@@ -388,7 +404,7 @@ var startGame = {
                 console.log(s.x+","+s.y+" -> "+s.relx+","+s.rely);
 
                 game.physics.enable(s, Phaser.Physics.ARCADE);
-                APG.methods.setBody(s,0.8,0.8,0.1,0.1);
+                APG.Sprite.setBody(s,0.8,0.8,0.1,0.1);
 
             });
 
@@ -402,20 +418,22 @@ var startGame = {
 
 
         /* 你的创造 */
-        YourGame.create();
+        if(APG.DeveloperModel.create){
+            APG.DeveloperModel.create.apply(APG.DeveloperModel);
+        }
 
 
         /* 背包系统*/
         if(globalConfig.BagSystem){
-            APG.bag.showBagBar();
+            APG.Bag.showBagBar();
         }
 
         if(globalConfig.README){
-            APG.methods.README(globalConfig.README);
+            APG.Game.README(globalConfig.README);
         }
 
         if(globalConfig.FullScreen) {
-            APG.methods.fullScreen();
+            APG.Game.fullScreen();
         }
     },
     update: function(){
@@ -472,7 +490,9 @@ var startGame = {
         }
 
         /* 你的更新 */
-        YourGame.update();
+        if(APG.DeveloperModel.update){
+            APG.DeveloperModel.update.apply(APG.DeveloperModel);
+        }
     },
     render: function(){
         // game.debug.spriteBounds(APG.Tilemap);
