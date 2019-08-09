@@ -1,7 +1,7 @@
 # APG——Algorithm PlayGround
 
 [![Gitter](https://badges.gitter.im/Algorithm-PlayGround/community.svg)](https://gitter.im/Algorithm-PlayGround/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-![website](https://img.shields.io/badge/%20website-github.io-brightgreen)
+[![website](https://img.shields.io/badge/%20website-github.io-brightgreen)](https://sucicada.github.io/Algorithm-PlayGround)
 
 2019/8/9 02:07 
 整理接口文件,整理文档
