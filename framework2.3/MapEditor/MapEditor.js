@@ -84,7 +84,7 @@ function create() {
     Phaser.Canvas.setUserSelect(game.canvas, 'none');
     Phaser.Canvas.setTouchAction(game.canvas, 'none');
 
-    game.stage.backgroundColor = '#505050';
+    game.stage.backgroundColor = '#525252';
 
     game.create.grid('uiGrid', tileWidth * 16, tileHeight, tileWidth, tileHeight, 'rgba(255,255,255,0.5)', true, function(){
         game.create.grid('drawingGrid', 20 * canvasZoom, 20 * canvasZoom, canvasZoom, canvasZoom, 'rgba(0,191,243,0.8)', true, function(){
@@ -241,6 +241,33 @@ function preloadUItexture(callback){
     ];
 
     var disk = [
+        '....11....',
+        '.11.11.11.',
+        '.11111111.',
+        '..111111..',
+        '1111..1111',
+        '1111..1121',
+        '..11111222',
+        '.111112222',
+        '.11.11.12.',
+        '....11..2.'
+    ];
+
+    var load = [
+        '...FEEEEE.',
+        '..FFEEEEE.',
+        '.FFF3333E.',
+        '.EEEEEEEE.',
+        '.E333333E.',
+        '.EEEEEEE2.',
+        '.E33333222',
+        '.EEEEE2222',
+        '.E3333332.',
+        '.EEEEEEE2.',
+        '..........',
+    ];
+
+    var download = [
         'DDDDDDDDDD',
         'DED1111DED',
         'DED1111DDD',
@@ -251,36 +278,9 @@ function preloadUItexture(callback){
         'DEFF222FED',
         'DEFF222FED',
         'DDDDDDDDDD'
-    ];
-
-    var load = [
-        '..........',
-        '....77....',
-        '...7777...',
-        '..777777..',
-        '.77777777.',
-        '....77....',
-        '....77....',
-        '....77....',
-        '....77....',
-        '....77....',
-        '..........',
-    ];
-
-    var download = [
-        '..........',
-        '....77....',
-        '....77....',
-        '....77....',
-        '....77....',
-        '....77....',
-        '.77777777.',
-        '..777777..',
-        '...7777...',
-        '....77....',
-        '..........',
 
     ];
+
     game.load.imageFromTexture('arrow', arrow, 2);
     game.load.imageFromTexture('plus', plus, 3);
     game.load.imageFromTexture('minus', minus, 3);

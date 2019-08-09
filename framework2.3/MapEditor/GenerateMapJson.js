@@ -179,6 +179,7 @@ function setMapObjects(tilemap_data, mapData){
 }
 
 /* ================== 设置自定义属性 ========= */
+
 function setProperties(tilemap_data) {
     /* 目前仅支持对象层和角色层的自定义属性 */
     return new Promise(function (resolve) {

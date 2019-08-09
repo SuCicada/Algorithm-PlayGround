@@ -1,6 +1,6 @@
 var BLOCKS = {
     MapImg: {
-        imgUrl: "",   /* 能够导入了,已不需要*/
+        // imgUrl: "",   /* 能够导入了,已不需要*/
         imgKey: "maza",
         rows: 2,
         columns: 1,
