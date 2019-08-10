@@ -1,0 +1,8 @@
+site_name: My Docs
+nav:
+    - Home: README.md
+    - APG: APG.md
+    - block-map: block-map.md
+    - config-js-Format: config-js-Format.md    
+
+        
