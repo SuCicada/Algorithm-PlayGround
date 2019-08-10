@@ -3,7 +3,22 @@
 [![Gitter](https://badges.gitter.im/Algorithm-PlayGround/community.svg)](https://gitter.im/Algorithm-PlayGround/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![website](https://img.shields.io/badge/%20website-github.io-brightgreen)](https://sucicada.github.io/Algorithm-PlayGround)
 
+一个有趣，智能和简单的HTML5游戏框架
+
+简单的开发方式，将你的算法变成游戏
+
+对PhaserCE库的封装开发
+
+70+个函数接口可供使用，通过配置文件智能优化游戏
+
+提供可视化的地图编辑方案
+
+
+**使用说明: https://sucicada.github.io/Algorithm-PlayGround/#/**
+
+----
 2019/8/9 02:07 
+
 整理接口文件,整理文档
 
 ## framework 2.3
