@@ -75,7 +75,7 @@ MapEditor包含文件
 
 ### 3.4 生成地图配置文件 (TileMapJson)
 点击生成按钮, 选择 `3.3`中的地图映射表, 会导出文件名形如 xx - MapTile.json 的 tilemap 配置文件. <br>
-关于tilemap详情参见[tilemap官方版](http://doc.mapeditor.org/en/stable/reference/json-map-format/#json-object), 或者 [tilempa汉化版](https://docs.qq.com/doc/DRWladWVHTmhQdFBr)
+关于tilemap详情参见[tilemap官方版](http://doc.mapeditor.org/en/stable/reference/json-map-format/#json-object), 或者 [tilemap汉化版](https://docs.qq.com/doc/DRWladWVHTmhQdFBr)
 
 ### 3.5 附加功能: 导入地图数据
  存在bug, 需要在第一层地图层上点击导入,选择 `1.2`中导出的地图数据即可.
