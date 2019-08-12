@@ -1,9 +1,8 @@
 # APG——Algorithm PlayGround
 
 [![Gitter](https://badges.gitter.im/Algorithm-PlayGround/community.svg)](https://gitter.im/Algorithm-PlayGround/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-[![website](https://img.shields.io/badge/%20website-github.io-brightgreen)](https://sucicada.github.io/Algorithm-PlayGround)
+[![website](https://img.shields.io/badge/%20website-github.io-brightgreen)](https://sucicada.github.io/Algorithm-PlayGround/docs)
 
-[downloads](v)
 一个有趣，智能和简单的HTML5游戏框架
 
 简单的开发方式，将你的算法变成游戏
