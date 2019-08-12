@@ -118,9 +118,9 @@
 * dropItem
 * getItemNum(itemName)
     > 得到物品的数量
-+ setCapacity
-+ getCapacity
-+ getSize
++ setBagCapacity
++ getBagCapacity
++ getBagSize
 + goDownItems
 + goUpItems
 

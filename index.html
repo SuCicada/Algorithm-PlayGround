@@ -8,29 +8,24 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link href="https://cdn.bootcss.com/docsify/4.9.4/themes/vue.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="lib/docsify-gifcontrol.css">
-
+  <link rel="stylesheet" href="docs/lib/docsify-gifcontrol.css">
 </head>
 <body>
-<!--  <di v id="wait">等着</div>-->
   <nav>
     <a href="#/">HOME</a>
-<!--    <a href="#/en/">EN</a>-->
     <a href="#Quick-start.md">快速开始</a>
     <a href="#config-js-Format.md">游戏配置文件</a>
     <a href="#block-map.md">地图元素映射表</a>
   </nav>
 
   <div id="app">AC 祈祷中...</div>
-<!--  <div id="gitalk-container"></div>-->
-
   <script>
     window.$docsify = {
-      // homepage: 'https://raw.githubusercontent.com/SuCicada/Algorithm-PlayGround/master/README.md',
-      coverpage: true,
-      loadSidebar: true,
-      loadNavbar: true,
-      relativePath: true,
+      // homepage: '',
+      coverpage: 'docs/_coverpage.md',
+      loadSidebar: 'docs/_sidebar.md',
+      loadNavbar: 'docs/_navbar.md',
+      // basePath: 'docs',
       search: 'auto',
       subMaxLevel: 5,
       name: 'APG',
@@ -69,21 +64,16 @@
       room: 'Algorithm-PlayGround/community'
     };
   </script>
-  <!--  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>-->
+<!--  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>-->
   <script src="https://cdn.bootcss.com/docsify/4.9.4/docsify.min.js"></script>
   <!--搜索-->
-  <!--  <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>-->
+<!--  <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>-->
   <script src="https://cdn.bootcss.com/docsify/4.9.4/plugins/search.min.js"></script>
-
-
-<!--<script src="//unpkg.com/docsify-copy-code"></script>-->
-<script src="lib/docsify-copy-code"></script>
-
-
-    <!--分页-->
-    <script src="lib/docsify-pagination.min.js"></script>
-    <!--gif-->
-    <script src="lib/docsify-gifcontrol.js"></script>
+  <script src="docs/lib/docsify-copy-code"></script>
+  <!--分页-->
+  <script src="docs/lib/docsify-pagination.min.js"></script>
+  <!--gif-->
+  <script src="docs/lib/docsify-gifcontrol.js"></script>
     <!-- chat -->
 <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
 </body>

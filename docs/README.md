@@ -99,6 +99,17 @@ windows10 chrome   blockGroupOverlap的砖块碰撞检测部分失效
     + APG.Bag.getItem
 + 宝石动画失效
 
++ 地图砖块大小计算错误，无法显示 地图
+    > + APG.Tile side: NaN
+    > + APG.js:161 APG.Tile.scale: NaN
+    + 加入背包系统检测,没有背包系统(`APG.BagSystem`)就不计算背包侧栏
+    
++ demo2 数字块(`textbitmap`), 文字重叠
+    + TileMapJson中的自定义属性和函数定义的属性冲突
+    + `APG.Target.loadTextBitMap`函数中覆盖数字时判断 == 号写成了 =
++ `getTileFromSite`参数传入不能传入对象,没加转换
++ 背包物品过多不会缩放
++ 背包是先入先出机制,
 -----
 -
 -

@@ -1,4 +1,6 @@
-+ [HOME](./README.md)
-+ [Qucik-Start](Quick-start.md)
++ [HOME](README.md)
++ [Qucik-Start](/Quick-start/Qucik-start.md)
+    * [Qucik-Start](/Quick-start/Qucik-start.md)
++ [Developer Guide](how-to-make.md)
 + [游戏配置文件](config-js-Format.md)
 + [地图元素映射表(blockMap)](block-map.md)

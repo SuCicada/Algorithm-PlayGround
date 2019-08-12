@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Doc - APG</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
+  <link rel="stylesheet" href="//unpkg.com/docsify-gifcontrol/dist/docsify-gifcontrol.css">
+
+</head>
+<body>
+  <div id="app">AC 祈祷中...</div>
+<!--  <div id="gitalk-container"></div>-->
+
+  <script>
+    window.$docsify = {
+      homepage: 'Quick-start.md',
+      // coverpage: true,
+      loadSidebar: true,
+      loadNavbar: true,
+      search: 'auto',
+      subMaxLevel: 5,
+      // name: 'APG',
+      repo: 'SuCicada/Algorithm-PlayGround',
+      // el: '#wait',
+      // auto2top: true,
+      search: {
+        placeholder: {
+          '/zh-cn/': '搜索',
+          '/': 'Type to search'
+        },
+        noData: {
+          '/zh-cn/': '找不到结果',
+          '/': 'No Results'
+        },
+        // Headline depth, 1 - 6
+        depth: 6,
+        hideOtherSidebarContent: true, // whether or not to hide other sidebar content
+      }
+    };
+
+  </script>
+  <script>
+    ((window.gitter = {}).chat = {}).options = {
+      room: 'Algorithm-PlayGround/community'
+    };
+  </script>
+  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <!--搜索-->
+  <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
+
+  <script src="//unpkg.com/docsify-copy-code"></script>
+
+<!--<script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>-->
+<!--<script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>-->
+
+    <!--分页-->
+    <script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
+    <!--gif-->
+    <script src="//unpkg.com/docsify-gifcontrol/dist/docsify-gifcontrol.js"></script>
+    <!-- chat -->
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+</body>
+</html>
