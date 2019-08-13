@@ -6,7 +6,6 @@ var FORMULA = "3+(2-5)*6/3"
 var ANSWER = eval(FORMULA)
 YourGame = {
 		/*	游戏初始（文本块） 玩家操作（按键绑定）  碰撞检测  自定义属性变量 元素动画*/
-		
 	    create: function(){
 			APG.Assets.playMusic('mu')
 			
