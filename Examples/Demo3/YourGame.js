@@ -17,7 +17,7 @@ YourGame = {
 			Num_Arr = FORMULA.split('')
 			loadTextBitMapBetween (Fm_Group,Num_Arr,"#ffbd00")
 			
-			
+
 			Fm_Group2 = getTargetGroup("result")
 			Fm_List2 = getSpriteList(Fm_Group2)
 			console.log(Fm_List2)

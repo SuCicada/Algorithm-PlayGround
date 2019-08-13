@@ -148,9 +148,79 @@ YourGame = {
 #### create 游戏初始
 create部分负责，初始`TextBitMap`（文本块），玩家操作（按键绑定），初始碰撞检测以及触发规则，自定义属性变量，初始元素动画
 
-音乐播放
+##### 生成组对象
++ 生成元素或角色组对象
+
+获得`target`组，或者`Character`组，前提是这些元素都已经在[游戏配置文件](/config-js-Format.md)中配置过，
+```js
+baoshis = getTargetGroup("baoshi");     /* 得到宝石组*/  
+player = getCharacterGroup('player');   /* 得到玩家组*/
+```
+如果你得到的元素是`TextBitMap`类型，并且想要重新给元素定义文字和背景，请这么写
+```js
+textbitmap = getTargetGroup("numblock");
+loadTextBitMap(textbitmap,"12",'#000000');
+```
+
+##### 特效
++ 音乐播放
 
 ```js
 APG.Assets.playMusic('mu');
 ```
+
++ 载入玩家移动动画
+
+每个方向的值需要对应你给玩家设置的精灵帧贴图中的帧id。
+```js
+playerMoveAnimations(player,{
+    /* 方向(大写,或小写 -> frames 或单个数字*/
+    right: 0,
+    LEFT: [1],
+    down: [2],
+    up: 3,
+});
+```
+
++ 元素持续动画
+```js
+setAnimations(this.baoshis, 'rotation', null, 6, true);
+```
+
+##### 碰撞检测
++ 碰撞不可通行
+```js
+blockGroupOverlap(this.player, this.walls);
+```
+
++ 边境检测
+```js
+setCollideWorldBounds(false);
+```
+
++ 碰撞触发
+```js
+activeGroupOverlap(this.player, this.baoshis, this.getBaoshi, null, this);
+```
+
+##### 按键
++ 更改移动按键，默认为上下左右
+```js
+setMoveKey('up','UP');
+```
+
++ 设置按键事件
+```js
+addKeyEvent('D', this.putXinbiao, null, this);
+```
+
+#### update 
+游戏主循环，周期循环执行
+
+##### 角色移动检测触发机制
+```js
+characterMoveEvent(this.player, null, this.dropDaolu, [site], null, null, this);
+```
+
+##### 自定义规则
 
