@@ -223,4 +223,43 @@ characterMoveEvent(this.player, null, this.dropDaolu, [site], null, null, this);
 ```
 
 ##### 自定义规则
++ 得到玩家坐标进行操作、判断
+```js
+site = getCharacterSite(this.player);
+if(site.x == 10 && site.y == 10){
+    /* (10,10) 坐标时发生*/
+    ...
+}
+```
 
++ 判断玩家当前所处瓷砖是什么，然后触发某些操作
+```js
+/* 如果玩家所处瓷砖存在或瓷砖id为2，则重启游戏*/
+tile = getCharacterTile(this.player);
+if(!tile || APG.Tile.getTileId(tile)==2){
+    APG.Game.restartGame();
+}
+```
+
++ 判断条件成立改变元素动画
+```js
+/* 如果背包满了，出口就切换亮的动画帧，否则就是暗的*/
+if(getBagSize() == getBagCapacity()){
+    setAnimations(this.exports, 'light', [1]);
+}else{
+    setAnimations(this.exports, 'dark', [0]);
+}
+```
+
+#### 自定义操作函数
+可以自己随意写可用的函数，主要用于回调以及代码耦合
+
+可接收回调的函数
++ WIN
++ LOST
++ addKeyEvent
++ characterMoveEvent
++ blockTileOverlap
++ blockGroupOverlap
++ activeGroupOverlap
++ activeTileOverlap 
