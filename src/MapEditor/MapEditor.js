@@ -11,7 +11,7 @@ var spriteWidth = 20;　　// 画板宽
 var spriteHeight = 20;　 // 画板长
 
 var spriteWidthMAX = 20;   // 画板最大宽
-var spriteHeightMAX = 20;  // 画板最大长
+var spriteHeightMAX = 21;  // 画板最大长
 
 var tileHeight = 32;
 var tileWidth  = 32;
@@ -893,6 +893,10 @@ function fileImport() {
         //     }
             console.log(data);
         // }
+
+        game.input.mouse.capture = false;
+        game.input.mouse.enabled = false;
+
         document.body.removeChild(document.getElementById('filesInput'));
     };
 }
