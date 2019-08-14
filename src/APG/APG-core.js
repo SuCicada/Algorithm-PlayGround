@@ -368,7 +368,8 @@ var startGame = {
                 s.scale.setTo(APG.Tile.width / s.width,
                     APG.Tile.height / s.height);
                 console.log(s.x+","+s.y+" -> "+s.relx+","+s.rely);
-
+                s.anchor.setTo(-(APG.Tile.width - s.width)/2 / s.width,
+                    -(APG.Tile.height - s.height)/2 / s.height);
                 s[0].imgMode = imgMode;
 
                 /* 将对象的物理检测体缩小,不然可能会在瓷砖边上就碰撞 */
@@ -415,6 +416,10 @@ var startGame = {
                 s.scale.setTo(Math.min(APG.Tile.width / s.width, APG.Tile.height / s.height));
                 /* 设置人物方向 */
                 s.direction = {x:0,y:0};
+                // s.x += (APG.Tile.width - s.width ) / 2;
+                // s.y += (APG.Tile.height- s.height) / 2;
+                s.anchor.setTo(-(APG.Tile.width - s.width)/2 / s.width,
+                    -(APG.Tile.height - s.height)/2 / s.height);
                 console.log(s.x+","+s.y+" -> "+s.relx+","+s.rely);
 
                 s[0].imgMode = imgMode;

@@ -28,16 +28,16 @@ var globalConfig = {
         },
         background: {
             imgKey: 'bg',
-            imgUrl: 'map/bg.png',
+            imgUrl: 'sprites/bg.png',
             scrollX: 100,
             scrollY: 0,
         },
         mapImg: {
             imgKey: 'maza',
-            imgUrl: 'map/maza/maza.png',
+            imgUrl: 'map/maza.png',
         },
         tileMap: {
-            tileMapJson: 'map/maza/2019-7-31 17_59_45 - 4 x 4 - TileMapJson.json'
+            tileMapJson: 'map/2019-8-14 11_28_26 - 21 x 20 - TileMapJson.json'
         },
         spritesImg: [
             {

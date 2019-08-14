@@ -13,7 +13,7 @@ APG.Bag.showBagBar = function(){
     console.log(APG.Bag.BagBar)
 
 
-    var style = { font: "bold "+APG.Tile.width/2+"px Arial", fill: "#00124f",
+    var style = { font: "bold "+APG.WIDTH/40+"px Arial", fill: "#00124f",
         boundsAlignH: "center",
         wordWrap: true,
         wordWrapWidth: w * 0.8
@@ -43,55 +43,6 @@ APG.Bag.destroyBagBar = function() {
     APG.Bag.items = [];
     APG.Bag.views = [];
 };
-
-/*
-
-APG.Bag.addItem = function(itemName, obj, number){
-    /!* initialization即初始化时, 设置背包要存的东西
-    *  返回已存在于 APG.TargetGroups 中的组
-    *  若没有赠送一个对象组
-    *  [!] 没有考虑玩家组的
-    * frameId: 显示在背包栏的帧
-    * itemName: 物品名称, getItem需要和ObjectGroup中的keyName对应
-    * *!/
-
-    var imgKey = obj[0].imgMode;
-    var imgKey = obj[0].imgMode;
-
-    var group = APG.TargetGroups[itemName];
-    if(!group){
-        var group = game.add.group();
-        group.name = itemName;
-        APG.TargetGroups[itemName] = group;
-    }else{
-        if(!imgKey){
-            var imgUrl = APG.TargetGroups[itemName].children[0][0].imgUrl;
-            // console.log(APG.TargetGroups[itemName].children[0][0])
-            var imgKey = globalConfig.Assets.spritesImg.find(function(s){
-                return s.imgUrl == imgUrl;
-            }).imgKey;
-        }
-        if(!frameId){
-            var frameId = APG.TargetGroups[itemName].children[0][0].frameId;
-        }
-    }
-
-    for(i=0;i<number;i++){
-        var sprite = APG.Sprite.addSprite(0,0,imgKey,frameId,group, itemName);
-        sprite.kill();
-    }
-
-    APG.Bag.items.push({
-        obj: obj,
-        itemName: itemName, /!* 物品名字,用于查找*!/
-        imgKey: imgKey,     /!* 图片名*!/
-        frameId: frameId,  /!* 如果是帧动画, 帧的id*!/
-        number: number,    /!* 初始数量*!/
-        group: group,      /!* [?]有没有必要*!/
-    });
-    return group;
-};
-*/
 
 APG.Bag.addItem = function(sprite, number) {
 
@@ -149,19 +100,6 @@ APG.Bag.putItem = function(x, y, group) {
         return sprite;
     }
 };
-//     var item = APG.Bag.items.find(function(b){
-//         return b.itemName == itemName;
-//     });
-//     if(item.number && APG.Bag.size){
-//         var s = item.group.children[0];
-//         game.world.add(s);   // 把一个精灵从背包中的组里拿到世界组中
-//         item.number --;
-//         APG.Bag.size --;
-//         s.revive();     /*复活精灵*/
-//         APG.Sprite.setSpriteSite(s,x,y);
-//         return s;
-//     }
-// };
 
 APG.Bag.getItem = function(spriteList) {
     /* 把东西放到背包里
@@ -198,39 +136,7 @@ APG.Bag.getItem = function(spriteList) {
         }
     });
 };
-    // APG.Bag.getItem = function(itemName, spriteList){
-//     /* 把东西放到背包里
-//     *  itemName: 指定要放到的背包区
-//     *  spriteList: 精灵列表,指定拿的东西
-//     *  可以不写itemName, 认为第一个参数就是 spriteList
-//     * */
-//     // item = APG.bar.items.find(function(b){
-//     //     return b.itemName == itemName;
-//     // })
-//
-//     // if(typeof itemName != 'string'){
-//     //     var spriteList = itemName;
-//     for(sprite of spriteList){
-//         var itemName = sprite[0].keyName;
-//         // }
-//         var item = APG.Bag.items.find(function(b){
-//             return b.itemName == itemName;
-//         });
-//         // var group = sprite.parent;
-//         if(APG.Bag.size < APG.Bag.capcity){
-//             APG.Bag.size ++;
-//             /* textbitmap 特殊元素 */
-//             if(sprite[0].imgMode == 'textbitmap'){
-//                 APG.Bag.addItem('')
-//             }
-//             if(item){
-//                 item.number ++;
-//                 item.group.add(sprite);
-//             }
-//             sprite.kill();    /*进入休眠*/
-//         }
-//     }
-// };
+
 
 /**
  * 把东西丢掉
@@ -245,13 +151,6 @@ APG.Bag.dropItem = function(){
         }
         APG.Bag.size--;
     }
-        // var item = APG.Bag.items.find(function(b){
-    //     return b.itemName == itemName;
-    // });
-    // if(item.children.length){
-    //     item.children[0].destroy();
-    //     APG.Bag.size --;
-    // }
 };
 
 APG.Bag.getItemNum = function(itemName){
@@ -299,16 +198,14 @@ APG.Bag.updateBag = function(){
     var items = APG.Bag.items;
     var barX = x + w*0.1;
     var barY = y + h*0.1;
-    var barSide = Math.min((APG.Bag.BagBar.h - barY -  APG.Tile.height/2) / (APG.Bag.size*1.1), APG.Tile.height);
+    var barSide = Math.min((APG.Bag.BagBar.h - barY -  APG.Tile.height/2) / (items.length*1.1),
+        APG.Bag.BagBar.w /2.5);
     var styleOfNum = {
         font: "bold "+barSide*0.8+"px Arial",
         fill: "#00124f",
         boundsAlignH: "center",
     };
 
-    // APG.Bag.views.splice(2).forEach(function(obj){
-    //     obj.destroy();
-    // });
 
     for(i = 0;i<items.length;i++){
             // game.add.sprite(barX,barY,items[i].imgKey, items[i].frameId);

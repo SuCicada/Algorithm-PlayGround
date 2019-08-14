@@ -24,13 +24,13 @@ var BLOCKS = {
                 frameId: 0,
             },
             {
-                mapId: "5",
+                mapId: "7",
                 keyName: "chukou",
             },
         ],
         CharacterLayer: [
             {
-                mapId: "A",
+                mapId: "0",
                 keyName: "player",
                 imgKey:  "player",
                 type: "player"
