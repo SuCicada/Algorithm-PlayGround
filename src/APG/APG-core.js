@@ -211,9 +211,11 @@ var preload = {
             }
         }
         console.log("js path: " + path);
-        APG.Assets.scripts.forEach(function(s){
-            game.load.script(s, path + s + ".js");
-        });
+        if(path && APG.Assets.scripts){
+            APG.Assets.scripts.forEach(function(s){
+                game.load.script(s, path + s + ".js");
+            });
+        }
 
 
         /* load Assets */

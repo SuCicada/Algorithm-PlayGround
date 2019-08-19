@@ -894,9 +894,9 @@ function fileImport() {
             console.log(data);
         // }
 
-        game.input.mouse.capture = false;
-        game.input.mouse.enabled = false;
-
+        // game.input.mouse.capture = false;
+        // game.input.mouse.enabled = false;
+        onUp();
         document.body.removeChild(document.getElementById('filesInput'));
     };
 }

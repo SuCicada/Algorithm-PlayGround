@@ -160,7 +160,7 @@ player = getCharacterGroup('player');   /* 得到玩家组*/
 ```js
 textbitmap = getTargetGroup("numblock");
 loadTextBitMap(textbitmap,"12",'#000000');
-```
+``` 
 
 ##### 特效
 + 音乐播放
