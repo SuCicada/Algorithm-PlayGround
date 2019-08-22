@@ -55,7 +55,7 @@ YourGame = {
     update: function(){
         var site = APG.Character.getCharacterSite(this.player);
         // console.log(site)
-        APG.Update.listenKey.characterMoveEvent(this.player, null, this.dropDaolu, [site], null, null, this);
+        APG.Update.listenKey.characterMoveEvent(this.player, this.check, this.dropDaolu, [site], null, null, this);
         var tile = APG.Character.getCharacterTile(this.player);
         if(!tile || APG.Tile.getTileId(tile)==2){
             setTimeout(function(){
@@ -69,6 +69,13 @@ YourGame = {
         }else{
             APG.Assets.setAnimations(this.exports, 'dark', [0]);
         }
+    },
+    check: function(x,y){
+        var tile = APG.Tile.getTileFromSite(x,y);
+        if(!tile || APG.Tile.getTileId(tile)==2){
+            return false;
+        }
+        return true;
     },
     getBaoshi: function(player, baoshi){
         // 得到宝石

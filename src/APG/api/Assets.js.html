@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Algorithm PlayGround Source: Assets.js</title>
+	<link rel="stylesheet" href="styles/site.phaser.css?">
+</head>
+
+<body>
+
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+  <div class="container-fluid">
+  	<div class="navbar-header">
+  		<a class="navbar-brand" href="index.html">Algorithm PlayGround</a>
+  		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+  			<span class="icon-bar"></span>
+  			<span class="icon-bar"></span>
+  			<span class="icon-bar"></span>
+      </button>
+  	</div>
+  	<div class="navbar-collapse collapse" id="topNavigation">
+  		<ul class="nav navbar-nav">
+  			
+  			<li class="dropdown">
+  				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+  				<ul class="dropdown-menu ">
+  					<li><a href="APG.Assets.html">APG.Assets</a></li>
+  				</ul>
+  			</li>
+  			
+        <li>
+  <a href="https://github.com/photonstorm/phaser-ce/blob/master/README.md">
+    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+    README
+  </a>
+</li>
+
+<li>
+  <a href="https://github.com/photonstorm/phaser-ce/blob/master/CHANGELOG.md">
+    <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+    CHANGELOG
+  </a>
+</li>
+
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+    <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+    Community
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li>
+      <a href="http://phaser.io">Phaser</a>
+    </li>
+    <li>
+      <a href="https://github.com/photonstorm/phaser-ce">Phaser CE on GitHub</a>
+    </li>
+    <li>
+      <a href="https://codepen.io/collection/AMbZgY/">Phaser CE Examples</a>
+    </li>
+    <li>
+      <a href="http://www.html5gamedevs.com/forum/14-phaser/">Forum</a>
+    </li>
+    <li>
+      <a href="https://twitter.com/photonstorm">Twitter</a>
+    </li>
+    <li>
+      <a href="http://phaser.io/community/slack">Slack</a>
+    </li>
+    <li>
+      <a href="http://phaser.io/community/donate">Donate</a>
+    </li>
+  </ul>
+</li>
+
+  		</ul>
+          
+  	</div>
+  </div>
+</div>
+
+
+<div class="container-fluid" id="toc-content">
+	<div class="row">
+		
+	  <div class="col-md-12">
+		
+			<div id="main">
+
+		<h1 class="page-title">Source: Assets.js</h1>
+    
+<section>
+    <article>
+        <pre class="language-javascript linenums">console.log("Assets.js has been loaded successfully.")
+
+/* ==========    Assets ====================  */
+/* music */
+
+/**
+ * @class APG.Assets
+ */
+APG.Assets;
+/**
+ * 播放音乐
+ * @method APG.Assets#playMusic
+ * @param {string} keyName - 音乐名
+ */
+APG.Assets.playMusic = function (keyName) {
+    APG.Assets.music[keyName].play('', 0, 1, true);
+    console.log("Play music: " + keyName);
+};
+
+APG.Assets.stopMusic = function(keyName){
+    /* 如果没有传入名称,则全部停止 */
+    let musics = keyName? {keyName:APG.Assets.music[keyName]}: APG.Assets.music;
+    for(m in musics){
+        APG.Assets.music[m].stop();
+        console.log("Stop music: "+keyName);
+    }
+};
+
+/* 动画 */
+APG.Assets.setAnimations = function(obj, name, frames, frameRate=1, loop=false){
+    /*
+    * 添加动画, 并播放.
+    * group: 可以是组,也可以是精灵
+    * frames: 从0开始?
+    * name: 动作名
+    * */
+    if(!obj.forEach){
+        let s = obj;
+        if(frames){
+        }
+        if(!s.animations.getAnimation(name)){
+            s.animations.add(name,frames);
+        }
+        s.animations.play(name, frameRate, loop);
+    }else{
+        let group = obj;
+        group.forEach(function(s){
+            if(!s.animations.getAnimation(name)) {
+                s.animations.add(name, frames);
+            }
+            s.animations.play(name, frameRate, loop);
+        });
+    }
+};
+APG.Assets.playerMoveAnimations = function(playerG, obj){
+    /* 设置玩家移动动画
+    * obj:
+    *   方向(大写,或小写 -> frames 或单个数字, 比如
+    *   {
+    *       right: 0,
+    *       LEFT: [1],
+    *       down: [2],
+    *       up: 3,
+    *   }
+    */
+    var move = {};
+    for(var i in obj){
+        var I = i.toUpperCase()
+        move[I] = typeof obj[i] == 'number'?[obj[i]]: obj[i];
+
+    }
+    if(playerG.animations){
+        playerG.animations.add(I, move[I], 1);
+        playerG.Assets.move = move;
+    }else{
+        playerG.forEach(function(s){
+            s.animations.add(I, move[I], 1);
+            s.Assets = {};
+            s.Assets.move = move;
+        });
+        playerG.Assets = {};
+        playerG.Assets.move = move;
+    }
+};
+APG.Assets.getFrame = function(obj){
+    /* 根据传入的精灵或组,返回此精灵当前的动画的frameId */
+    if(obj.animations){
+        /* sprite */
+        return obj.animations.frame;
+    }else{
+        /* group or sprite List*/
+        var frames = [];
+        obj.forEach(function(s){
+            frames.push(s.animations.frame);
+        });
+        return frames;
+    }
+
+};
+
+
+
+
+</pre>
+    </article>
+</section>
+
+
+
+
+</div>
+	    <footer class="footer">
+
+
+
+
+	<p class="footer-message">
+	啊啊啊啊啊 
+	</p>
+
+
+
+	<p class="copyright">
+	APG Copyright © ....
+	</p>
+
+
+<p class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
+	
+		on 2019-08-Th
+	
+	using <a href="https://github.com/photonstorm/phaser-ce/tree/master/resources/docstrap-master">Tomorrow</a>.
+</p>
+
+</footer>
+
+		</div>
+    
+	</div>
+</div>
+
+<script defer src="scripts/bundle.js?"></script>
+
+
+
+</body>
+</html>
