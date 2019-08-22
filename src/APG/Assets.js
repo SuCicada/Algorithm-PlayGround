@@ -2,9 +2,19 @@ console.log("Assets.js has been loaded successfully.")
 
 /* ==========    Assets ====================  */
 /* music */
-APG.Assets.playMusic = function(keyName){
-    APG.Assets.music[keyName].play('',0,1,true);
-    console.log("Play music: "+keyName);
+
+/**
+ * @class APG.Assets
+ */
+APG.Assets;
+/**
+ * 播放音乐
+ * @method APG.Assets#playMusic
+ * @param {string} keyName - 音乐名
+ */
+APG.Assets.playMusic = function (keyName) {
+    APG.Assets.music[keyName].play('', 0, 1, true);
+    console.log("Play music: " + keyName);
 };
 
 APG.Assets.stopMusic = function(keyName){

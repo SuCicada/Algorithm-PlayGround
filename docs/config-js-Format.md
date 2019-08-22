@@ -1,8 +1,26 @@
-config-js
----
+# 游戏配置文件
 
 所有配置包含在`globalConfig`对象之下,
-请不要改变变量名
+请不要改变变量名 
+
+整个文件格式结构如下：
+```js
+var globalConfig = {
+WIDTH: 0,     
+    HEIGHT: 0,              /* 世界的宽高度，为0默认屏幕大小*/
+ MODE: 'CANVAS',         /* 渲染模式，默认CANVAS，*/  
+    ScaleMode: "SHOW_ALL",  /* 画面拉伸模式，此为默认*/
+    FullScreen: false,      /* 初始全屏, 可以使用函数修改*/
+    DeveloperModel: 'YourGame',  /* 游戏脚本的对象名*/
+    BagSystem: true,        /* 开启背包系统, 可以使用函数修改 */
+    Keys:[...],             /* 游戏中需要用到的按键 */
+    BagBar: {...}.          /* 背包系统的侧边栏*/
+    MapArea: {...}.         /* 地图区域*/
+    Assets: {...},          /* 游戏资源*/
+    README: {...},          /* 游戏开始前言*/};
+```
+## config.js
+
 + WIDTH
     > 游戏窗口宽度,值为像素. 默认值为0, 宽度为显示器宽度
 + HEIGHT

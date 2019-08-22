@@ -1,6 +1,19 @@
 # blockMap 地图元素映射表
-> 本配置文件用于地图配置文件生成阶段.
-> 关于地图配置文件如何生成,以及地图编辑器的使用详见[Quick-start 3.地图制作](Quick-start#3.地图制作)
+本配置文件用于地图配置文件生成阶段.
+
+关于地图配置文件如何生成,以及地图编辑器的使用详见[Quick-start 3.地图制作](Quick-start#3.地图制作)
+
+整个文件格式结构如下：
+```js
+var BLOCKS = {
+    MapImg: {...},
+    Layers: {
+        TileLayer: [...],
+        TargetLayer: [...],
+        CharacterLayer: [...],
+    }
+};
+```
 
 ## BLOCKS 
 本对象名以及内部所有键名不能改动, 否则就找不见你的地图元素了.

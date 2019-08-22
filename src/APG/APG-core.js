@@ -243,8 +243,12 @@ var preload = {
             }
         }
         APG.Assets.spritesheets = this.spritesheets;
+        console.log(APG.Assets.spritesheets)
+
     },
     create: function () {
+        console.log(APG.Assets.spritesheets)
+
         game.state.add("startGame",startGame);
         game.state.start("startGame");
     },
@@ -280,6 +284,7 @@ var startGame = {
     preload: function(){
         /* 这里就放一些补充的材料, 还有你的 */
         /* 重新载入帧动画贴图 */
+
         let spritesheets = APG.Assets.spritesheets;
         for(i=0;i<spritesheets.length;i++) {
             var ss = spritesheets[i];
