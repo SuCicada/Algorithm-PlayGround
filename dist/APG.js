@@ -19,6 +19,8 @@ var WIDTH;
 var HEIGHT;
 var MODE;
 
+// var BagBar = {};
+// var MapArea = {};
 var TileMapJson;   /* 用于存贮地图配置 */
 
 var APG = {};
@@ -32,6 +34,22 @@ APG.Assets = {};   /* 暂存帧贴图 */
 APG.Assets.music = {};
 APG.Assets.background = {};
 APG.Assets.mapImg = null;
+APG.Assets.scripts = [
+    'Assets',
+    'Bag',
+    'Character',
+    'Game',
+    'Group',
+    'Sprite',
+    'Target',
+    'Tile',
+    'Update',
+    'Methods',
+];
+
+// APG.players = [{group:null,animations:{}}];
+// APG.objects = {};
+
 APG.Tile = {};
 APG.Tilemap = null;
 APG.Layer = null;
@@ -53,6 +71,9 @@ APG.UDLRDir = {
     LEFT:  {x:-1, y: 0},
     RIGHT: {x: 1, y: 0},
 };
+
+// APG.Side = {x:0,y:0};  // 格子边长
+// APG.TextStyle = null;
 
 APG.TargetGroups = {};
 APG.CharacterGroups = {};
@@ -78,6 +99,7 @@ APG.Sprite = {};
 APG.Group = {};
 APG.Target = {};
 APG.Character = {};
+
 
 var bootstrap = {
     init: function () {
@@ -221,8 +243,12 @@ var preload = {
             }
         }
         APG.Assets.spritesheets = this.spritesheets;
+        console.log(APG.Assets.spritesheets)
+
     },
     create: function () {
+        console.log(APG.Assets.spritesheets)
+
         game.state.add("startGame",startGame);
         game.state.start("startGame");
     },
@@ -231,6 +257,11 @@ var preload = {
 var startGame = {
     init: function(){
         APG.DeveloperModel = eval(globalConfig.DeveloperModel);   /*回调上下文全局对象，默认YourGame*/
+
+        // APG.Side.x = APG.Tile.width;
+        // APG.Side.y = APG.Tile.height;
+        // APG.TextStyle = { font: "48px Arial", fill: "#ff0044", align:"center" };
+
         /*==== 按键 ======*/
         var defaultKays = ['cursors'];
         for(key of globalConfig.Keys.concat(defaultKays)){
@@ -253,6 +284,7 @@ var startGame = {
     preload: function(){
         /* 这里就放一些补充的材料, 还有你的 */
         /* 重新载入帧动画贴图 */
+
         let spritesheets = APG.Assets.spritesheets;
         for(i=0;i<spritesheets.length;i++) {
             var ss = spritesheets[i];
@@ -312,8 +344,8 @@ var startGame = {
             /* 2.0: 目前都有keyName了*/
             let imgKey = objPro[0].imgKey;
             let imgMode = globalConfig.Assets.spritesImg.find(function(s){
-                return s.imgKey == objPro[0].imgKey;
-            }).imgMode;
+                            return s.imgKey == objPro[0].imgKey;
+                        }).imgMode;
             let frameId = objPro[0].frameId? objPro[0].frameId: null;
             APG.Tilemap.createFromObjects('Object Layer' ,obj.gid ,
                 imgKey , frameId, true, false, group, Phaser.Sprite, false);
@@ -427,7 +459,7 @@ var startGame = {
         }
 
         if(globalConfig.README){
-            APG.Game.README(globalConfig.README);
+            APG.Game.README();
         }
     },
     update: function(){
@@ -447,16 +479,33 @@ var startGame = {
             let that = object.that;
 
             game.physics.arcade.collide(group1, group2,
-                function(sprite1, sprite2){
-                    object.isCollided = true;
-                    if(object.actor == "player"){
-                        var parameter = group1;
-                    }else{
-                        var parameter = sprite1;
-                    }
-                    feedback.apply(that, [parameter, sprite2, context]);
-                }, null);  // 检测重叠
+            function(sprite1, sprite2){
+                object.isCollided = true;
+                if(object.actor == "player"){
+                    var parameter = group1;
+                }else{
+                    var parameter = sprite1;
+                }
+                feedback.apply(that, [parameter, sprite2, context]);
+            }, null);  // 检测重叠
         }
+
+        // for(let object of APG.Update.collision.active.TileList){
+        //     object.isCollided = false;
+        //     var tile = APG.Tile.getTileFromSite(object.x, object.x);
+        //     if ((tile && tile.index == object.tileIndex) ||
+        //         (!tile && object.tileIndex == 0)) {
+        //         object.isCollided = true;
+        //         canMove = false;
+        //         feedback.apply(that, [parameter, sprite2, context]);
+        //         if (object.feedback) {
+        //             object.feedback.apply(that, [playerGroup, sprite]);
+        //         }
+        //     }
+        // }
+
+
+
 
         for(let object of APG.Update.collision.active.playerGroupList){
             let player = APG.CharacterGroups.player;  // APG.players[0].group;
@@ -489,6 +538,14 @@ var startGame = {
         }
     },
     render: function(){
+        // game.debug.spriteBounds(APG.Tilemap);
+
+        // APG.CharacterGroups.player.forEach(function(s){
+        //     game.debug.body(s)
+        // })
+        // APG.TargetGroups.baoshi.forEach(function(s){
+        //     game.debug.body(s)
+        // })
     }
 };
 
@@ -532,21 +589,30 @@ function autoResizeImg(imgSrc, width, height){
         };
         img.src = imgSrc;
     });
-}
-
-
-
-console.log("Assets.js has been loaded successfully.")
-
+}console.log("Assets.js has been loaded successfully.")
 /* ==========    Assets ====================  */
-/* music */
-APG.Assets.playMusic = function(keyName){
-    APG.Assets.music[keyName].play('',0,1,true);
-    console.log("Play music: "+keyName);
+/**
+ * Assets（资源）：游戏需要加载的资源，也是接口的一个分类。
+ * @class APG.Assets
+ */
+APG.Assets;
+
+/**
+ * 播放音乐
+ * @method APG.Assets#playMusic
+ * @param {string} keyName - 音乐名
+ */
+APG.Assets.playMusic = function (keyName) {
+    APG.Assets.music[keyName].play('', 0, 1, true);
+    console.log("Play music: " + keyName);
 };
 
+/**
+ * 停止音乐。如果没有传入名称,则全部停止
+ * @method APG.Assets#stopMusic
+ * @param {string} keyName - 音乐名
+ */
 APG.Assets.stopMusic = function(keyName){
-    /* 如果没有传入名称,则全部停止 */
     let musics = keyName? {keyName:APG.Assets.music[keyName]}: APG.Assets.music;
     for(m in musics){
         APG.Assets.music[m].stop();
@@ -554,13 +620,17 @@ APG.Assets.stopMusic = function(keyName){
     }
 };
 
-/* 动画 */
+/**
+ * 添加动画, 并播放.
+ * @method APG.Assets#setAnimations
+ * @param {Phaser.Group|Phaser.Sprite} obj - 要设置的对象
+ * @param {string} name - 动作名
+ * @param {Array} frames - 帧id
+ * @param {integer} [frameRate = 1] - 帧动画速度
+ * @param {boolean} [loop = false] - 循环否
+ */
 APG.Assets.setAnimations = function(obj, name, frames, frameRate=1, loop=false){
     /*
-    * 添加动画, 并播放.
-    * group: 可以是组,也可以是精灵
-    * frames: 从0开始?
-    * name: 动作名
     * */
     if(!obj.forEach){
         let s = obj;
@@ -580,17 +650,20 @@ APG.Assets.setAnimations = function(obj, name, frames, frameRate=1, loop=false){
         });
     }
 };
+
+/**
+ * 设置玩家移动动画
+ * @method APG.Assets#playerMoveAnimations
+ * @param {Phaser.Group|Phaser.Sprite} playerG - 玩家对象
+ * @param {object} obj - 方向(大写,或小写 -> frames 或单个数字，比如
+ *   {
+ *       right: 0,
+ *       LEFT: [1],
+ *       d own: [2],
+ *       up: 3,
+ *   }
+ */
 APG.Assets.playerMoveAnimations = function(playerG, obj){
-    /* 设置玩家移动动画
-    * obj:
-    *   方向(大写,或小写 -> frames 或单个数字, 比如
-    *   {
-    *       right: 0,
-    *       LEFT: [1],
-    *       down: [2],
-    *       up: 3,
-    *   }
-    */
     var move = {};
     for(var i in obj){
         var I = i.toUpperCase()
@@ -610,8 +683,14 @@ APG.Assets.playerMoveAnimations = function(playerG, obj){
         playerG.Assets.move = move;
     }
 };
+
+/**
+ * 根据传入的精灵或组,返回此精灵当前的动画的frameId
+ * @method APG.Assets#getFrame
+ * @param {Phaser.Group|Phaser.Sprite} obj - 精灵或组或精灵列表
+ * @returns {Array|number} 如果传入组或精灵列表，返回frameId 列表
+ */
 APG.Assets.getFrame = function(obj){
-    /* 根据传入的精灵或组,返回此精灵当前的动画的frameId */
     if(obj.animations){
         /* sprite */
         return obj.animations.frame;
@@ -627,9 +706,22 @@ APG.Assets.getFrame = function(obj){
 };
 
 
+
+
 console.log("Bag.js has been loaded successfully.")
 
 /*APG.Bag.views = [];*/
+
+/**
+ * 背包系统，用于模拟栈和堆，默认放入背包，拿出背包采用后入先出的栈式操作
+ * @class APG.Bag
+ */
+APG.Bag;
+
+/**
+ * 显示背包
+ * @method APG.Bag#showBagBar
+ */
 APG.Bag.showBagBar = function(){
     let w = APG.Bag.BagBar.w;
     let h = APG.Bag.BagBar.h;
@@ -655,11 +747,21 @@ APG.Bag.showBagBar = function(){
     /* 默认最大容量是初始化的1倍 */
     // APG.Bag.capcity = APG.Bag.size;
 };
+
+/**
+ * 隐藏背包，可通过 `showBagBar` 再次显示
+ * @method APG.Bag#hiddenBagBar
+ */
 APG.Bag.hiddenBagBar = function(){
     APG.Bag.views.forEach(function(s){
         s.destroy();
     });
 };
+
+/**
+ * 摧毁背包，不可再生
+ * @method APG.Bag#destroyBagBar
+ */
 APG.Bag.destroyBagBar = function() {
     APG.Bag.hiddenBagBar();
     APG.Bag.items.forEach(function(s){
@@ -673,6 +775,12 @@ APG.Bag.destroyBagBar = function() {
     APG.Bag.views = [];
 };
 
+/**
+ * 在背包中增加物品
+ * @method APG.Bag#addItem
+ * @param {Phaser.Sprite} sprite - 添加的物品对象，作为样品显示
+ * @param {integer} number - 添加的数量
+ */
 APG.Bag.addItem = function(sprite, number) {
 
     var number = number? number: 1;
@@ -696,9 +804,10 @@ APG.Bag.addItem = function(sprite, number) {
 
 /**
  * 从背包里把第一个东西拿出去
- * @param x 坐标是相对的
- * @param y
- * @param group 放置的精灵的所属的组
+ * @method APG.Bag#putItem
+ * @param x 相对坐标x
+ * @param y 相对坐标y
+ * @param {Phaser.Group} group - 放置的精灵的所属的组
  */
 APG.Bag.putItem = function(x, y, group) {
     console.log(APG.Bag.size);
@@ -730,10 +839,12 @@ APG.Bag.putItem = function(x, y, group) {
     }
 };
 
+/**
+ * 把东西放到背包里，按照对象的keyName分组，如果是新东西，就放在第一个
+ * @method APG.Bag#getItem
+ * @param {Array} spriteList - 放入背包的列表
+ */
 APG.Bag.getItem = function(spriteList) {
-    /* 把东西放到背包里
-     * 按照对象的keyName分组
-     **/
     if(!spriteList.forEach){
         var spriteList = [spriteList];
     }
@@ -768,7 +879,8 @@ APG.Bag.getItem = function(spriteList) {
 
 
 /**
- * 把东西丢掉
+ * 把第一个位置的东西丢掉，计数减一，如果物品丢完，就从侧边栏去掉这个物品
+ * @method APG.Bag#dropItem
  */
 APG.Bag.dropItem = function(){
     if(APG.Bag.size) {
@@ -782,43 +894,82 @@ APG.Bag.dropItem = function(){
     }
 };
 
+/**
+ * 得到物品的数量
+ * @method APG.Bag#getItemNum
+ * @param {string} itemName - 物品名
+ * @returns {Integer}
+ */
 APG.Bag.getItemNum = function(itemName){
     let item = APG.Bag.items.find(function(b){
         return b.itemName == itemName;
     });
     return item? item.number: 0;
 };
+
+/**
+ * 设置背包最大容量
+ * @method APG.Bag#setBagCapacity
+ * @param {integer} n - 最大容量
+ */
 APG.Bag.setBagCapacity = function(n){
     APG.Bag.capcity = n;
 };
+
+/**
+ * 得到背包最大容量
+ * @method APG.Bag#getBagCapacity
+ * @returns {integer}
+ */
 APG.Bag.getBagCapacity = function(){
     return APG.Bag.capcity;
 };
+
+/**
+ * 得到背包当前容量
+ * @method APG.Bag#getBagSize
+ * @returns {integer}
+ */
 APG.Bag.getBagSize = function(){
     return APG.Bag.size;
 };
+
+/**
+ * 得到当前背包第一个物品组
+ * @method APG.Bag#getBagFirst
+ * @returns {Array}
+ */
 APG.Bag.getBagFirst = function(){
-    /* 得到当前背包第一个物品组 */
     if(items.length){
         return APG.Bag.items[0];
     }
 };
+
+/**
+ * 背包物品组向后（下）移动
+ * @method APG.Bag#goDownItems
+ */
 APG.Bag.goDownItems = function(){
-    /* 背包物品组向后（下）移动 */
     if(APG.Bag.items.length){
         APG.Bag.items = APG.Bag.items.concat(APG.Bag.items.splice(0,1));
     }
 };
+
+/**
+ * 背包物品组向前（上）移动
+ * @method APG.Bag#goUpItems
+ */
 APG.Bag.goUpItems = function() {
-    /* 背包物品组向前（上）移动 */
     if(APG.Bag.items.length) {
         APG.Bag.items = APG.Bag.items.splice(APG.Bag.items.length-1,1).concat(APG.Bag.items);
     }
 };
 
+/**
+ * 更新背包中的物品信息, 和数量对应
+ * @method APG.Bag#updateBag
+ */
 APG.Bag.updateBag = function(){
-    /* 更新背包中的物品信息, 和数量对应 */
-
     let w = APG.Bag.BagBar.w;
     let h = APG.Bag.BagBar.h;
     let x = (WIDTH - w);
@@ -837,7 +988,7 @@ APG.Bag.updateBag = function(){
 
 
     for(i = 0;i<items.length;i++){
-        // game.add.sprite(barX,barY,items[i].imgKey, items[i].frameId);
+            // game.add.sprite(barX,barY,items[i].imgKey, items[i].frameId);
         var img = items[i].imgObj;
         img.x = barX;
         img.y = barY;
@@ -845,7 +996,7 @@ APG.Bag.updateBag = function(){
         img.width = barSide;
         img.revive();
         // APG.Bag.views.push(img);
-        // game.add.text(barX+barSide*1.1,barY, items[i].number, styleOfNum);
+            // game.add.text(barX+barSide*1.1,barY, items[i].number, styleOfNum);
         var text = items[i].textObj;
         text.setText(items[i].number);
         text.setStyle(styleOfNum);
@@ -918,22 +1069,49 @@ APG.Character.setCharacterSite = function(playerGroup, x, y){
     player.y = site.y;
 };
 APG.Character.moveCharacter = APG.Character.setCharacterSite;
-
-
 console.log("Game.js has been loaded successfully.")
 
 /* 界面 */
+
+/**
+ * Game（游戏属性）：游戏全局控制，界面，大小，全屏，重启游戏等操作。
+ * @class APG.Game
+ */
+APG.Game;
+
+/**
+ * 得到游戏宽。
+ * @method APG.Game#getGameWIDTH
+ * @returns {*|number|Window.screen.width}
+ */
 APG.Game.getGameWIDTH = function(){
     return APG.WIDTH;
 };
+
+/**
+ * 得到游戏高。
+ * @method APG.Game#getGameHEIGHT
+ * @returns {*|number|Window.screen.height}
+ */
 APG.Game.getGameHEIGHT = function(){
     return APG.HEIGHT;
 };
+
+/**
+ * 得到游戏渲染模式。
+ * @method APG.Game#getGameMODE
+ * @returns {*|string}
+ */
 APG.Game.getGameMODE = function(){
     return APG.MODE;
 };
 
-APG.Game.README = function(config){
+/**
+ * 显示游戏开始界面，根据配置文件中配置自动显示。
+ * @method APG.Game#README
+ */
+APG.Game.README = function(){
+    let config = globalConfig.README;
     APG.Update.listenKey.stopListenKey();
 
     let w = WIDTH * 0.8;
@@ -956,11 +1134,16 @@ APG.Game.README = function(config){
 
     let str = '';
     let columnCount = parseInt(style.wordWrapWidth / config.font.size);
+    let index = 1;
     for(let i=0;i<config.text.length;i++){
-        if((i+1) % columnCount == 0){
+        if(config.text[i]=='\n'){
+            index = 1;
+        }
+        if((index) % (columnCount+1) == 0){
             str += '\n';
         }
         str += config.text[i];
+        index++;
     }
     config.text = str;
     let text = game.add.text(WIDTH/2, y*1.2, config.text, style);
@@ -977,6 +1160,14 @@ APG.Game.README = function(config){
         APG.Update.listenKey.startListenKey();
     });
 };
+
+/**
+ * 显示胜利界面
+ * @method APG.Game#WIN
+ * @param {string} str - 自定义显示的文字
+ * @param {function} func - 点击界面后执行的函数
+ * @param {{}} [that = APG.DeveloperModel] - 回调上下文
+ */
 APG.Game.WIN = function(str, func, that=APG.DeveloperModel){
     game.input.keyboard.stop();
 
@@ -988,7 +1179,7 @@ APG.Game.WIN = function(str, func, that=APG.DeveloperModel){
     bar.beginFill('0x'+'#dfc9c8'.slice(1), 0.8);
     bar.drawRect(x, y, w, h);
 
-    let  style = { font: "bold "+APG.Tile.width+"px Arial", fill: "#0037f1",
+    let  style = { font: "bold "+globalConfig.README.font.size+"px Arial", fill: "#0037f1",
         boundsAlignH: "center",
         wordWrap: true,
         wordWrapWidth: w * 0.8
@@ -1002,6 +1193,14 @@ APG.Game.WIN = function(str, func, that=APG.DeveloperModel){
         bar.events.onInputDown.add(func,that);
     }
 };
+
+/**
+ * 显示失败界面
+ * @method APG.Game#LOST
+ * @param {string} str - 自定义显示的文字
+ * @param {function} func - 点击界面后执行的函数
+ * @param {{}} [that = APG.DeveloperModel] - 回调上下文
+ */
 APG.Game.LOST = function(str, func, that=APG.DeveloperModel){
     game.input.keyboard.stop();
 
@@ -1013,7 +1212,7 @@ APG.Game.LOST = function(str, func, that=APG.DeveloperModel){
     bar.beginFill('0x'+'#dfc9c8'.slice(1), 0.8);
     bar.drawRect(x, y, w, h);
 
-    let  style = { font: "bold "+APG.Tile.width+"px Arial", fill: "#0037f1",
+    let  style = { font: "bold "+globalConfig.README.font.size+"px Arial", fill: "#0037f1",
         boundsAlignH: "center",
         wordWrap: true,
         wordWrapWidth: w * 0.8
@@ -1027,6 +1226,11 @@ APG.Game.LOST = function(str, func, that=APG.DeveloperModel){
         bar.events.onInputDown.add(func,that);
     }
 };
+
+/**
+ * 游戏全屏
+ * @method APG.Game#fullScreen
+ */
 APG.Game.fullScreen = function(){
     var element = document.documentElement;
     if (element.requestFullscreen) {
@@ -1043,6 +1247,11 @@ APG.Game.fullScreen = function(){
         element.webkitRequestFullscreen();
     }
 };
+
+/**
+ * 游戏退出全屏
+ * @method APG.Game#exitFullscreen
+ */
 APG.Game.exitFullscreen = function(){
     if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -1054,6 +1263,11 @@ APG.Game.exitFullscreen = function(){
         document.webkitExitFullscreen();
     }
 };
+
+/**
+ * 游戏重启，无需重新加载资源
+ * @method APG.Game#restartGame
+ */
 APG.Game.restartGame = function(){
     APG.Bag.destroyBagBar();
     APG.Assets.stopMusic();
@@ -1071,45 +1285,95 @@ APG.Game.restartGame = function(){
     }
 };
 
+
+
+
+
 console.log("Group.js has been loaded successfully.")
 
-/* Group */
+/**
+ * Group（组）：概念取自phaser，指代框架中多个的元素对象组合而来的组形式的对象。也是接口的一个分类。
+ * @class APG.Group
+ */
+APG.Group;
+
+
+/**
+ * 创建一个组，
+ * 默认存在0个精灵, 默认key 为spritesheet, index 从1开始。
+ * @method APG.Group#setGroup
+ * @returns {Phaser.Group}
+ */
 APG.Group.setGroup = function(){
-    /*默认存在0个精灵, 默认key 为spritesheet, index 从1开始*/
     var group = game.add.group();
     group.enableBody = true;
     game.physics.arcade.enable(group);
     return group;
 };
+
+/**
+ * 移动 groupUp 对象到 groupDown 对象上面。
+ * @method APG.Group#moveGroupUpTo
+ * @param {Phaser.Group} groupUp
+ * @param {Phaser.Group} groupDown
+ */
 APG.Group.moveGroupUpTo = function(groupUp, groupDown){
-    /* 移动 groupUp 对象到 groupDown 对象上面*/
     while(groupUp.z<=groupDown.z){
         game.world.moveUp(groupUp);
         console.log(groupUp.z, groupDown.z)
     }
 };
+/**
+ * 移动 groupDown 对象到 groupUp 对象下面。
+ * @method APG.Group#moveGroupDownTo
+ * @param {Phaser.Group} groupDown
+ * @param {Phaser.Group} groupUp
+ */
 APG.Group.moveGroupDownTo = function(groupDown, groupUp){
-    /* 移动 groupDown 对象到 groupUp 对象下面*/
-
     while(groupDown.z >= groupUp.z){
         game.world.moveDown(groupDown);
     }
 };
+
+/**
+ * 得到 `target `组对象，`target` 是设置在游戏配置文件中的。
+ * @method APG.Group#getTargetGroup
+ * @param {string} name - Target组名
+ * @returns {Phaser.Group}
+ */
 APG.Group.getTargetGroup = function(name){
     return APG.TargetGroups[name];
 };
+
+/**
+ * 得到 `Character` 组对象，`Character` 是设置在游戏配置文件中的。
+ * @method APG.Group#getCharacterGroup
+ * @param {string} name - Character组名
+ * @returns {Phaser.Group}
+ */
 APG.Group.getCharacterGroup = function(name){
     return APG.CharacterGroups[name];
 };
 console.log("Sprite.js has been loaded successfully.")
 
-/* 精灵 */
+/**
+ * Sprite（精灵）：概念取自phaser，指代框架中一个单一的元素对象，可以是角色，也可以是交互对象。也是接口的一个分类。
+ * @class APG.Sprite
+ */
+APG.Sprite;
+
+/**
+ * 新增一个精灵在组中。
+ * @method APG.Sprite#addSprite
+ * @param {integer} x - 相对坐标x
+ * @param {integer} y - 相对坐标y
+ * @param {string} imgKey - 对象贴图名
+ * @param {integer} frame - 贴图块id (begin with 1)
+ * @param {Phaser.Group} [group] - 如果传入组，就将精灵加入这个组中
+ * @param {string} [keyName = imgKey]- 设置的精灵的名，如果没有就和 `imgKey` 一样
+ * @returns {*}
+ */
 APG.Sprite.addSprite = function(x, y, imgKey, frame, group, keyName){
-    /* 新增一个精良在组中
-    * imgKey: 对象贴图
-    * frame: 贴图块id (begin with 1)
-    * x,y: 相对位置
-    * */
     var site = APG.Sprite.siteDecode(x,y);
     var s = game.add.sprite(site.x, site.y, imgKey, frame-1);
     // s.x += APG.MapArea.x;
@@ -1129,24 +1393,40 @@ APG.Sprite.addSprite = function(x, y, imgKey, frame, group, keyName){
     }
     return s;
 };
+
+/**
+ * 设置精灵的位置相对坐标。
+ * @method APG.Sprite#setSpriteSite
+ * @param {Phaser.Sprite} s - 精灵对象
+ * @param {integer} x - 相对坐标x
+ * @param {integer} y - 相对坐标y
+ */
 APG.Sprite.setSpriteSite = function(s, x, y){
-    /*传入的是相对坐标,需要转换成绝对坐标*/
     var site = APG.Sprite.siteDecode(x,y);
     s.x = site.x;
     s.y = site.y;
 };
+
+/**
+ * 得到组中的精灵列表。
+ * @param {Phaser.Group} group - 组对象
+ * @returns {Array}
+ */
 APG.Sprite.getSpriteList = function(group){
-    // group.getC
     return group.children;
 };
-APG.Sprite.getSpriteListFromSite = function(x, y, group=game.world, recursive=false, safe=5){
-    /* 从一个组里, 且在这个位置上, 拿精灵, 返回列表
-    *  如果指定了所属组,便从指定组中寻找, 如果没有便从世界开始查找
-    * group: 可以是group对象, 也可以是数组
-    * recursive: 递归查找吗
-    * safe: 递归深度,为0则为无限.
-    * */
 
+/**
+ * 从一个组里, 且在这个位置上, 拿精灵, 返回列表。
+ * 如果指定了所属组,便从指定组中寻找, 如果没有便从世界开始查找
+ * @param {integer} x - 相对坐标x
+ * @param {integer} y - 相对坐标y
+ * @param [group = game.world] - 寻找的范围，不给则为全部世界，可以是group对象, 也可以是数组
+ * @param {boolean} [recursive = false] - 是否递归查找
+ * @param {integer} [safe = 5] - 递归深度,为0则为无限.
+ * @returns {Array}
+ */
+APG.Sprite.getSpriteListFromSite = function(x, y, group=game.world, recursive=false, safe=5){
     if(safe > 0){
         var newsafe = safe-1 == 0? -1: safe-1;
     }else if(safe < 0){
@@ -1176,14 +1456,30 @@ APG.Sprite.getSpriteListFromSite = function(x, y, group=game.world, recursive=fa
     }
     return sprites;
 };
+
+/**
+ * 摧毁一个精灵对象。
+ * @param {Phaser.Sprite} sprite - 要摧毁的精灵对象
+ */
 APG.Sprite.destroySprite = function(sprite){
     sprite.destroy();
 };
+
+/**
+ * 得到一个精灵的相对于地图Area的相对坐标,。
+ * @param {Phaser.Sprite} sprite - 精灵对象
+ * @returns {{x: number, y: number}|{x, y}}
+ */
 APG.Sprite.getSpriteSite = function(sprite){
-    /* 得到一个精灵的相对坐标,相对于地图Area
-    * */
     return APG.Sprite.siteCode(sprite.x,sprite.y);
 };
+
+/**
+ * 将相对地址变成绝对地址
+ * @param {integer} x - 相对坐标x
+ * @param {integer} y - 相对坐标y
+ * @returns {{x: number, y: number}}
+ */
 APG.Sprite.siteDecode = function(x, y){
     /* 将相对地址变成绝对地址  */
     if(typeof x == "object"){
@@ -1195,8 +1491,14 @@ APG.Sprite.siteDecode = function(x, y){
         y: y * APG.Tile.height + APG.MapArea.offsetY,
     }
 };
+
+/**
+ * 将绝对地址变成相对地址
+ * @param {number} x - 绝对坐标x
+ * @param {number} y - 绝对坐标y
+ * @returns {{x: integer, y: integer}}
+ */
 APG.Sprite.siteCode = function(x, y){
-    /* 将绝对地址变成相对地址  */
     if(typeof x == "object"){
         var y = x.y;
         var x = x.x;
@@ -1214,9 +1516,16 @@ APG.Sprite.siteCode = function(x, y){
     site.y = about(site.y);
     return site;
 };
-/* 物理 */
+
+/**
+ * 设置对象的物理检测体
+ * @param {Phaser.Sprite|Phaser.Group} s - 对象
+ * @param {number} ratew - 宽比例
+ * @param {number} rateh - 高比例
+ * @param {number} ratex - 相对坐标x比例
+ * @param {number} ratey - 相对坐标y比例
+ */
 APG.Sprite.setBody = function(s, ratew, rateh, ratex, ratey){
-    /* 设置对象的物理检测体,传入的参数是比率 s*/
     s.body.setSize(
         s.width  / s.scale.x * ratew,
         s.height / s.scale.y * rateh,
@@ -1225,29 +1534,54 @@ APG.Sprite.setBody = function(s, ratew, rateh, ratex, ratey){
 };
 
 console.log("Target.js has been loaded successfully.")
-
 /* Target.js */
-/* TextBitMap 文字块对象*/
+
+/**
+ * Target（元素）：用于在地图表面上层显示的对象，具有定制的属性，可自定义。也是接口的一个分类。
+ * 主要用于对 `TextBitMap 文字块对象`的操作。
+ * @class APG.Target
+ */
+APG.Target;
+
+/**
+ * 创建一个 TextBitMap
+ * @param {integer} x - 相对坐标x。
+ * @param {integer} y - 相对坐标y
+ * @param {string} text - `TextBitMap`上的文字
+ * @param {string} bg - `TextBitMap`的颜色
+ * @returns {Phaser.Sprite} TextBitMap
+ */
 APG.Target.addTextBitMap = function(x,y, text, bg){
     /* 创建一个 TextBitMap */
     let sprite = APG.Sprite.addSprite(x,y);
     sprite[0].imgMode = "textbitmap";
     return APG.Target.loadTextBitMap(sprite,text,bg);
 };
+
+/**
+ * 得到`TextBitMap`的信息。
+ * 如果传入一个非 TextBitMap 精灵, 保证能返回一致的格式。
+ * @param {Phaser.Sprite} sprite - 传入的`TextBitMap`对象
+ * @returns {{bgColor: (string), text: (string)}}
+ */
 APG.Target.aboutTextBitMap = function(sprite){
-    /* 如果传入一个非 TextBitMap精灵, 保证能返回一致的格式 */
     let s = sprite[0]? sprite[0]: {};
     return {
         text: s.text,
         bgColor: s.bgColor,
     }
 };
-APG.Target.loadTextBitMap = function(sprite, text, bgColor) {
-    /* 将一个对象的贴图换做 TextBitMap, 如果未传入对象, 则创建一个
-    *  会先清除之前的绑定文本 以及背景```````
-    * */
-    /*https://photonstorm.github.io/phaser-ce/Phaser.Text.html#alignTo*/
 
+/**
+ * 将一个对象的贴图换做 TextBitMap, 如果未传入对象, 则创建一个。
+ * 会先清除之前的绑定文本 以及背景。
+ * 参考 https://photonstorm.github.io/phaser-ce/Phaser.Text.html#alignTo
+ * @param {Phaser.Sprite} sprite - 传入的要转换的精灵对象
+ * @param {string} text - `TextBitMap`上的文字
+ * @param {string} bg - `TextBitMap`的颜色
+ * @returns {Phaser.Sprite} TextBitMap
+ */
+APG.Target.loadTextBitMap = function(sprite, text, bgColor) {
     if(sprite){
         var info = APG.Target.aboutTextBitMap(sprite);
     }else{
@@ -1324,10 +1658,16 @@ APG.Target.loadTextBitMap = function(sprite, text, bgColor) {
     sprite[0].bgColor = bgColor;
     return sprite;
 };
+
+/**
+ * 对一个组中的 `TextBitMap`对象批量load
+ * @param group
+ * @param {Array} texts - TextBitMap 文字们
+ * @param {Array} bgs - TextBitMap 颜色们
+ * @param {integer} [start = 0] - 组中开始编号，从0开始
+ * @param {integer} [end = group.children.length] - 组中结束编号，未指定 end 就按最后一个
+ */
 APG.Target.loadTextBitMapBetween = function(group, texts, bgs, start, end){
-    /* 对一个组中的对象批量load
-    *  未指定start 就以 0, 未指定 end 就按最后一个
-    * */
     var start = start? start: 0;
     var end = end? end: group.children.length;
     for(let i = start;i<end;i++){
@@ -1338,7 +1678,154 @@ APG.Target.loadTextBitMapBetween = function(group, texts, bgs, start, end){
         APG.Target.loadTextBitMap(group.children[i], text, bg);
     }
 };
-console.log("Tile.js has been loaded successfully.")
+/**
+ * @author       Richard Davey <rich@photonstorm.com>
+ * @copyright    2016 Photon Storm Ltd.
+ * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+ */
+
+/**
+ * The Keyboard class monitors keyboard input and dispatches keyboard events.
+ *
+ * _Note_: many keyboards are unable to process certain combinations of keys due to hardware limitations known as ghosting.
+ * See http://www.html5gamedevs.com/topic/4876-impossible-to-use-more-than-2-keyboard-input-buttons-at-the-same-time/ for more details.
+ *
+ * Also please be aware that certain browser extensions can disable or override Phaser keyboard handling.
+ * For example the Chrome extension vimium is known to disable Phaser from using the D key. And there are others.
+ * So please check your extensions before opening Phaser issues.
+ *
+ * @class Phaser.Keyboard
+ * @constructor
+ * @param {Phaser.Game} game - A reference to the currently running game.
+ */
+Phaser.Keyboard = function (game)
+{
+
+    /**
+     * @property {Phaser.Game} game - Local reference to game.
+     */
+    this.game = game;
+
+    /**
+     * Whether the handler has started.
+     * @property {boolean} active
+     * @default
+     */
+    this.active = false;
+
+    /**
+     * Keyboard input will only be processed if enabled.
+     * @property {boolean} enabled
+     * @default
+     */
+    this.enabled = true;
+
+    /**
+     * @property {KeyboardEvent} event - The most recent DOM event from keydown or keyup. This is updated every time a new key is pressed or released.
+     */
+    this.event = null;
+
+    /**
+     * @property {object} pressEvent - The most recent DOM event from keypress.
+     */
+    this.pressEvent = null;
+
+    /**
+     * @property {object} callbackContext - The context under which the callbacks are run.
+     */
+    this.callbackContext = this;
+
+    /**
+     * @property {function} onDownCallback - This callback is invoked every time a key is pressed down, including key repeats when a key is held down. One argument is passed: {KeyboardEvent} event.
+     */
+    this.onDownCallback = null;
+
+    /**
+     * @property {function} onPressCallback - This callback is invoked every time a DOM onkeypress event is raised, which is only for printable keys. Two arguments are passed: {string} `String.fromCharCode(event.charCode)` and {KeyboardEvent} event.
+     */
+    this.onPressCallback = null;
+
+    /**
+     * @property {function} onUpCallback - This callback is invoked every time a key is released. One argument is passed: {KeyboardEvent} event.
+     */
+    this.onUpCallback = null;
+
+    /**
+     * @property {array<Phaser.Key>} _keys - The array the Phaser.Key objects are stored in.
+     * @private
+     */
+    this._keys = [];
+
+    /**
+     * @property {array} _capture - The array the key capture values are stored in.
+     * @private
+     */
+    this._capture = [];
+
+    /**
+     * @property {function} _onKeyDown
+     * @private
+     * @default
+     */
+    this._onKeyDown = null;
+
+    /**
+     * @property {function} _onKeyPress
+     * @private
+     * @default
+     */
+    this._onKeyPress = null;
+
+    /**
+     * @property {function} _onKeyUp
+     * @private
+     * @default
+     */
+    this._onKeyUp = null;
+
+    /**
+     * @property {number} _i - Internal cache var
+     * @private
+     */
+    this._i = 0;
+
+    /**
+     * @property {number} _k - Internal cache var
+     * @private
+     */
+    this._k = 0;
+
+};
+
+Phaser.Keyboard.prototype = {
+
+    /**
+     * Add callbacks to the Keyboard handler so that each time a key is pressed down or released the callbacks are activated.
+     *
+     * @method Phaser.Keyboard#addCallbacks
+     * @param {object} context - The context under which the callbacks are run.
+     * @param {function} [onDown=null] - This callback is invoked every time a key is pressed down.
+     * @param {function} [onUp=null] - This callback is invoked every time a key is released.
+     * @param {function} [onPress=null] - This callback is invoked every time the onkeypress event is raised.
+     */
+    addCallbacks: function (context, onDown, onUp, onPress) {
+
+        this.callbackContext = context;
+
+        if (onDown !== undefined && onDown !== null) {
+            this.onDownCallback = onDown;
+        }
+
+        if (onUp !== undefined && onUp !== null) {
+            this.onUpCallback = onUp;
+        }
+
+        if (onPress !== undefined && onPress !== null) {
+            this.onPressCallback = onPress;
+        }
+
+    },
+}console.log("Tile.js has been loaded successfully.")
 
 /* Tile 瓷砖*/
 APG.Tile.getTileId = function(tile){
@@ -1370,23 +1857,47 @@ APG.Tile.removeTileFromSite = function(x, y){
 console.log("Update.js has been loaded successfully.")
 
 /* ================ update ==============================*/
-/*
-APG.Update.= {};
-APG.Update.listenKey = {};
-APG.Update.listenKey.keyEventList = [];
-*/
+/**
+ * @class APG.Update.listenKey
+ */
+APG.Update.listenKey;
+
+/**
+ * 按键无效
+ * @method APG.Update.listenKey#stopListenKey
+ */
 APG.Update.listenKey.stopListenKey = function(){
     game.input.keyboard.stop();
 };
+
+/**
+ * 开启按键监听功能
+ * @method APG.Update.listenKey#startListenKey
+ */
 APG.Update.listenKey.startListenKey = function(){
     game.input.keyboard.start();
 };
+
+/**
+ * 修改移动按键
+ * @method APG.Update.listenKey#setMoveKey
+ * @param {string} direction - 方向`up`，`down`，`left`，`right`
+ * @param {string} key - 按键
+ */
 APG.Update.listenKey.setMoveKey = function(direction, key){
-    /*  修改移动按键 */
     var direction = direction.toUpperCase();
     var key = key.toUpperCase();
     APG.Keys.move[direction] = key;
 };
+
+/**
+ * 添加按键功能
+ * @method APG.Update.listenKey#addKeyEvent
+ * @param {string} key - 按键
+ * @param {function} feedback - 功能函数
+ * @param {Array} context - 函数传入的参数
+ * @param {{}} [that = APG.DeveloperModel] - 回调上下文
+ */
 APG.Update.listenKey.addKeyEvent = function(key, feedback, context, that=APG.DeveloperModel){
     APG.Update.listenKey.keyEventList.push({
         key: key,
@@ -1395,10 +1906,19 @@ APG.Update.listenKey.addKeyEvent = function(key, feedback, context, that=APG.Dev
         that: that,
     });
 };
+
+/**
+ * 角色移动相关事件。
+ * @method APG.Update.listenKey#characterMoveEvent
+ * @param {Phaser.Group} playerG - 角色组
+ * @param {function} role - 移动判断函数
+ * @param {function} resolve - 移动成功执行函数,
+ * @param {Array} resolveContext - 成功函数传入的参数
+ * @param {function} reject - 移动失败执行函数
+ * @param {Array} rejectContext - 失败函数传入的参数
+ * @param {{}} [that = APG.DeveloperModel] - 回调上下文
+ */
 APG.Update.listenKey.characterMoveEvent = function(playerG, role, resolve, resolveContext, reject, rejectContext, that=APG.DeveloperModel) {
-    /* resolve: function 移动成功执行函数,执行函数
-    *  resolveContext: list resolve函数的参数,列表形式
-    * */
     for (var k in APG.Keys.move) {
         if (APG.Keys[APG.Keys.move[k]].justDown) {
             console.log(k+" is justDown.")
@@ -1481,12 +2001,18 @@ APG.Update.listenKey.characterMoveEvent = function(playerG, role, resolve, resol
     }
 };
 
-APG.Update.bag = APG.Bag.updateBag;
 
-/* 边界碰撞,默认不开
-* 用于玩家移动检测
-*  */
 /*APG.Update.collideWorldBounds = false;*/
+/**
+ * @class APG.Update.collision
+ */
+APG.Update.collision;
+
+/**
+ * 边界碰撞，默认不开，用于玩家移动检测。
+ * @method APG.Update.collision#setCollideWorldBounds
+ * @param {boolean} [f = false]
+ */
 APG.Update.collision.setCollideWorldBounds = function(f){
     APG.Update.collideWorldBounds = f;
 };
@@ -1508,6 +2034,15 @@ APG.Update.collision.active = {
     playerTileList: [],   /* 需要检测的瓷砖列表（对于玩家） */
 };
 
+/**
+ * 设置组对象和瓷砖的阻挡碰撞
+ * @method APG.Update.collision#blockTileOverlap
+ * @param {Phaser.Group} group
+ * @param {integer} tileIndex - 瓷砖id
+ * @param {function} [feedback] - 碰撞后的触发函数
+ * @param {Array} context - 函数参数
+ * @param {{}} [that = APG.DeveloperModel] - 回调上下文
+ */
 APG.Update.collision.blockTileOverlap = function(group, tileIndex, feedback, context, that=APG.DeveloperModel){
     if(group == APG.CharacterGroups.player){
         APG.Update.collision.block.playerTileList.push({
@@ -1527,6 +2062,15 @@ APG.Update.collision.blockTileOverlap = function(group, tileIndex, feedback, con
     }
 };
 
+/**
+ * 设置组对象和组对象的阻挡碰撞
+ * @method APG.Update.collision#blockGroupOverlap
+ * @param {Phaser.Group} group1
+ * @param {Phaser.Group} group2
+ * @param {function} [feedback] - 碰撞后的触发函数
+ * @param {Array} context - 函数参数
+ * @param {{}} [that = APG.DeveloperModel] - 回调上下文
+ */
 APG.Update.collision.blockGroupOverlap = function(group1, group2, feedback, context, that=APG.DeveloperModel) {
     if (group1 == APG.CharacterGroups.player) {
         APG.Update.collision.block.playerGroupList.push({
@@ -1547,6 +2091,15 @@ APG.Update.collision.blockGroupOverlap = function(group1, group2, feedback, cont
     }
 };
 
+/**
+ * 设置组对象和组对象的重叠检测
+ * @method APG.Update.collision#activeGroupOverlap
+ * @param {Phaser.Group} group1
+ * @param {Phaser.Group} group2
+ * @param {function} [feedback] - 碰撞后的触发函数
+ * @param {Array} context - 函数参数
+ * @param {{}} [that = APG.DeveloperModel] - 回调上下文
+ */
 APG.Update.collision.activeGroupOverlap = function(group1, group2, feedback, context, that=APG.DeveloperModel){
     var obj = {
         actor: "",
@@ -1562,6 +2115,16 @@ APG.Update.collision.activeGroupOverlap = function(group1, group2, feedback, con
     }
     APG.Update.collision.active.GroupList.push(obj);
 };
+
+/**
+ * 设置组对象和瓷砖对象的重叠检测
+ * @method APG.Update.collision#activeTileOverlap
+ * @param {Phaser.Group} group
+ * @param {integer} tileIndex - 瓷砖id
+ * @param {function} [feedback] - 碰撞后的触发函数
+ * @param {Array} context - 函数参数
+ * @param {{}} [that = APG.DeveloperModel] - 回调上下文 * @param group
+ */
 APG.Update.collision.activeTileOverlap = function(group, tileIndex, feedback, context, that=APG.DeveloperModel){
     if(group == APG.CharacterGroups.player){
         APG.Update.collision.active.TileList.push({
@@ -1586,6 +2149,12 @@ APG.Update.collision.activeTileOverlap = function(group, tileIndex, feedback, co
 // =========================
 // ========= 施工中 ==========
 
+/**
+ * 检测两个对象是否碰撞【未完成】
+ * @method APG.Update.collision#isCollided
+ * @param {Phaser.Group} group1
+ * @param {Phaser.Group} group2
+ */
 APG.Update.collision.isCollided = function(group1, group2){
 
 };
@@ -1688,9 +2257,3 @@ blockGroupOverlap           = APG.Update.collision.blockGroupOverlap
 activeGroupOverlap          = APG.Update.collision.activeGroupOverlap
 activeTileOverlap           = APG.Update.collision.activeTileOverlap
 isCollided                  = APG.Update.collision.isCollided
-
-
-
-
-
-

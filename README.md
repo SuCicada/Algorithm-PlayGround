@@ -13,27 +13,29 @@
 
 提供可视化的地图编辑方案
 
-## 使用说明:
+## [官网](https://sucicada.github.io/Algorithm-PlayGround/)
 
-https://sucicada.github.io/Algorithm-PlayGround/docs/
-
-## 下载
-+ APG.js
-
-https://github.com/SuCicada/Algorithm-PlayGround/releases/download/2.4/APG.js
-
-+ MapEditor
-
-https://github.com/SuCicada/Algorithm-PlayGround/releases/download/2.4/MapEditor.zip
-
-## 使用在线库
-
-https://sucicada.github.io/Algorithm-PlayGround/dist/APG.js
+## Demo 演示
++ [git page(可能会慢)](https://sucicada.github.io/Algorithm-PlayGround/Examples/)
++ [国内使用](http://sucicada.tk:39/APG/Examples/)
 
 ## 使用在线地图编辑器
 
-[APG MapEditor](https://sucicada.github.io/Algorithm-PlayGround/src/MapEditor/index.html)
++ [APG MapEditor](https://sucicada.github.io/Algorithm-PlayGround/src/MapEditor/index.html)
 
-## Demo 演示
+## 下载
++ [APG.js](https://github.com/SuCicada/Algorithm-PlayGround/releases/download/2.4/APG.js)
 
-https://sucicada.github.io/Algorithm-PlayGround/Examples/
++ [MapEditor](https://github.com/SuCicada/Algorithm-PlayGround/releases/download/2.4/MapEditor.zip)
+
+## 使用在线库
+
++ github直连
+```
+https://sucicada.github.io/Algorithm-PlayGround/dist/APG.js
+```
++ 国内使用（更快）
+```
+http://sucicada.tk:39/APG/dist/APG.js
+```
+

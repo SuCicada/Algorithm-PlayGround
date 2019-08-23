@@ -13,7 +13,7 @@ var globalConfig = {
         /* 默认带有上下左右 */
 		"J",
 		"K",
-		"SPACEBAR",
+		// "SPACEBAR",
     ],
     BagBar: {  /* 背包系统, 不需要可以不要*/
         w: 0.2,  /* 0<=x<1: 世界边长的比率  x>=1: 像素 */

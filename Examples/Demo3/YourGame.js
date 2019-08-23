@@ -44,7 +44,7 @@ YourGame = {
 			blockTileOverlap(this.player,0)
 			addKeyEvent('J',push);
 			addKeyEvent('K',pop);
-			addKeyEvent('SPACEBAR',out);
+			// addKeyEvent('SPACEBAR',out);
 		},
 		update: function(){
 			site = getCharacterSite(this.player)
@@ -135,8 +135,8 @@ function pop(){
 		}
 	}
 }
-function out(){
-	if(push()){
-		pop();
-	}
-}
+// function out(){
+// 	if(push()){
+// 		pop();
+// 	}
+// }

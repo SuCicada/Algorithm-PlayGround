@@ -3,7 +3,7 @@
     "allowUnknownTags": true
   },
   "source": {
-    "include": ["Assets.js"],
+    "include": ["Assets.js","Bag.js","Character.js","Game.js","Group.js","Sprite.js","Target.js","Update.js"],
     "includePattern": ".+\\.js(doc|x)?$",
     "excludePattern": "(^|\\/|\\\\)_"
   },

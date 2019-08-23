@@ -1,6 +1,17 @@
 console.log("Bag.js has been loaded successfully.")
 
 /*APG.Bag.views = [];*/
+
+/**
+ * 背包系统，用于模拟栈和堆，默认放入背包，拿出背包采用后入先出的栈式操作
+ * @class APG.Bag
+ */
+APG.Bag;
+
+/**
+ * 显示背包
+ * @method APG.Bag#showBagBar
+ */
 APG.Bag.showBagBar = function(){
     let w = APG.Bag.BagBar.w;
     let h = APG.Bag.BagBar.h;
@@ -26,11 +37,21 @@ APG.Bag.showBagBar = function(){
     /* 默认最大容量是初始化的1倍 */
     // APG.Bag.capcity = APG.Bag.size;
 };
+
+/**
+ * 隐藏背包，可通过 `showBagBar` 再次显示
+ * @method APG.Bag#hiddenBagBar
+ */
 APG.Bag.hiddenBagBar = function(){
     APG.Bag.views.forEach(function(s){
         s.destroy();
     });
 };
+
+/**
+ * 摧毁背包，不可再生
+ * @method APG.Bag#destroyBagBar
+ */
 APG.Bag.destroyBagBar = function() {
     APG.Bag.hiddenBagBar();
     APG.Bag.items.forEach(function(s){
@@ -44,6 +65,12 @@ APG.Bag.destroyBagBar = function() {
     APG.Bag.views = [];
 };
 
+/**
+ * 在背包中增加物品
+ * @method APG.Bag#addItem
+ * @param {Phaser.Sprite} sprite - 添加的物品对象，作为样品显示
+ * @param {integer} number - 添加的数量
+ */
 APG.Bag.addItem = function(sprite, number) {
 
     var number = number? number: 1;
@@ -67,9 +94,10 @@ APG.Bag.addItem = function(sprite, number) {
 
 /**
  * 从背包里把第一个东西拿出去
- * @param x 坐标是相对的
- * @param y
- * @param group 放置的精灵的所属的组
+ * @method APG.Bag#putItem
+ * @param x 相对坐标x
+ * @param y 相对坐标y
+ * @param {Phaser.Group} group - 放置的精灵的所属的组
  */
 APG.Bag.putItem = function(x, y, group) {
     console.log(APG.Bag.size);
@@ -101,10 +129,12 @@ APG.Bag.putItem = function(x, y, group) {
     }
 };
 
+/**
+ * 把东西放到背包里，按照对象的keyName分组，如果是新东西，就放在第一个
+ * @method APG.Bag#getItem
+ * @param {Array} spriteList - 放入背包的列表
+ */
 APG.Bag.getItem = function(spriteList) {
-    /* 把东西放到背包里
-     * 按照对象的keyName分组
-     **/
     if(!spriteList.forEach){
         var spriteList = [spriteList];
     }
@@ -139,7 +169,8 @@ APG.Bag.getItem = function(spriteList) {
 
 
 /**
- * 把东西丢掉
+ * 把第一个位置的东西丢掉，计数减一，如果物品丢完，就从侧边栏去掉这个物品
+ * @method APG.Bag#dropItem
  */
 APG.Bag.dropItem = function(){
     if(APG.Bag.size) {
@@ -153,43 +184,82 @@ APG.Bag.dropItem = function(){
     }
 };
 
+/**
+ * 得到物品的数量
+ * @method APG.Bag#getItemNum
+ * @param {string} itemName - 物品名
+ * @returns {Integer}
+ */
 APG.Bag.getItemNum = function(itemName){
     let item = APG.Bag.items.find(function(b){
         return b.itemName == itemName;
     });
     return item? item.number: 0;
 };
+
+/**
+ * 设置背包最大容量
+ * @method APG.Bag#setBagCapacity
+ * @param {integer} n - 最大容量
+ */
 APG.Bag.setBagCapacity = function(n){
     APG.Bag.capcity = n;
 };
+
+/**
+ * 得到背包最大容量
+ * @method APG.Bag#getBagCapacity
+ * @returns {integer}
+ */
 APG.Bag.getBagCapacity = function(){
     return APG.Bag.capcity;
 };
+
+/**
+ * 得到背包当前容量
+ * @method APG.Bag#getBagSize
+ * @returns {integer}
+ */
 APG.Bag.getBagSize = function(){
     return APG.Bag.size;
 };
+
+/**
+ * 得到当前背包第一个物品组
+ * @method APG.Bag#getBagFirst
+ * @returns {Array}
+ */
 APG.Bag.getBagFirst = function(){
-    /* 得到当前背包第一个物品组 */
     if(items.length){
         return APG.Bag.items[0];
     }
 };
+
+/**
+ * 背包物品组向后（下）移动
+ * @method APG.Bag#goDownItems
+ */
 APG.Bag.goDownItems = function(){
-    /* 背包物品组向后（下）移动 */
     if(APG.Bag.items.length){
         APG.Bag.items = APG.Bag.items.concat(APG.Bag.items.splice(0,1));
     }
 };
+
+/**
+ * 背包物品组向前（上）移动
+ * @method APG.Bag#goUpItems
+ */
 APG.Bag.goUpItems = function() {
-    /* 背包物品组向前（上）移动 */
     if(APG.Bag.items.length) {
         APG.Bag.items = APG.Bag.items.splice(APG.Bag.items.length-1,1).concat(APG.Bag.items);
     }
 };
 
+/**
+ * 更新背包中的物品信息, 和数量对应
+ * @method APG.Bag#updateBag
+ */
 APG.Bag.updateBag = function(){
-    /* 更新背包中的物品信息, 和数量对应 */
-
     let w = APG.Bag.BagBar.w;
     let h = APG.Bag.BagBar.h;
     let x = (WIDTH - w);

@@ -1,12 +1,11 @@
 console.log("Assets.js has been loaded successfully.")
-
 /* ==========    Assets ====================  */
-/* music */
-
 /**
+ * Assets（资源）：游戏需要加载的资源，也是接口的一个分类。
  * @class APG.Assets
  */
 APG.Assets;
+
 /**
  * 播放音乐
  * @method APG.Assets#playMusic
@@ -17,8 +16,12 @@ APG.Assets.playMusic = function (keyName) {
     console.log("Play music: " + keyName);
 };
 
+/**
+ * 停止音乐。如果没有传入名称,则全部停止
+ * @method APG.Assets#stopMusic
+ * @param {string} keyName - 音乐名
+ */
 APG.Assets.stopMusic = function(keyName){
-    /* 如果没有传入名称,则全部停止 */
     let musics = keyName? {keyName:APG.Assets.music[keyName]}: APG.Assets.music;
     for(m in musics){
         APG.Assets.music[m].stop();
@@ -26,13 +29,17 @@ APG.Assets.stopMusic = function(keyName){
     }
 };
 
-/* 动画 */
+/**
+ * 添加动画, 并播放.
+ * @method APG.Assets#setAnimations
+ * @param {Phaser.Group|Phaser.Sprite} obj - 要设置的对象
+ * @param {string} name - 动作名
+ * @param {Array} frames - 帧id
+ * @param {integer} [frameRate = 1] - 帧动画速度
+ * @param {boolean} [loop = false] - 循环否
+ */
 APG.Assets.setAnimations = function(obj, name, frames, frameRate=1, loop=false){
     /*
-    * 添加动画, 并播放.
-    * group: 可以是组,也可以是精灵
-    * frames: 从0开始?
-    * name: 动作名
     * */
     if(!obj.forEach){
         let s = obj;
@@ -52,17 +59,20 @@ APG.Assets.setAnimations = function(obj, name, frames, frameRate=1, loop=false){
         });
     }
 };
+
+/**
+ * 设置玩家移动动画
+ * @method APG.Assets#playerMoveAnimations
+ * @param {Phaser.Group|Phaser.Sprite} playerG - 玩家对象
+ * @param {object} obj - 方向(大写,或小写 -> frames 或单个数字，比如
+ *   {
+ *       right: 0,
+ *       LEFT: [1],
+ *       d own: [2],
+ *       up: 3,
+ *   }
+ */
 APG.Assets.playerMoveAnimations = function(playerG, obj){
-    /* 设置玩家移动动画
-    * obj:
-    *   方向(大写,或小写 -> frames 或单个数字, 比如
-    *   {
-    *       right: 0,
-    *       LEFT: [1],
-    *       down: [2],
-    *       up: 3,
-    *   }
-    */
     var move = {};
     for(var i in obj){
         var I = i.toUpperCase()
@@ -82,8 +92,14 @@ APG.Assets.playerMoveAnimations = function(playerG, obj){
         playerG.Assets.move = move;
     }
 };
+
+/**
+ * 根据传入的精灵或组,返回此精灵当前的动画的frameId
+ * @method APG.Assets#getFrame
+ * @param {Phaser.Group|Phaser.Sprite} obj - 精灵或组或精灵列表
+ * @returns {Array|number} 如果传入组或精灵列表，返回frameId 列表
+ */
 APG.Assets.getFrame = function(obj){
-    /* 根据传入的精灵或组,返回此精灵当前的动画的frameId */
     if(obj.animations){
         /* sprite */
         return obj.animations.frame;

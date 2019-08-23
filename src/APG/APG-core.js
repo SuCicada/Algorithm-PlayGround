@@ -459,7 +459,7 @@ var startGame = {
         }
 
         if(globalConfig.README){
-            APG.Game.README(globalConfig.README);
+            APG.Game.README();
         }
     },
     update: function(){

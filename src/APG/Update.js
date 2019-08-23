@@ -1,23 +1,47 @@
 console.log("Update.js has been loaded successfully.")
 
 /* ================ update ==============================*/
-/*
-APG.Update.= {};
-APG.Update.listenKey = {};
-APG.Update.listenKey.keyEventList = [];
-*/
+/**
+ * @class APG.Update.listenKey
+ */
+APG.Update.listenKey;
+
+/**
+ * 按键无效
+ * @method APG.Update.listenKey#stopListenKey
+ */
 APG.Update.listenKey.stopListenKey = function(){
     game.input.keyboard.stop();
 };
+
+/**
+ * 开启按键监听功能
+ * @method APG.Update.listenKey#startListenKey
+ */
 APG.Update.listenKey.startListenKey = function(){
     game.input.keyboard.start();
 };
+
+/**
+ * 修改移动按键
+ * @method APG.Update.listenKey#setMoveKey
+ * @param {string} direction - 方向`up`，`down`，`left`，`right`
+ * @param {string} key - 按键
+ */
 APG.Update.listenKey.setMoveKey = function(direction, key){
-    /*  修改移动按键 */
     var direction = direction.toUpperCase();
     var key = key.toUpperCase();
     APG.Keys.move[direction] = key;
 };
+
+/**
+ * 添加按键功能
+ * @method APG.Update.listenKey#addKeyEvent
+ * @param {string} key - 按键
+ * @param {function} feedback - 功能函数
+ * @param {Array} context - 函数传入的参数
+ * @param {{}} [that = APG.DeveloperModel] - 回调上下文
+ */
 APG.Update.listenKey.addKeyEvent = function(key, feedback, context, that=APG.DeveloperModel){
     APG.Update.listenKey.keyEventList.push({
         key: key,
@@ -26,10 +50,19 @@ APG.Update.listenKey.addKeyEvent = function(key, feedback, context, that=APG.Dev
         that: that,
     });
 };
+
+/**
+ * 角色移动相关事件。
+ * @method APG.Update.listenKey#characterMoveEvent
+ * @param {Phaser.Group} playerG - 角色组
+ * @param {function} role - 移动判断函数
+ * @param {function} resolve - 移动成功执行函数,
+ * @param {Array} resolveContext - 成功函数传入的参数
+ * @param {function} reject - 移动失败执行函数
+ * @param {Array} rejectContext - 失败函数传入的参数
+ * @param {{}} [that = APG.DeveloperModel] - 回调上下文
+ */
 APG.Update.listenKey.characterMoveEvent = function(playerG, role, resolve, resolveContext, reject, rejectContext, that=APG.DeveloperModel) {
-    /* resolve: function 移动成功执行函数,执行函数
-    *  resolveContext: list resolve函数的参数,列表形式
-    * */
     for (var k in APG.Keys.move) {
         if (APG.Keys[APG.Keys.move[k]].justDown) {
             console.log(k+" is justDown.")
@@ -112,12 +145,18 @@ APG.Update.listenKey.characterMoveEvent = function(playerG, role, resolve, resol
     }
 };
 
-APG.Update.bag = APG.Bag.updateBag;
 
-/* 边界碰撞,默认不开
-* 用于玩家移动检测
-*  */
 /*APG.Update.collideWorldBounds = false;*/
+/**
+ * @class APG.Update.collision
+ */
+APG.Update.collision;
+
+/**
+ * 边界碰撞，默认不开，用于玩家移动检测。
+ * @method APG.Update.collision#setCollideWorldBounds
+ * @param {boolean} [f = false]
+ */
 APG.Update.collision.setCollideWorldBounds = function(f){
     APG.Update.collideWorldBounds = f;
 };
@@ -139,6 +178,15 @@ APG.Update.collision.active = {
     playerTileList: [],   /* 需要检测的瓷砖列表（对于玩家） */
 };
 
+/**
+ * 设置组对象和瓷砖的阻挡碰撞
+ * @method APG.Update.collision#blockTileOverlap
+ * @param {Phaser.Group} group
+ * @param {integer} tileIndex - 瓷砖id
+ * @param {function} [feedback] - 碰撞后的触发函数
+ * @param {Array} context - 函数参数
+ * @param {{}} [that = APG.DeveloperModel] - 回调上下文
+ */
 APG.Update.collision.blockTileOverlap = function(group, tileIndex, feedback, context, that=APG.DeveloperModel){
     if(group == APG.CharacterGroups.player){
         APG.Update.collision.block.playerTileList.push({
@@ -158,6 +206,15 @@ APG.Update.collision.blockTileOverlap = function(group, tileIndex, feedback, con
     }
 };
 
+/**
+ * 设置组对象和组对象的阻挡碰撞
+ * @method APG.Update.collision#blockGroupOverlap
+ * @param {Phaser.Group} group1
+ * @param {Phaser.Group} group2
+ * @param {function} [feedback] - 碰撞后的触发函数
+ * @param {Array} context - 函数参数
+ * @param {{}} [that = APG.DeveloperModel] - 回调上下文
+ */
 APG.Update.collision.blockGroupOverlap = function(group1, group2, feedback, context, that=APG.DeveloperModel) {
     if (group1 == APG.CharacterGroups.player) {
         APG.Update.collision.block.playerGroupList.push({
@@ -178,6 +235,15 @@ APG.Update.collision.blockGroupOverlap = function(group1, group2, feedback, cont
     }
 };
 
+/**
+ * 设置组对象和组对象的重叠检测
+ * @method APG.Update.collision#activeGroupOverlap
+ * @param {Phaser.Group} group1
+ * @param {Phaser.Group} group2
+ * @param {function} [feedback] - 碰撞后的触发函数
+ * @param {Array} context - 函数参数
+ * @param {{}} [that = APG.DeveloperModel] - 回调上下文
+ */
 APG.Update.collision.activeGroupOverlap = function(group1, group2, feedback, context, that=APG.DeveloperModel){
     var obj = {
         actor: "",
@@ -193,6 +259,16 @@ APG.Update.collision.activeGroupOverlap = function(group1, group2, feedback, con
     }
     APG.Update.collision.active.GroupList.push(obj);
 };
+
+/**
+ * 设置组对象和瓷砖对象的重叠检测
+ * @method APG.Update.collision#activeTileOverlap
+ * @param {Phaser.Group} group
+ * @param {integer} tileIndex - 瓷砖id
+ * @param {function} [feedback] - 碰撞后的触发函数
+ * @param {Array} context - 函数参数
+ * @param {{}} [that = APG.DeveloperModel] - 回调上下文 * @param group
+ */
 APG.Update.collision.activeTileOverlap = function(group, tileIndex, feedback, context, that=APG.DeveloperModel){
     if(group == APG.CharacterGroups.player){
         APG.Update.collision.active.TileList.push({
@@ -217,6 +293,12 @@ APG.Update.collision.activeTileOverlap = function(group, tileIndex, feedback, co
 // =========================
 // ========= 施工中 ==========
 
+/**
+ * 检测两个对象是否碰撞【未完成】
+ * @method APG.Update.collision#isCollided
+ * @param {Phaser.Group} group1
+ * @param {Phaser.Group} group2
+ */
 APG.Update.collision.isCollided = function(group1, group2){
 
 };

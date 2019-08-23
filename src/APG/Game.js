@@ -1,17 +1,46 @@
 console.log("Game.js has been loaded successfully.")
 
 /* 界面 */
+
+/**
+ * Game（游戏属性）：游戏全局控制，界面，大小，全屏，重启游戏等操作。
+ * @class APG.Game
+ */
+APG.Game;
+
+/**
+ * 得到游戏宽。
+ * @method APG.Game#getGameWIDTH
+ * @returns {*|number|Window.screen.width}
+ */
 APG.Game.getGameWIDTH = function(){
     return APG.WIDTH;
 };
+
+/**
+ * 得到游戏高。
+ * @method APG.Game#getGameHEIGHT
+ * @returns {*|number|Window.screen.height}
+ */
 APG.Game.getGameHEIGHT = function(){
     return APG.HEIGHT;
 };
+
+/**
+ * 得到游戏渲染模式。
+ * @method APG.Game#getGameMODE
+ * @returns {*|string}
+ */
 APG.Game.getGameMODE = function(){
     return APG.MODE;
 };
 
-APG.Game.README = function(config){
+/**
+ * 显示游戏开始界面，根据配置文件中配置自动显示。
+ * @method APG.Game#README
+ */
+APG.Game.README = function(){
+    let config = globalConfig.README;
     APG.Update.listenKey.stopListenKey();
 
     let w = WIDTH * 0.8;
@@ -34,11 +63,16 @@ APG.Game.README = function(config){
 
     let str = '';
     let columnCount = parseInt(style.wordWrapWidth / config.font.size);
+    let index = 1;
     for(let i=0;i<config.text.length;i++){
-        if((i+1) % columnCount == 0){
+        if(config.text[i]=='\n'){
+            index = 1;
+        }
+        if((index) % (columnCount+1) == 0){
             str += '\n';
         }
         str += config.text[i];
+        index++;
     }
     config.text = str;
     let text = game.add.text(WIDTH/2, y*1.2, config.text, style);
@@ -55,6 +89,14 @@ APG.Game.README = function(config){
         APG.Update.listenKey.startListenKey();
     });
 };
+
+/**
+ * 显示胜利界面
+ * @method APG.Game#WIN
+ * @param {string} str - 自定义显示的文字
+ * @param {function} func - 点击界面后执行的函数
+ * @param {{}} [that = APG.DeveloperModel] - 回调上下文
+ */
 APG.Game.WIN = function(str, func, that=APG.DeveloperModel){
     game.input.keyboard.stop();
 
@@ -66,7 +108,7 @@ APG.Game.WIN = function(str, func, that=APG.DeveloperModel){
     bar.beginFill('0x'+'#dfc9c8'.slice(1), 0.8);
     bar.drawRect(x, y, w, h);
 
-    let  style = { font: "bold "+APG.Tile.width+"px Arial", fill: "#0037f1",
+    let  style = { font: "bold "+globalConfig.README.font.size+"px Arial", fill: "#0037f1",
         boundsAlignH: "center",
         wordWrap: true,
         wordWrapWidth: w * 0.8
@@ -80,6 +122,14 @@ APG.Game.WIN = function(str, func, that=APG.DeveloperModel){
         bar.events.onInputDown.add(func,that);
     }
 };
+
+/**
+ * 显示失败界面
+ * @method APG.Game#LOST
+ * @param {string} str - 自定义显示的文字
+ * @param {function} func - 点击界面后执行的函数
+ * @param {{}} [that = APG.DeveloperModel] - 回调上下文
+ */
 APG.Game.LOST = function(str, func, that=APG.DeveloperModel){
     game.input.keyboard.stop();
 
@@ -91,7 +141,7 @@ APG.Game.LOST = function(str, func, that=APG.DeveloperModel){
     bar.beginFill('0x'+'#dfc9c8'.slice(1), 0.8);
     bar.drawRect(x, y, w, h);
 
-    let  style = { font: "bold "+APG.Tile.width+"px Arial", fill: "#0037f1",
+    let  style = { font: "bold "+globalConfig.README.font.size+"px Arial", fill: "#0037f1",
         boundsAlignH: "center",
         wordWrap: true,
         wordWrapWidth: w * 0.8
@@ -105,6 +155,11 @@ APG.Game.LOST = function(str, func, that=APG.DeveloperModel){
         bar.events.onInputDown.add(func,that);
     }
 };
+
+/**
+ * 游戏全屏
+ * @method APG.Game#fullScreen
+ */
 APG.Game.fullScreen = function(){
     var element = document.documentElement;
     if (element.requestFullscreen) {
@@ -121,6 +176,11 @@ APG.Game.fullScreen = function(){
         element.webkitRequestFullscreen();
     }
 };
+
+/**
+ * 游戏退出全屏
+ * @method APG.Game#exitFullscreen
+ */
 APG.Game.exitFullscreen = function(){
     if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -132,6 +192,11 @@ APG.Game.exitFullscreen = function(){
         document.webkitExitFullscreen();
     }
 };
+
+/**
+ * 游戏重启，无需重新加载资源
+ * @method APG.Game#restartGame
+ */
 APG.Game.restartGame = function(){
     APG.Bag.destroyBagBar();
     APG.Assets.stopMusic();

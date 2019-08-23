@@ -64,8 +64,8 @@ YourGame = {
          * 所以记得判断一下前方是什么
          * */
         var tile = APG.Tile.getTileFromSite(newX, newY);
-        if(!tile){
-            return;
+        if(!tile || APG.Tile.getTileId(tile)==3){
+            return false;
         }
         let tileIndex = APG.Tile.getTileId(tile);
         let nowSite = APG.Character.getCharacterSite(this.player);
