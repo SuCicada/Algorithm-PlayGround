@@ -1,0 +1,51 @@
+{
+  "tags": {
+    "allowUnknownTags": true
+  },
+  "source": {
+    "include": ["../../src/APG/"],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "plugins": ["plugins/markdown"],
+
+  "opts": {
+    "debug"                 : false,
+    "template"              : "template",
+    "destination": "../../docs/api/",
+    "readme": "README.md"
+  },
+  "templates": {
+    "logoFile": "",
+    "cleverLinks": true,
+    "monospaceLinks": false,
+    "dateFormat": "YYYY-MM-dd",
+    "outputSourceFiles": true,
+    "outputSourcePath": true,
+    "systemName": "Algorithm PlayGround",
+    "footer": "啊啊啊啊啊 ",
+    "copyright": "APG Copyright © ....",
+    "navType": "vertical",
+    "linenums": true,
+    "collapseSymbols": true,
+    "inverseNav": true,
+    "protocol": "html://",
+    "methodHeadingReturns": true,
+    "default": {
+      "outputSourceFiles": true
+    },
+    "analytics"             : {
+      "ua"                  : "",
+      "domain"              : ""
+    },
+    "includeDate"           : true,
+    "search"                : false,
+    "sort"                  : null,
+    "theme"                 : "phaser",
+    "constructor"           : "w"
+  },
+  "markdown": {
+    "parser": "gfm",
+    "hardwrap": true
+  }
+}
