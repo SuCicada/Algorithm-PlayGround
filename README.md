@@ -16,15 +16,15 @@
 ## [官网](https://sucicada.github.io/Algorithm-PlayGround/)
 
 ## Demo 演示
-+ [git page(可能会慢)](https://sucicada.github.io/Algorithm-PlayGround/Examples/)
-+ [国内使用](http://sucicada.tk:39/APG/Examples/)
++ [git page(可能会慢)](https://sucicada.github.io/Algorithm-PlayGround/docs/#/game-examples/)
++ [国内使用](http://sucicada.tk:39/APG/docs/#/game-examples/)
 
 ## 使用在线地图编辑器
 
 + [APG MapEditor](https://sucicada.github.io/Algorithm-PlayGround/src/MapEditor/index.html)
 
 ## 下载
-+ [APG.js](https://github.com/SuCicada/Algorithm-PlayGround/releases/download/2.4/APG.js)
++ [APG.js](https://github.com/SuCicada/Algorithm-PlayGround/releases/download/2.5/APG.js)
 
 + [MapEditor](https://github.com/SuCicada/Algorithm-PlayGround/releases/download/2.4/MapEditor.zip)
 

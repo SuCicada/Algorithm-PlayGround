@@ -34,11 +34,6 @@ YourGame = {
 				up: 3,
 			});
 
-			// APG.Bag.addItem('3','formula')
-			// numblock = addTextBitMap(0,0,'3');
-			// getItem(numblock)
-			// getItem(addTextBitMap(0,0,'('))
-
 
 			blockGroupOverlap(this.player, Fm_Group)
 			blockTileOverlap(this.player,0)
