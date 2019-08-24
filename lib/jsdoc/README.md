@@ -9,9 +9,6 @@
 # API
 
 
-|s|s|
-|---|---|
-|d|d|
 ## [Assets](APG.Assets.html)
 ## [Bag](APG.Bag.html)
 ## [Character](APG.Character.html)
