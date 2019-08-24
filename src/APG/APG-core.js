@@ -529,7 +529,8 @@ var startGame = {
         });
 
         if(globalConfig.BagSystem){
-            APG.Update.bag();
+            // APG.Update.bag();
+            APG.Bag.updateBag();
         }
 
         /* 你的更新 */

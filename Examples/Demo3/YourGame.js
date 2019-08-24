@@ -2,7 +2,7 @@ var player;
 var Fm_Group;
 var Fm_List2;
 var FM_List2_top = 0;
-var FORMULA = "3+(2-5)*6/3"
+var FORMULA = "(2-5+1)*6/3"
 var ANSWER = eval(FORMULA)
 YourGame = {
 		/*	游戏初始（文本块） 玩家操作（按键绑定）  碰撞检测  自定义属性变量 元素动画*/
