@@ -20,9 +20,13 @@
 + [git page(可能会慢)](https://sucicada.github.io/Algorithm-PlayGround/docs/#/game-examples/)
 + [国内使用](http://sucicada.tk:39/APG/docs/#/game-examples/)
 
-## 使用在线地图编辑器
+![](resource/display1.png)
+![](resource/display2.png)
 
+## 使用在线地图编辑器
 + [APG MapEditor](https://sucicada.github.io/Algorithm-PlayGround/src/MapEditor/index.html)
+
+![](resource/display3.png)
 
 ## 下载
 + [APG.js](https://github.com/SuCicada/Algorithm-PlayGround/releases/download/2.5/APG.js)
@@ -40,3 +44,5 @@ https://sucicada.github.io/Algorithm-PlayGround/dist/APG.js
 http://sucicada.tk:39/APG/dist/APG.js
 ```
 
+## 最后
+### 十分感谢 [@llwwdbd](https://github.com/llwwdbd), [@lesen-bee](https://github.com/lesen-bee) 在开发期间所提供的帮助

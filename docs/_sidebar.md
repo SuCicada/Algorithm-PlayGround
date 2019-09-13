@@ -4,3 +4,4 @@
 + [Developer Guide](how-to-make.md)
 + [游戏配置文件](config-js-Format.md)
 + [地图元素映射表(blockMap)](block-map.md)
++ [日志](log.md)

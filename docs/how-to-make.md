@@ -40,15 +40,24 @@ git clone https://github.com/SuCicada/Algorithm-PlayGround.git
  
 ---
 ## 3.地图制作
+
 MapEditor包含文件
 * GenerateMapJson.js
 * MapEditor.js
 * index.html
 
 ### 3.1 绘制地图
+
+![](resource/MapEditor.png)
 使用任何工具打开 `index.html`, 或者使用在线编辑器 [APG MapEditor](https://sucicada.github.io/Algorithm-PlayGround/src/MapEditor/index.html)
 
-在打开的画板上绘制.详情参见[地图绘制]()(未完成).
+在打开的画板上绘制.
+#### 快捷键：
+    0-9,A,B,C,D,E,F：选择对应颜色。
+    S：保存
+    P：切换颜色效果（仅编辑器的视觉效果改变，对保存的地图无影响）
+    X：快速清空当前层
+    上下左右(方向键)：移动当前层的地形
 
 ### 3.2 导出地图数据(mapData)(可选)
 点击导出按钮,导出文件名形如 xxx - mapdata.json 的地图数据文件.

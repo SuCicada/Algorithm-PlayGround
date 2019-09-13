@@ -7,35 +7,31 @@ var game = new Phaser.Game(800, 600, Phaser.CANVAS, '', {
 
 //  Dimensions
 var previewSize = 10;   // 小视图大小
-var spriteWidth = 20;　　// 画板宽
 var spriteHeight = 20;　 // 画板长
-
-var spriteWidthMAX = 20;   // 画板最大宽
+var spriteWidth = 20;　　// 画板宽
 var spriteHeightMAX = 21;  // 画板最大长
-
-var tileHeight = 32;
 var tileWidth  = 32;
-
+var spriteWidthMAX = 20;   // 画板最大宽
+var tileHeight = 32;
 //  UI
-var ui;
 var paletteArrow;
+var ui;
 var coords;
-var widthText;
 var widthUp;
 var widthDown;
+var widthText;
 var heightText;
 var heightUp;
-var heightDown;
 var previewSizeUp;
+var heightDown;
 var previewSizeDown;
-var previewSizeText;
 var nextFrameButton;
+var previewSizeText;
 var prevFrameButton;
-var frameText;
 var saveIcon;
+var frameText;
 var saveText;
 var rightCol = 532;
-
 //  Drawing Area
 var canvas;
 var canvasBG;
@@ -514,14 +510,14 @@ function createEventListeners() {
 
     keys = game.input.keyboard.addKeys(
         {
-            'erase': Phaser.Keyboard.X,
             'save': Phaser.Keyboard.S,
+            'erase': Phaser.Keyboard.X,
             'up': Phaser.Keyboard.UP,
             'down': Phaser.Keyboard.DOWN,
             'left': Phaser.Keyboard.LEFT,
             'right': Phaser.Keyboard.RIGHT,
-            'changePalette': Phaser.Keyboard.P,
             'nextFrame': Phaser.Keyboard.PERIOD,
+            'changePalette': Phaser.Keyboard.P,
             'prevFrame': Phaser.Keyboard.COMMA,
             'color0': Phaser.Keyboard.ZERO,
             'color1': Phaser.Keyboard.ONE,
@@ -542,28 +538,24 @@ function createEventListeners() {
             'showAll': Phaser.Keyboard.SPACEBAR,
         }
     );
-
     keys.erase.onDown.add(cls, this);
     keys.save.onDown.add(save, this);
-    keys.up.onDown.add(shiftUp, this);
     keys.down.onDown.add(shiftDown, this);
+    keys.up.onDown.add(shiftUp, this);
     keys.left.onDown.add(shiftLeft, this);
-    keys.right.onDown.add(shiftRight, this);
+    keys.showAll.onDown.add(showAll, this);
     keys.changePalette.onDown.add(changePalette, this);
+    keys.right.onDown.add(shiftRight, this);
     keys.nextFrame.onDown.add(nextFrame, this);
     keys.prevFrame.onDown.add(prevFrame, this);
-    keys.showAll.onDown.add(showAll, this);
-
     for (var i = 0; i < 16; i++)
     {
         keys['color' + i].onDown.add(setColor, this, 0, i);
     }
-
     game.input.mouse.capture = true;
     game.input.onDown.add(onDown, this);
     game.input.onUp.add(onUp, this);
     game.input.addMoveCallback(paint, this);
-
 }
 
 function cls() {
