@@ -3,6 +3,7 @@
 [![Gitter](https://badges.gitter.im/Algorithm-PlayGround/community.svg)](https://gitter.im/Algorithm-PlayGround/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![website](https://img.shields.io/badge/%20website-github.io-brightgreen)](https://sucicada.github.io/Algorithm-PlayGround/docs)
 
+
 一个有趣，智能和简单的HTML5游戏框架
 
 简单的开发方式，将你的算法变成游戏
@@ -12,6 +13,18 @@
 70+个函数接口可供使用，通过配置文件智能优化游戏
 
 提供可视化的地图编辑方案
+
+<video height="500" controls>
+  <source src="http://sucicada.tk:39/resource/display.mp4"  type="video/mp4">
+  您的浏览器不支持 HTML5 video 标签。
+</video>
+
+视频制作by[@llwwdbd](https://github.com/llwwdbd)
+
+## [现在就开始制作吧](how-to-make.md)
+
+## [API开发者文档](http:./api)
+
 
 ## [官网](http://sucicada.tk:39/APG/) 
 [官网(备用)](https://sucicada.github.io/Algorithm-PlayGround/)
