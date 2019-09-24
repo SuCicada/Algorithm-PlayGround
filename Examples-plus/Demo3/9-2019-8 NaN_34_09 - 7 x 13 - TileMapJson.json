@@ -1,0 +1,560 @@
+{
+    "height": 7,
+    "width": 13,
+    "tileheight": 146,
+    "tilewidth": 146,
+    "infinite": false,
+    "layers": [
+        {
+            "id": 1,
+            "data": [
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0
+            ],
+            "height": 7,
+            "width": 13,
+            "name": "layer1",
+            "opacity": 1,
+            "type": "tilelayer",
+            "visible": true,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "id": 2,
+            "draworder": "toptodown",
+            "name": "Object Layer",
+            "objects": [
+                {
+                    "id": 1,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "type": "object",
+                    "visible": true,
+                    "x": 146,
+                    "y": 0,
+                    "properties": [
+                        {
+                            "keyName": "formula",
+                            "imgKey": "formula"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "type": "object",
+                    "visible": true,
+                    "x": 292,
+                    "y": 0,
+                    "properties": [
+                        {
+                            "keyName": "formula",
+                            "imgKey": "formula"
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "type": "object",
+                    "visible": true,
+                    "x": 438,
+                    "y": 0,
+                    "properties": [
+                        {
+                            "keyName": "formula",
+                            "imgKey": "formula"
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "type": "object",
+                    "visible": true,
+                    "x": 584,
+                    "y": 0,
+                    "properties": [
+                        {
+                            "keyName": "formula",
+                            "imgKey": "formula"
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "type": "object",
+                    "visible": true,
+                    "x": 730,
+                    "y": 0,
+                    "properties": [
+                        {
+                            "keyName": "formula",
+                            "imgKey": "formula"
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "type": "object",
+                    "visible": true,
+                    "x": 876,
+                    "y": 0,
+                    "properties": [
+                        {
+                            "keyName": "formula",
+                            "imgKey": "formula"
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "type": "object",
+                    "visible": true,
+                    "x": 1022,
+                    "y": 0,
+                    "properties": [
+                        {
+                            "keyName": "formula",
+                            "imgKey": "formula"
+                        }
+                    ]
+                },
+                {
+                    "id": 8,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "type": "object",
+                    "visible": true,
+                    "x": 1168,
+                    "y": 0,
+                    "properties": [
+                        {
+                            "keyName": "formula",
+                            "imgKey": "formula"
+                        }
+                    ]
+                },
+                {
+                    "id": 9,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "type": "object",
+                    "visible": true,
+                    "x": 1314,
+                    "y": 0,
+                    "properties": [
+                        {
+                            "keyName": "formula",
+                            "imgKey": "formula"
+                        }
+                    ]
+                },
+                {
+                    "id": 10,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "type": "object",
+                    "visible": true,
+                    "x": 1460,
+                    "y": 0,
+                    "properties": [
+                        {
+                            "keyName": "formula",
+                            "imgKey": "formula"
+                        }
+                    ]
+                },
+                {
+                    "id": 11,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "type": "object",
+                    "visible": true,
+                    "x": 1606,
+                    "y": 0,
+                    "properties": [
+                        {
+                            "keyName": "formula",
+                            "imgKey": "formula"
+                        }
+                    ]
+                },
+                {
+                    "id": 12,
+                    "gid": 2,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 146,
+                    "y": 876,
+                    "properties": [
+                        {
+                            "keyName": "result",
+                            "imgKey": "result"
+                        }
+                    ]
+                },
+                {
+                    "id": 13,
+                    "gid": 2,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 292,
+                    "y": 876,
+                    "properties": [
+                        {
+                            "keyName": "result",
+                            "imgKey": "result"
+                        }
+                    ]
+                },
+                {
+                    "id": 14,
+                    "gid": 2,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 438,
+                    "y": 876,
+                    "properties": [
+                        {
+                            "keyName": "result",
+                            "imgKey": "result"
+                        }
+                    ]
+                },
+                {
+                    "id": 15,
+                    "gid": 2,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 584,
+                    "y": 876,
+                    "properties": [
+                        {
+                            "keyName": "result",
+                            "imgKey": "result"
+                        }
+                    ]
+                },
+                {
+                    "id": 16,
+                    "gid": 2,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 730,
+                    "y": 876,
+                    "properties": [
+                        {
+                            "keyName": "result",
+                            "imgKey": "result"
+                        }
+                    ]
+                },
+                {
+                    "id": 17,
+                    "gid": 2,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 876,
+                    "y": 876,
+                    "properties": [
+                        {
+                            "keyName": "result",
+                            "imgKey": "result"
+                        }
+                    ]
+                },
+                {
+                    "id": 18,
+                    "gid": 2,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1022,
+                    "y": 876,
+                    "properties": [
+                        {
+                            "keyName": "result",
+                            "imgKey": "result"
+                        }
+                    ]
+                },
+                {
+                    "id": 19,
+                    "gid": 2,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1168,
+                    "y": 876,
+                    "properties": [
+                        {
+                            "keyName": "result",
+                            "imgKey": "result"
+                        }
+                    ]
+                },
+                {
+                    "id": 20,
+                    "gid": 2,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1314,
+                    "y": 876,
+                    "properties": [
+                        {
+                            "keyName": "result",
+                            "imgKey": "result"
+                        }
+                    ]
+                },
+                {
+                    "id": 21,
+                    "gid": 2,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1460,
+                    "y": 876,
+                    "properties": [
+                        {
+                            "keyName": "result",
+                            "imgKey": "result"
+                        }
+                    ]
+                },
+                {
+                    "id": 22,
+                    "gid": 2,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1606,
+                    "y": 876,
+                    "properties": [
+                        {
+                            "keyName": "result",
+                            "imgKey": "result"
+                        }
+                    ]
+                }
+            ],
+            "opacity": 1,
+            "type": "objectgroup",
+            "visible": true,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "id": 3,
+            "draworder": "toptodown",
+            "name": "Character Layer",
+            "objects": [
+                {
+                    "id": 23,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "type": "player",
+                    "visible": true,
+                    "x": 0,
+                    "y": 146,
+                    "properties": [
+                        {
+                            "keyName": "player",
+                            "imgKey": "player"
+                        }
+                    ]
+                }
+            ],
+            "opacity": 1,
+            "type": "objectgroup",
+            "visible": true,
+            "x": 0,
+            "y": 0
+        }
+    ],
+    "nextlayerid": 2,
+    "nextobjectid": 1,
+    "orientation": "orthogonal",
+    "renderorder": "right-down",
+    "tilesets": [
+        {
+            "columns": 1,
+            "firstgid": 1,
+            "image": "",
+            "imageheight": 292,
+            "imagewidth": 289,
+            "margin": 0,
+            "name": "maza",
+            "spacing": 0,
+            "tilecount": 2,
+            "tileheight": 146,
+            "tilewidth": 289
+        }
+    ],
+    "type": "map"
+}

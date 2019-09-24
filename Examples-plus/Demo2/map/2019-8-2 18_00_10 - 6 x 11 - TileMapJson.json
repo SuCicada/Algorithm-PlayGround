@@ -1,0 +1,289 @@
+{
+    "height": 6,
+    "width": 11,
+    "tileheight": 144.5,
+    "tilewidth": 144.5,
+    "infinite": false,
+    "layers": [
+        {
+            "id": 1,
+            "data": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                2,
+                2,
+                2,
+                2,
+                2,
+                2,
+                2,
+                1,
+                0,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+                0,
+                1,
+                4,
+                4,
+                4,
+                4,
+                4,
+                4,
+                4,
+                1,
+                0,
+                0,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "height": 6,
+            "width": 11,
+            "name": "layer1",
+            "opacity": 1,
+            "type": "tilelayer",
+            "visible": true,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "id": 2,
+            "draworder": "toptodown",
+            "name": "Object Layer",
+            "objects": [
+                {
+                    "id": 1,
+                    "gid": 1,
+                    "height": 144.5,
+                    "width": 144.5,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 289,
+                    "y": 289,
+                    "properties": [
+                        {
+                            "keyName": "numBlock",
+                            "imgKey": "numBlock",
+                            "bgColor": "rgba(169,111,42,0.39)",
+                            "text": "9"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "gid": 1,
+                    "height": 144.5,
+                    "width": 144.5,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 433.5,
+                    "y": 289,
+                    "properties": [
+                        {
+                            "keyName": "numBlock",
+                            "imgKey": "numBlock"
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "gid": 1,
+                    "height": 144.5,
+                    "width": 144.5,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 578,
+                    "y": 289,
+                    "properties": [
+                        {
+                            "keyName": "numBlock",
+                            "imgKey": "numBlock"
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "gid": 1,
+                    "height": 144.5,
+                    "width": 144.5,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 722.5,
+                    "y": 289,
+                    "properties": [
+                        {
+                            "keyName": "numBlock",
+                            "imgKey": "numBlock"
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "gid": 1,
+                    "height": 144.5,
+                    "width": 144.5,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 867,
+                    "y": 289,
+                    "properties": [
+                        {
+                            "keyName": "numBlock",
+                            "imgKey": "numBlock"
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "gid": 1,
+                    "height": 144.5,
+                    "width": 144.5,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1011.5,
+                    "y": 289,
+                    "properties": [
+                        {
+                            "keyName": "numBlock",
+                            "imgKey": "numBlock"
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "gid": 1,
+                    "height": 144.5,
+                    "width": 144.5,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1156,
+                    "y": 289,
+                    "properties": [
+                        {
+                            "keyName": "numBlock",
+                            "imgKey": "numBlock"
+                        }
+                    ]
+                },
+                {
+                    "id": 8,
+                    "gid": 2,
+                    "height": 144.5,
+                    "width": 144.5,
+                    "name": "",
+                    "rotation": 0,
+                    "type": "object",
+                    "visible": true,
+                    "x": 144.5,
+                    "y": 433.5,
+                    "properties": [
+                        {
+                            "keyName": "chukou",
+                            "imgKey": "chukou"
+                        }
+                    ]
+                }
+            ],
+            "opacity": 1,
+            "type": "objectgroup",
+            "visible": true,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "id": 3,
+            "draworder": "toptodown",
+            "name": "Character Layer",
+            "objects": [
+                {
+                    "id": 9,
+                    "gid": 1,
+                    "height": 144.5,
+                    "width": 144.5,
+                    "name": "",
+                    "rotation": 0,
+                    "type": "player",
+                    "visible": true,
+                    "x": 144.5,
+                    "y": 144.5,
+                    "properties": [
+                        {
+                            "keyName": "player",
+                            "imgKey": "player"
+                        }
+                    ]
+                }
+            ],
+            "opacity": 1,
+            "type": "objectgroup",
+            "visible": true,
+            "x": 0,
+            "y": 0
+        }
+    ],
+    "nextlayerid": 2,
+    "nextobjectid": 1,
+    "orientation": "orthogonal",
+    "renderorder": "right-down",
+    "tilesets": [
+        {
+            "columns": 2,
+            "firstgid": 1,
+            "image": "",
+            "imageheight": 292,
+            "imagewidth": 289,
+            "margin": 0,
+            "name": "maza",
+            "spacing": 0,
+            "tilecount": 4,
+            "tileheight": 146,
+            "tilewidth": 144.5
+        }
+    ],
+    "type": "map"
+}
