@@ -3,9 +3,23 @@ YourGame = {
 
     },
     preload: function(){
+        var up = [
+            '3333333',
+            '3..3..3',
+            '3.333.3',
+            '3333333',
+            '3..3..3',
+            '3..3..3',
+            '3333333'
+        ];
+        var down = [
+
+        ];
+        game.load.imageFromTexture('plus', up, 30);
     },
     create: function(){
 
+        // widthUp = game.add.sprite(180, 60, 'plus');
         // this.pad = game.plugins.add(Phaser.VirtualJoystick);
         // this.stick = this.pad.
 

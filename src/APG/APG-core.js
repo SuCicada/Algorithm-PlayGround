@@ -5,9 +5,15 @@ window.onload=function() {
     HEIGHT = globalConfig.HEIGHT? globalConfig.HEIGHT: window.screen.height;
     MODE = globalConfig.MODE? globalConfig.MODE: 'CANVAS';
 
-    APG.WIDTH = WIDTH;
     APG.MODE = MODE;
+    if(WIDTH<HEIGHT){
+        var temp = WIDTH
+        WIDTH = HEIGHT;
+        HEIGHT = temp;
+    }
+    APG.WIDTH = WIDTH;
     APG.HEIGHT = HEIGHT;
+
 
     game = new Phaser.Game(WIDTH,HEIGHT,MODE, '');
     game.state.add('bootstrap', bootstrap);
@@ -113,33 +119,61 @@ function getDirection() {
             break;
     }
 }
-getDirection();
-Phaser.World.prototype.displayObjectUpdateTransform = function () {
-    let height = screen.height;
-    let width = screen.width;
-    if (direction == '1') {
-        game.scale.setGameSize(height, width)
-        this.x = game.camera.y + game.width;
-        this.y = -game.camera.x;
-        this.rotation = Phaser.Math.degToRad(Phaser.Math.wrapAngle(90));
-    } else {
-        game.scale.setGameSize(width, height)
-        this.x = -game.camera.x;
-        this.y = -game.camera.y;
-        this.rotation = 0;
+// getDirection();
+function someinit(){
+    game.scale.onOrientationChange.add(function() {
+        if(game.scale.isLandscape) {
+            game.scale.correct = true;
+            game.scale.setGameSize(WIDTH, HEIGHT);
+        } else {
+            game.scale.correct = false;
+            game.scale.setGameSize(HEIGHT, WIDTH);
+        }
+    }, this)
+}
+
+function someboot(){
+    Phaser.World.prototype.displayObjectUpdateTransform = function () {
+        let height = screen.height;
+        let width = screen.width;
+        if(height>width){
+            direction = '1'
+        }else{
+            direction = '-'
+        }
+        // console.log(direction)
+        // if (direction == '1') {
+        var flag = 1;
+        // if(!game.scale.correct){
+        if(flag == 1){
+            // game.scale.setGameSize(height, width)
+            // game.scale.setGameSize(width, height)
+
+            this.x = game.camera.y + game.width;
+            this.y = -game.camera.x;
+            this.rotation = Phaser.Math.degToRad(Phaser.Math.wrapAngle(90));
+        } else {
+            game.scale.setGameSize(width, height)
+            this.x = -game.camera.x;
+            this.y = -game.camera.y;
+            this.rotation = 0;
+        }
+        PIXI.DisplayObject.prototype.updateTransform.call(this);
     }
-    PIXI.DisplayObject.prototype.updateTransform.call(this);
 }
 
 var bootstrap = {
     init: function () {
-        // document.getElementsByTagName("canvas")[0].style.transform = "rotate(90deg)";
+        document.getElementsByTagName("canvas")[0].style.transform = "rotate(90deg)";
         if (!(globalConfig.ScaleMode == "EXACT_FIT")){
             game.scale.pageAlignHorizontally = true;
             game.scale.pageAlignVertically = true;
         }
         game.scale.scaleMode = Phaser.ScaleManager[globalConfig.ScaleMode];
         game.scale.refresh();
+
+        // someinit();
+        // someboot();
     },
     preload: function() {
 

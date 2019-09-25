@@ -357,7 +357,7 @@ function createUI() {
     widthDown.input.useHandCursor = true;
     widthDown.events.onInputDown.add(decreaseSize, this);
 
-    //  Change height
+    //  Change heightplus
 
     heightText = game.add.text(rightCol, 100, "Height: " + spriteHeight, style);
 
