@@ -100,9 +100,40 @@ APG.Group = {};
 APG.Target = {};
 APG.Character = {};
 
+let direction = '1'
+function getDirection() {
+    switch (window.orientation) {
+        case 0:
+        case 180:
+            direction = '1'
+            break;
+        case -90:
+        case 90:
+            direction = '一'
+            break;
+    }
+}
+getDirection();
+Phaser.World.prototype.displayObjectUpdateTransform = function () {
+    let height = screen.height;
+    let width = screen.width;
+    if (direction == '1') {
+        game.scale.setGameSize(height, width)
+        this.x = game.camera.y + game.width;
+        this.y = -game.camera.x;
+        this.rotation = Phaser.Math.degToRad(Phaser.Math.wrapAngle(90));
+    } else {
+        game.scale.setGameSize(width, height)
+        this.x = -game.camera.x;
+        this.y = -game.camera.y;
+        this.rotation = 0;
+    }
+    PIXI.DisplayObject.prototype.updateTransform.call(this);
+}
 
 var bootstrap = {
     init: function () {
+        // document.getElementsByTagName("canvas")[0].style.transform = "rotate(90deg)";
         if (!(globalConfig.ScaleMode == "EXACT_FIT")){
             game.scale.pageAlignHorizontally = true;
             game.scale.pageAlignVertically = true;

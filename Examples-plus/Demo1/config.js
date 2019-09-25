@@ -3,6 +3,7 @@ var globalConfig = {
     HEIGHT: 0,
     MODE: 'CANVAS',  /* 渲染模式, WEBGL AUTO*/
     ScaleMode: "SHOW_ALL",
+    // ScaleMode: "",
     FullScreen: false,   /* 初始全屏, 可以使用函数修改*/
     DeveloperModel: 'YourGame',  // Default
     BagSystem: true,    /* 初始背包系统, 可以使用函数修改 */
