@@ -72,9 +72,24 @@ YourGame = {
             APG.DeveloperModel.Key = 'RIGHT';
         });
 
-        buttonTool1 = game.add.button(APG.WIDTH*0.8, siteY, 'tool1',function(){
+        buttonTool1 = game.add.button(APG.WIDTH*0.8, siteY, 'tool1');
+        buttonTool1.events.onInputDown.add(function(){
             APG.DeveloperModel.putXinbiao.apply(APG.DeveloperModel)
         });
+        // fullScreen();
+        game.input.onTap.add(function(){
+            // if(game.input.activePointer.isDown){
+                var clickX = game.input.activePointer.clientX;
+                var clickY = game.input.activePointer.clientY;
+                // alert(clickX,clickY);
+                 console.log(clickX,clickY)
+            console.log(buttonUp.x,buttonUp.y,buttonUp.width,buttonUp.height)
+                if(APG.Game.isInner(buttonUp,clickX,clickY)){
+                    // console.log(22)
+                    APG.DeveloperModel.Key = 'UP';
+                }
+            // }
+        },this)
 
         // this.pad = game.plugins.add(Phaser.VirtualJoystick);
         // this.stick = this.pad.

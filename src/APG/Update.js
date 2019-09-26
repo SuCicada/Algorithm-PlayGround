@@ -63,7 +63,7 @@ APG.Update.listenKey.addKeyEvent = function(key, feedback, context, that=APG.Dev
  * @param {{}} [that = APG.DeveloperModel] - 回调上下文
  */
 APG.Update.listenKey.characterMoveEvent = function(playerG, role, resolve, resolveContext, reject, rejectContext, that=APG.DeveloperModel, secretKey) {
-    console.log(secretKey);
+    // console.log(secretKey);
     for (var k in APG.Keys.move) {
         if (APG.Keys[APG.Keys.move[k]].justDown || k == secretKey) {
             console.log(k+" is justDown.")

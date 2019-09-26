@@ -249,3 +249,10 @@ APG.Game.fireKeyEvent = function(el, evtType, keyCode){
         el.fireEvent('on' + evtType, evtObj);
     }
 }
+
+APG.Game.isInner =function(sprite, x,y){
+    if(x>=sprite.x && x<=sprite.x+sprite.width && y>=sprite.y && y<=sprite.y+sprite.height){
+        return true;
+    }
+    return false;
+}
