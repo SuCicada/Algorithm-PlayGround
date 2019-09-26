@@ -148,8 +148,8 @@ function someinit(){
 
 function someboot(){
     Phaser.World.prototype.displayObjectUpdateTransform = function () {
-        let height = document.body.offsetHeight;
-        let width = document.body.offsetWidth;
+        let height = screen.height;
+        let width = screen.width;
         if(height>width){
             direction = '1'
         }else{

@@ -13,13 +13,43 @@ YourGame = {
             '3333333'
         ];
         var down = [
-
+            '3333333',
+            '3..3..3',
+            '3..3..3',
+            '3333333',
+            '3.333.3',
+            '3..3..3',
+            '3333333'
         ];
-        game.load.imageFromTexture('plus', up, 30);
+        var left = [
+            '3333333',
+            '3..3..3',
+            '3.33..3',
+            '3333333',
+            '3.33..3',
+            '3..3..3',
+            '3333333'
+        ]
+        var right = [
+            '3333333',
+            '3..3..3',
+            '3..33.3',
+            '3333333',
+            '3..33.3',
+            '3..3..3',
+            '3333333'
+        ]
+        game.load.imageFromTexture('up', up, 10);
+        game.load.imageFromTexture('down', down, 10);
+        game.load.imageFromTexture('left', left, 10);
+        game.load.imageFromTexture('right', right, 10);
     },
     create: function(){
 
-        // widthUp = game.add.sprite(180, 60, 'plus');
+        buttonUp = game.add.sprite(100, 200, 'up');
+        buttonDown = game.add.sprite(300, 200, 'down');
+        buttonleft = game.add.sprite(100, 300, 'left');
+        buttonRight = game.add.sprite(100, 100, 'right');
         // this.pad = game.plugins.add(Phaser.VirtualJoystick);
         // this.stick = this.pad.
 
