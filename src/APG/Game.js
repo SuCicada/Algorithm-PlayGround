@@ -251,7 +251,20 @@ APG.Game.fireKeyEvent = function(el, evtType, keyCode){
 }
 
 APG.Game.isInner =function(sprite, x,y){
-    if(x>=sprite.x && x<=sprite.x+sprite.width && y>=sprite.y && y<=sprite.y+sprite.height){
+    s = {}
+    s.x = sprite.x
+    s.y = sprite.y
+    s.width = sprite.width
+    s.height = sprite.height
+    if(isvertical){
+        s.x = APG.HEIGHT-sprite.y-sprite.height;
+        s.y = sprite.x
+    }
+    console.log(s)
+    console.log(x,y)
+
+    if(x>=s.x && x<=s.x+s.width &&
+        y>=s.y && y<=s.y+s.height){
         return true;
     }
     return false;

@@ -65,7 +65,7 @@ YourGame = {
         buttonDown = game.add.button(siteX, siteY+bar, 'down',function(){
             APG.DeveloperModel.Key = 'DOWN';
         });
-        buttonleft = game.add.button(siteX-bar, siteY, 'left',function(){
+        buttonLeft = game.add.button(siteX-bar, siteY, 'left',function(){
             APG.DeveloperModel.Key = 'LEFT';
         });
         buttonRight = game.add.button(siteX+bar, siteY, 'right',function(){
@@ -82,11 +82,19 @@ YourGame = {
                 var clickX = game.input.activePointer.clientX;
                 var clickY = game.input.activePointer.clientY;
                 // alert(clickX,clickY);
-                 console.log(clickX,clickY)
-            console.log(buttonUp.x,buttonUp.y,buttonUp.width,buttonUp.height)
+                //  console.log(clickX,clickY)
+            // console.log(buttonUp.x,buttonUp.y,buttonUp.width,buttonUp.height)
                 if(APG.Game.isInner(buttonUp,clickX,clickY)){
                     // console.log(22)
                     APG.DeveloperModel.Key = 'UP';
+                }else if(APG.Game.isInner(buttonDown,clickX, clickY)){
+                    APG.DeveloperModel.Key = 'DOWN';
+                }else if(APG.Game.isInner(buttonLeft,clickX, clickY)){
+                    APG.DeveloperModel.Key = 'LEFT';
+                }else if(APG.Game.isInner(buttonRight,clickX, clickY)){
+                    APG.DeveloperModel.Key = 'RIGHT';
+                }else if(APG.Game.isInner(buttonTool1,clickX, clickY)){
+                    APG.DeveloperModel.putXinbiao.apply(APG.DeveloperModel)
                 }
             // }
         },this)

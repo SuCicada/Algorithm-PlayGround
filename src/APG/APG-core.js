@@ -126,11 +126,19 @@ function someboot(){
         let width = screen.width;
         if(height>width){
             var direction = '1'
+            isvertical = 1;
         }else{
             var direction = '-'
+            isvertical = 0;
         }
         // console.log(direction)
-        if (direction == '1') {
+        if(isvertical){
+            // console.error(APG.HEIGHT, APG.WIDTH)
+            document.getElementsByTagName("body")[0].style.transform = "rotate(90deg)";
+            // document.getElementsByTagName("canvas")[0].style.transform = "rotate(90deg)";
+            game.scale.setGameSize(APG.WIDTH, APG.HEIGHT)
+        // }
+        // if (direction == '1') {
         // var flag = 1;
         // if(!game.scale.correct){
         // if(flag == 1){
@@ -165,12 +173,7 @@ function someboot(){
 
 var bootstrap = {
     init: function () {
-        if(isvertical){
-            // console.error(APG.HEIGHT, APG.WIDTH)
-            document.getElementsByTagName("body")[0].style.transform = "rotate(90deg)";
-            // document.getElementsByTagName("canvas")[0].style.transform = "rotate(90deg)";
-            game.scale.setGameSize(APG.WIDTH, APG.HEIGHT)
-        }
+
         if (!(globalConfig.ScaleMode == "EXACT_FIT")){
             // game.scale.pageAlignHorizontally = true;
             // game.scale.pageAlignVertically = true;
