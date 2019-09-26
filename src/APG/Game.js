@@ -41,7 +41,7 @@ APG.Game.getGameMODE = function(){
  */
 APG.Game.README = function(){
     let config = globalConfig.README;
-    // config.font.size = WIDTH/(config.text.length)*2
+    config.font.size = WIDTH/(Math.sqrt(config.text.length/2))/5
 
 
     APG.Update.listenKey.stopListenKey();
