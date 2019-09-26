@@ -77,6 +77,7 @@ APG.Game.README = function(){
         str += config.text[i];
         index++;
     }
+
     config.text = str;
     let text = game.add.text(WIDTH/2, y*1.2, config.text, style);
     text.anchor.set(0.5,0);
