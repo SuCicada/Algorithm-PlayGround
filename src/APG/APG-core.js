@@ -4,7 +4,7 @@ console.log("APG-core.js has been loaded successfully.")
 var isvertical = 0;
 var splitbar ;
 window.onload=function() {
-    WIDTH = globalConfig.WIDTH? globalConfig.WIDTH: window.screen.width;
+    WIDTH = globalConfig.WIDTH? globalConfig.WIDTH: document.body.offsetWidth;
     HEIGHT = globalConfig.HEIGHT? globalConfig.HEIGHT: window.screen.height;
     MODE = globalConfig.MODE? globalConfig.MODE: 'CANVAS';
 
@@ -21,7 +21,7 @@ window.onload=function() {
     var gege = Math.min(WIDTH/16,HEIGHT/9);
     console.log(gege,WIDTH, HEIGHT)
     splitbar  = (WIDTH - HEIGHT/9*16 )/2;
-    WIDTH = Math.min(HEIGHT/9*16,WIDTH);
+    // WIDTH = Math.min(HEIGHT/9*16,WIDTH);
     // HEIGHT = gege*9;
     console.log(WIDTH, HEIGHT)
 
@@ -148,8 +148,8 @@ function someinit(){
 
 function someboot(){
     Phaser.World.prototype.displayObjectUpdateTransform = function () {
-        let height = screen.height;
-        let width = screen.width;
+        let height = document.body.offsetHeight;
+        let width = document.body.offsetWidth;
         if(height>width){
             direction = '1'
         }else{
@@ -166,14 +166,19 @@ function someboot(){
             // this.x = game.camera.y + game.width;
             // this.y = -game.camera.x;
             // this.rotation = Phaser.Math.degToRad(Phaser.Math.wrapAngle(90));
-            document.getElementsByTagName("body")[0].style.transform = "rotate(90deg)";
-            document.getElementsByTagName("body")[0].style.margin= '0px';
-            document.getElementsByTagName("body")[0].style.marginTop= splitbar + 'px';
+            var body = document.getElementsByTagName("body")[0];
+            var canvas = document.getElementsByTagName("canvas")[0];
+            body.style.transform = "rotate(90deg)";
+            // body.style.margin= '0px';
+            // body.style.marginTop= splitbar + 'px';
+            // console.log(canvas.height)
+            // console.log(canvas.width)
 
+            // canvas.width = 1000;
         } else {
             document.getElementsByTagName("body")[0].style.transform = "rotate(0deg)";
-            document.getElementsByTagName("body")[0].style.margin= '0px';
-            document.getElementsByTagName("body")[0].style.marginLeft= splitbar + 'px';
+            // document.getElementsByTagName("body")[0].style.margin= '0px';
+            // document.getElementsByTagName("body")[0].style.marginLeft= splitbar + 'px';
 
             // game.scale.setGameSize(width, height)
             // this.x = -game.camera.x;
