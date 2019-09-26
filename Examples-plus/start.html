@@ -13,25 +13,35 @@
 </head>
 <body class="bg" style="background:url(start.png) no-repeat ;
     background-position-x: center;
-background-size: auto ";
->
-<div id="start"  style="
-        background:red;
+    background-size: auto ";
+    >
+    <div id="start"  style="
+        background-color:red;
         /*margin: 0 auto;*/
-        left: 50%;
-        top: 50%;
+        /*left: 50%;*/
+        /*top: 50%;*/
+        opacity:0.0;
+        /*filter: alpha(opacity=10);*/
         position: absolute;"
->
-    <!--    &lt;!&ndash;        <img src="./show.png" width="200%" alt="跳转到某个网页地址"/></a>&ndash;&gt;-->
-    <!--            <span style="color: #23f93b; "> </span>-->
-</div>
-<!--    </div>-->
+        onclick="window.location.href='select.html'"
+    >
+        <!--    &lt;!&ndash;        <img src="./show.png" width="200%" alt="跳转到某个网页地址"/></a>&ndash;&gt;-->
+        <!--            <span style="color: #23f93b; "> </span>-->
+<!--        sddfsdfsdfsdfsfdfsdfsdf-->
+    </div>
 
 <script>
     var w = screen.width;
     var h = screen.height;
     var start = document.getElementById("start");
+    style = start.style.cssText;
+    start.setAttribute("style",style+"display:block;width:"+(w*0.3)+"px;height:"+(w*0.2)+"px;")
     start.style.color = "red";
+    start.style.top = "80%";
+    // start.setAttribute("style","display:block;height:"+(w*0.15)+"px")
+    start.style.width = w*0.3+"px";
+    start.style.height = h*0.2+"px";
+    start.style.marginLeft = (w-w*0.3)/2+"px";
 </script>
 </body>
 </html>

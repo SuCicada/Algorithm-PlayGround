@@ -1,21 +1,107 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-</head>
-<body>
-    <div>
-        <a href="Demo1">深度遍历树迷宫</a>
-        <br>
-        <a href="Demo2">双向冒泡排序</a>
-        <br>
-        <a href="Demo3">中缀转后缀表达式</a>
-        <br>
+    <style>
+        .ShaShiDi{
+            /*width:500px;*/
+            /*height:400px;*/
+            /*display:flex;*/
+            /*align-items:center;*/
+            /*justify-content:center;*/
+            /*为了效果明显，可以将如下边框打开，看一下效果*/
+            /* border:1px solid black; */
+            /*position:relative*/
+            position: absolute;
+        }
 
+        .ShaShiDi img{
+            height:100%;
+            /*width:100%;*/
+            /*margin-left: 0;*/
+            /*object-fit:cover;*/
+
+        }
+
+    </style>
+</head>
+<body style="background-color:#dbdbdb">
+<!--        class="bg" style="background:url(select.png) no-repeat ;-->
+<!--    /*background-position-y: center;*/-->
+<!--    height:1200%;-->
+<!--    width: 200%;-->
+<!--    left:0;-->
+<!--    min-height: 100%;-->
+
+<!--    /*background-size:;*/-->
+<!--"-->
+
+    <div class="ShaShiDi">
+        <img src="./select.png"/>
     </div>
+
+    <div id="demo1"  style="
+            background-color:red;
+            opacity:0.0;
+            position: absolute;"
+         onclick="window.location.href='Demo1'"
+    >
+    </div>
+    <div id="demo2"  style="
+                background-color:red;
+                opacity:0.0;
+                position: absolute;"
+         onclick="window.location.href='Demo2'"
+    >
+    </div>
+    <div id="demo3"  style="
+                background-color:red;
+                opacity:0.0;
+                position: absolute;"
+         onclick="window.location.href='Demo3'"
+    >
+    </div>
+
+<script>
+    var w = screen.width;
+    var h = screen.height;
+    document.getElementsByClassName("ShaShiDi")[0].style.height = h+'px';
+
+    var start = document.getElementById("demo1");
+    style = start.style.cssText;
+    start.setAttribute("style",style+"kwidth:"+(w*0.3)+"px;height:"+(w*0.2)+"px;")
+    start.style.color = "red";
+    // start.style.top = "";
+    // start.setAttribute("style","display:block;height:"+(w*0.15)+"px")
+    start.style.width = w*0.38+"px";
+    start.style.height = h*0.45+"px";
+    start.style.marginTop = (h-h*0.5)/2+"px";
+    start.style.marginLeft = (w*0.04)+"px";
+
+
+    var demo2 = document.getElementById("demo2");
+    style = demo2.style.cssText;
+    demo2.setAttribute("style",style+"width:"+(w*0.38)+"px;height:"+(w*0.45)+"px;")
+    demo2.style.color = "red";
+    demo2.style.width = w*0.38+"px";
+    demo2.style.height = h*0.45+"px";
+    demo2.style.marginTop = (h-h*0.5)/2+"px";
+    demo2.style.marginLeft = ((w*0.04)*2+w*0.38)+"px";
+
+    var demo3 = document.getElementById("demo3");
+    style = demo3.style.cssText;
+    demo3.setAttribute("style",style+"width:"+(w*0.38)+"px;height:"+(w*0.45)+"px;")
+    demo3.style.color = "red";
+    demo3.style.width = w*0.38+"px";
+    demo3.style.height = h*0.45+"px";
+    demo3.style.marginTop = (h-h*0.5)/2+"px";
+    demo3.style.marginLeft = ((w*0.04)*3+w*0.38*2)+"px";
+
+</script>
+
 </body>
 </html>
