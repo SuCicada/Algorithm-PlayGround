@@ -84,8 +84,9 @@ APG.Game.README = function(){
     text2.anchor.set(1,1);
 
     bar.inputEnabled = true;
-    bar.input.useHandCursor = true;
+    // bar.input.useHandCursor = true;
     bar.events.onInputDown.add(function(){
+        // console.log(1111)
         bar.destroy();
         text.destroy();
         text2.destroy();

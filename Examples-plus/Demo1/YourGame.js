@@ -3,54 +3,56 @@ YourGame = {
 
     },
     preload: function(){
-        var up = [
-            '3333333',
-            '3..3..3',
-            '3.333.3',
-            '3333333',
-            '3..3..3',
-            '3..3..3',
-            '3333333'
-        ];
-        var down = [
-            '3333333',
-            '3..3..3',
-            '3..3..3',
-            '3333333',
-            '3.333.3',
-            '3..3..3',
-            '3333333'
-        ];
-        var left = [
-            '3333333',
-            '3..3..3',
-            '3.33..3',
-            '3333333',
-            '3.33..3',
-            '3..3..3',
-            '3333333'
-        ]
-        var right = [
-            '3333333',
-            '3..3..3',
-            '3..33.3',
-            '3333333',
-            '3..33.3',
-            '3..3..3',
-            '3333333'
-        ]
+        // var up = [
+        //     '3333333',
+        //     '3..3..3',
+        //     '3.333.3',
+        //     '3333333',
+        //     '3..3..3',
+        //     '3..3..3',
+        //     '3333333'
+        // ];
+        // var down = [
+        //     '3333333',
+        //     '3..3..3',
+        //     '3..3..3',
+        //     '3333333',
+        //     '3.333.3',
+        //     '3..3..3',
+        //     '3333333'
+        // ];
+        // var left = [
+        //     '3333333',
+        //     '3..3..3',
+        //     '3.33..3',
+        //     '3333333',
+        //     '3.33..3',
+        //     '3..3..3',
+        //     '3333333'
+        // ]
+        // var right = [
+        //     '3333333',
+        //     '3..3..3',
+        //     '3..33.3',
+        //     '3333333',
+        //     '3..33.3',
+        //     '3..3..3',
+        //     '3333333'
+        // ]
 
         var tool1 = [
-            '13431234',
-            '23411232',
-            '12321231',
-            '4413123121'
+            '2222222222',
+            '222      2',
+            '2   22   2',
+            '2   22   2',
+            '2        2',
+            '2222222222',
         ]
         var size = APG.HEIGHT / 100;
-        game.load.imageFromTexture('up', up, size);
-        game.load.imageFromTexture('down', down, size);
-        game.load.imageFromTexture('left', left, size);
-        game.load.imageFromTexture('right', right, size);
+        // game.load.imageFromTexture('up', up, size);
+        // game.load.imageFromTexture('down', down, size);
+        // game.load.imageFromTexture('left', left, size);
+        // game.load.imageFromTexture('right', right, size);
         game.load.imageFromTexture('tool1', tool1, size);
     },
     create: function(){
@@ -96,7 +98,6 @@ YourGame = {
                 }else if(APG.Game.isInner(buttonTool1,clickX, clickY)){
                     APG.DeveloperModel.putXinbiao.apply(APG.DeveloperModel)
                 }
-            // }
         },this)
 
         // this.pad = game.plugins.add(Phaser.VirtualJoystick);

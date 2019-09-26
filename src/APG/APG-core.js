@@ -171,6 +171,51 @@ function someboot(){
     }
 }
 
+var showButton = function(){
+    var up = [
+        '3333333',
+        '3..3..3',
+        '3.333.3',
+        '3333333',
+        '3..3..3',
+        '3..3..3',
+        '3333333'
+    ];
+    var down = [
+        '3333333',
+        '3..3..3',
+        '3..3..3',
+        '3333333',
+        '3.333.3',
+        '3..3..3',
+        '3333333'
+    ];
+    var left = [
+        '3333333',
+        '3..3..3',
+        '3.33..3',
+        '3333333',
+        '3.33..3',
+        '3..3..3',
+        '3333333'
+    ]
+    var right = [
+        '3333333',
+        '3..3..3',
+        '3..33.3',
+        '3333333',
+        '3..33.3',
+        '3..3..3',
+        '3333333'
+    ]
+
+    var size = APG.HEIGHT / 100;
+    game.load.imageFromTexture('up', up, size);
+    game.load.imageFromTexture('down', down, size);
+    game.load.imageFromTexture('left', left, size);
+    game.load.imageFromTexture('right', right, size);
+}
+
 var bootstrap = {
     init: function () {
 
@@ -185,7 +230,7 @@ var bootstrap = {
         someboot();
     },
     preload: function() {
-
+        showButton();
         game.load.json('mazajson', globalConfig.Assets.tileMap.tileMapJson);
     },
     create: function(){
