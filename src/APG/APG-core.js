@@ -171,50 +171,6 @@ function someboot(){
     }
 }
 
-var showButton = function(){
-    var up = [
-        '3333333',
-        '3..3..3',
-        '3.333.3',
-        '3333333',
-        '3..3..3',
-        '3..3..3',
-        '3333333'
-    ];
-    var down = [
-        '3333333',
-        '3..3..3',
-        '3..3..3',
-        '3333333',
-        '3.333.3',
-        '3..3..3',
-        '3333333'
-    ];
-    var left = [
-        '3333333',
-        '3..3..3',
-        '3.33..3',
-        '3333333',
-        '3.33..3',
-        '3..3..3',
-        '3333333'
-    ]
-    var right = [
-        '3333333',
-        '3..3..3',
-        '3..33.3',
-        '3333333',
-        '3..33.3',
-        '3..3..3',
-        '3333333'
-    ]
-
-    var size = APG.HEIGHT / 100;
-    game.load.imageFromTexture('up', up, size);
-    game.load.imageFromTexture('down', down, size);
-    game.load.imageFromTexture('left', left, size);
-    game.load.imageFromTexture('right', right, size);
-}
 
 var bootstrap = {
     init: function () {
@@ -234,6 +190,24 @@ var bootstrap = {
         game.load.json('mazajson', globalConfig.Assets.tileMap.tileMapJson);
     },
     create: function(){
+
+
+        game.input.onTap.add(function(){
+            var clickX = game.input.activePointer.clientX;
+            var clickY = game.input.activePointer.clientY;
+            if(APG.Game.isInner(buttonUp,clickX,clickY)){
+                APG.DeveloperModel.Key = 'UP';
+            }else if(APG.Game.isInner(buttonDown,clickX, clickY)){
+                APG.DeveloperModel.Key = 'DOWN';
+            }else if(APG.Game.isInner(buttonLeft,clickX, clickY)){
+                APG.DeveloperModel.Key = 'LEFT';
+            }else if(APG.Game.isInner(buttonRight,clickX, clickY)){
+                APG.DeveloperModel.Key = 'RIGHT';
+            }else if(APG.Game.isInner(buttonTool1,clickX, clickY)){
+                APG.DeveloperModel.swapBlock.apply(APG.DeveloperModel)
+            }
+        },this)
+
         /* 地图配置文件 */
         TileMapJson = game.cache.getJSON('mazajson');
         console.log(TileMapJson)
@@ -577,9 +551,13 @@ var startGame = {
             APG.DeveloperModel.create.apply(APG.DeveloperModel);
         }
 
+        myOtherCreate();
+
         if(globalConfig.README){
             APG.Game.README();
         }
+
+
     },
     update: function(){
         APG.FPSRate++;
@@ -709,4 +687,107 @@ function autoResizeImg(imgSrc, width, height){
         };
         img.src = imgSrc;
     });
+}
+
+var showButton = function(){
+    var up = [
+        '3333333',
+        '3..3..3',
+        '3.333.3',
+        '3333333',
+        '3..3..3',
+        '3..3..3',
+        '3333333'
+    ];
+    var down = [
+        '3333333',
+        '3..3..3',
+        '3..3..3',
+        '3333333',
+        '3.333.3',
+        '3..3..3',
+        '3333333'
+    ];
+    var left = [
+        '3333333',
+        '3..3..3',
+        '3.33..3',
+        '3333333',
+        '3.33..3',
+        '3..3..3',
+        '3333333'
+    ]
+    var right = [
+        '3333333',
+        '3..3..3',
+        '3..33.3',
+        '3333333',
+        '3..33.3',
+        '3..3..3',
+        '3333333'
+    ]
+
+    var exit = [
+        '2    2',
+        ' 2  2 ',
+        '  22  ',
+        ' 2  2 ',
+        '2    2',
+    ]
+    
+    var restart = [
+        ' 2222 ',
+        '2    2',
+        '2 2  2',
+        '2 2222',
+        '2     ',
+        ' 222  ',
+    ]
+
+    var size = APG.HEIGHT / 70;
+    game.load.imageFromTexture('up', up, size);
+    game.load.imageFromTexture('down', down, size);
+    game.load.imageFromTexture('left', left, size);
+    game.load.imageFromTexture('right', right, size);
+    game.load.imageFromTexture('exit', exit, size);
+    game.load.imageFromTexture('restart', restart, size);
+}
+
+
+function myOtherCreate(){
+    var site = APG.HEIGHT / 60;
+    var exitButton = game.add.sprite(site,site,'exit');
+    var restartButton = game.add.sprite(site*10,site,'restart');
+
+    game.input.onTap.add(function(){
+        var clickX = game.input.activePointer.clientX;
+        var clickY = game.input.activePointer.clientY;
+        if(APG.Game.isInner(exitButton,clickX,clickY)){
+            history.back(-1);
+        }else if(APG.Game.isInner(restartButton,clickX,clickY)){
+            restartGame();
+        }
+    },APG.DeveloperModel)
+
+
+    var siteX = APG.HEIGHT * 0.2 ;
+    var siteY = APG.HEIGHT *0.7
+    var bar = APG.HEIGHT * 0.1;
+    buttonUp = game.add.button(siteX, siteY-bar, 'up')
+    buttonDown = game.add.button(siteX, siteY+bar, 'down')
+    buttonLeft = game.add.button(siteX-bar, siteY, 'left')
+    buttonRight = game.add.button(siteX+bar, siteY, 'right')
+    game.input.onTap.add(function(){
+        var clickX = game.input.activePointer.clientX;
+        var clickY = game.input.activePointer.clientY;
+        if(APG.Game.isInner(buttonUp,clickX,clickY)){
+            APG.DeveloperModel.Key = 'UP';
+        }else if(APG.Game.isInner(buttonDown,clickX, clickY)){
+            APG.DeveloperModel.Key = 'DOWN';
+        }else if(APG.Game.isInner(buttonLeft,clickX, clickY)){
+            APG.DeveloperModel.Key = 'LEFT';
+        }else if(APG.Game.isInner(buttonRight,clickX, clickY)){
+            APG.DeveloperModel.Key = 'RIGHT';
+        }
+    },this)
 }

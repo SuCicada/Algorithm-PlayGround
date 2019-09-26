@@ -41,7 +41,7 @@ APG.Game.getGameMODE = function(){
  */
 APG.Game.README = function(){
     let config = globalConfig.README;
-    config.font.size = WIDTH/(config.text.length)*2
+    // config.font.size = WIDTH/(config.text.length)*2
 
 
     APG.Update.listenKey.stopListenKey();
@@ -104,8 +104,8 @@ APG.Game.README = function(){
 APG.Game.WIN = function(str, func, that=APG.DeveloperModel){
     game.input.keyboard.stop();
 
-    let w = WIDTH * 0.5;
-    let h = HEIGHT * 0.5;
+    let w = WIDTH * 0.8;
+    let h = HEIGHT * 0.8;
     let x = (WIDTH - w) / 2;
     let y = (HEIGHT - w) / 2;
     let  bar = game.add.graphics();
@@ -137,10 +137,10 @@ APG.Game.WIN = function(str, func, that=APG.DeveloperModel){
 APG.Game.LOST = function(str, func, that=APG.DeveloperModel){
     game.input.keyboard.stop();
 
-    let w = WIDTH * 0.5;
-    let h = HEIGHT * 0.5;
-    let x = (WIDTH - w) / 2;
-    let y = (HEIGHT - w) / 2;
+    let w = APG.WIDTH * 0.8;
+    let h = APG.HEIGHT * 0.8;
+    let x = (APG.WIDTH - w) / 2;
+    let y = (APG.HEIGHT - h) / 2;
     let  bar = game.add.graphics();
     bar.beginFill('0x'+'#dfc9c8'.slice(1), 0.8);
     bar.drawRect(x, y, w, h);

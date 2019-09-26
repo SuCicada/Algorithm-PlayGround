@@ -5,60 +5,106 @@ var FM_List2_top = 0;
 var FORMULA = "(2-5+1)*6/3";
 var ANSWER = eval(FORMULA)
 YourGame = {
-		/*	游戏初始（文本块） 玩家操作（按键绑定）  碰撞检测  自定义属性变量 元素动画*/
-	    create: function(){
-			APG.Assets.playMusic('mu')
-			
-			Fm_Group = getTargetGroup("formula")
-			Fm_List = getSpriteList(Fm_Group)
-			console.log(Fm_List)
-			//loadTextBitMap(Fm_List[0],"3","#FFC107")
-			// Num_Arr = ["3","+","(","2","-","5",")","*","6","/","3"]
-			Num_Arr = FORMULA.split('')
-			loadTextBitMapBetween (Fm_Group,Num_Arr,"#ffbd00")
-			
+	/*	游戏初始（文本块） 玩家操作（按键绑定）  碰撞检测  自定义属性变量 元素动画*/
+	preload: function(){
+		var tool1 = [
+			'22222222222',
+			'2         2',
+			'2   22    2',
+			'2   22    2',
+			'2         2',
+			'2         2',
+			'2         2',
+			'22222222222',
+		]
+		var tool2 = [
+			'44444444444',
+			'4         4',
+			'4   44    4',
+			'4   44    4',
+			'4         4',
+			'4         4',
+			'4         4',
+			'44444444444',
+		]
+		var size = APG.HEIGHT / 60;
+		game.load.imageFromTexture('tool1', tool1, size);
+		game.load.imageFromTexture('tool2', tool2, size);
+	},
+	create: function(){
+		var siteX = APG.HEIGHT * 0.2 ;
+		var siteY = APG.HEIGHT *0.7
+		var bar = APG.HEIGHT * 0.1;
+		this.Key;
 
-			Fm_Group2 = getTargetGroup("result")
-			Fm_List2 = getSpriteList(Fm_Group2)
-			console.log(Fm_List2)
-			Num_Arr = [" "," "," "," "," "," "," "," "," "," "," "]
-			loadTextBitMapBetween (Fm_Group2,Num_Arr,"#efeb69")
-
-			this.player = APG.Group.getCharacterGroup('player');
-			player = this.player;
-			APG.Assets.playerMoveAnimations(this.player,{
-				/* 方向(大写,或小写 -> frames 或单个数字*/
-				right: 0,
-				LEFT: [1],
-				down: [2],
-				up: 3,
-			});
-
-
-			blockGroupOverlap(this.player, Fm_Group)
-			blockTileOverlap(this.player,0)
-			addKeyEvent('J',push);
-			addKeyEvent('K',pop);
-			// addKeyEvent('SPACEBAR',out);
-		},
-		update: function(){
-			site = getCharacterSite(this.player)
-			characterMoveEvent(this.player, null, drop, [site], null, null, this);
-			if(site.x == 12 && site.y == 1){
-				while(getBagSize()){
-					pop();
-				}
-				switch(check()){
-					case 1: WIN("你赢了")
-						break
-					case 0: LOST("答案错误,点击重来",restartGame)
-						break
-					case -1: LOST("算式错误,点击重来",restartGame)
-						break
-				}
-
+		buttonTool1 = game.add.button(APG.WIDTH*0.8, siteY, 'tool1');
+		buttonTool2 = game.add.button(APG.WIDTH*0.9, siteY, 'tool2');
+		game.input.onTap.add(function(){
+			var clickX = game.input.activePointer.clientX;
+			var clickY = game.input.activePointer.clientY;
+			if(APG.Game.isInner(buttonTool1,clickX, clickY)){
+				push()
+				// APG.DeveloperModel.push.apply(APG.DeveloperModel)
+			}else if(APG.Game.isInner(buttonTool2,clickX, clickY)) {
+				pop()
+				// APG.DeveloperModel.pop.apply(APG.DeveloperModel)
 			}
-		},
+		},this)
+
+
+		APG.Assets.playMusic('mu')
+
+		Fm_Group = getTargetGroup("formula")
+		Fm_List = getSpriteList(Fm_Group)
+		console.log(Fm_List)
+		//loadTextBitMap(Fm_List[0],"3","#FFC107")
+		// Num_Arr = ["3","+","(","2","-","5",")","*","6","/","3"]
+		Num_Arr = FORMULA.split('')
+		loadTextBitMapBetween (Fm_Group,Num_Arr,"#ffbd00")
+
+
+		Fm_Group2 = getTargetGroup("result")
+		Fm_List2 = getSpriteList(Fm_Group2)
+		console.log(Fm_List2)
+		Num_Arr = [" "," "," "," "," "," "," "," "," "," "," "]
+		loadTextBitMapBetween (Fm_Group2,Num_Arr,"#efeb69")
+
+		this.player = APG.Group.getCharacterGroup('player');
+		player = this.player;
+		APG.Assets.playerMoveAnimations(this.player,{
+			/* 方向(大写,或小写 -> frames 或单个数字*/
+			right: 0,
+			LEFT: [1],
+			down: [2],
+			up: 3,
+		});
+
+
+		blockGroupOverlap(this.player, Fm_Group)
+		blockTileOverlap(this.player,0)
+		addKeyEvent('J',push);
+		addKeyEvent('K',pop);
+		// addKeyEvent('SPACEBAR',out);
+	},
+	update: function(){
+		site = getCharacterSite(this.player)
+		APG.Update.listenKey.characterMoveEvent(this.player, null, drop, [site], null, null, this,this.Key);
+		this.Key = '';
+		if(site.x == 12 && site.y == 1){
+			while(getBagSize()){
+				pop();
+			}
+			switch(check()){
+				case 1: WIN("你赢了")
+					break
+				case 0: LOST("答案错误,点击重来",restartGame)
+					break
+				case -1: LOST("算式错误,点击重来",restartGame)
+					break
+			}
+
+		}
+	},
 
 }
 

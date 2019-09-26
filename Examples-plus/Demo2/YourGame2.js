@@ -2,8 +2,41 @@ YourGame = {
     init: function(){
     },
     preload: function(){
+        var tool1 = [
+            '22222222222',
+            '2         2',
+            '2   22    2',
+            '2   22    2',
+            '2         2',
+            '2         2',
+            '2         2',
+            '22222222222',
+        ]
+        var size = APG.HEIGHT / 60;
+        game.load.imageFromTexture('tool1', tool1, size);
     },
     create: function(){
+        var siteX = APG.HEIGHT * 0.2 ;
+        var siteY = APG.HEIGHT *0.7
+        var bar = APG.HEIGHT * 0.1;
+        this.Key;
+
+        buttonTool1 = game.add.button(APG.WIDTH*0.8, siteY, 'tool1');
+        // buttonTool1.events.onInputDown.add(function(){
+            // APG.DeveloperModel.swapBlock.apply(APG.DeveloperModel)
+        // });
+        game.input.onTap.add(function(){
+            var clickX = game.input.activePointer.clientX;
+            var clickY = game.input.activePointer.clientY;
+            if(APG.Game.isInner(buttonTool1,clickX, clickY)){
+                APG.DeveloperModel.swapBlock.apply(APG.DeveloperModel)
+            }
+        },this)
+
+
+
+
+
 /* 通过背包增加的对象组,和通过地图设定的   对象组,都会自动创建并加入 APG.TargetGroups 中,
 *  但是通过地图第三层, 即玩家层,创建的玩家对象组,会加入 APG.CharacterGroups 中
 * 两种用法都一样, 只需要从这两个js中的对象拿取相应的组即可
@@ -48,7 +81,9 @@ YourGame = {
     },
     update: function(){
         // var site = APG.methods.getCharacterSite(this.player);
-        APG.Update.listenKey.characterMoveEvent(this.player, this.checkMove, null, null, null, null, this);
+        APG.Update.listenKey.characterMoveEvent(this.player, this.checkMove, null, null, null, null, this,this.Key);
+        this.Key = '';
+
         var tile = APG.Character.getCharacterTile(this.player);
         if(!tile || APG.Tile.getTileId(tile)==3){
             APG.Update.listenKey.stopListenKey();

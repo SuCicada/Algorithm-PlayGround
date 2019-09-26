@@ -3,52 +3,18 @@ YourGame = {
 
     },
     preload: function(){
-        // var up = [
-        //     '3333333',
-        //     '3..3..3',
-        //     '3.333.3',
-        //     '3333333',
-        //     '3..3..3',
-        //     '3..3..3',
-        //     '3333333'
-        // ];
-        // var down = [
-        //     '3333333',
-        //     '3..3..3',
-        //     '3..3..3',
-        //     '3333333',
-        //     '3.333.3',
-        //     '3..3..3',
-        //     '3333333'
-        // ];
-        // var left = [
-        //     '3333333',
-        //     '3..3..3',
-        //     '3.33..3',
-        //     '3333333',
-        //     '3.33..3',
-        //     '3..3..3',
-        //     '3333333'
-        // ]
-        // var right = [
-        //     '3333333',
-        //     '3..3..3',
-        //     '3..33.3',
-        //     '3333333',
-        //     '3..33.3',
-        //     '3..3..3',
-        //     '3333333'
-        // ]
 
         var tool1 = [
-            '2222222222',
-            '222      2',
-            '2   22   2',
-            '2   22   2',
-            '2        2',
-            '2222222222',
+            '22222222222',
+            '2         2',
+            '2   22    2',
+            '2   22    2',
+            '2         2',
+            '2         2',
+            '2         2',
+            '22222222222',
         ]
-        var size = APG.HEIGHT / 100;
+        var size = APG.HEIGHT / 60;
         // game.load.imageFromTexture('up', up, size);
         // game.load.imageFromTexture('down', down, size);
         // game.load.imageFromTexture('left', left, size);
@@ -57,45 +23,20 @@ YourGame = {
     },
     create: function(){
         var siteX = APG.HEIGHT * 0.2 ;
-        var siteY = APG.HEIGHT *0.8
+        var siteY = APG.HEIGHT *0.7
         var bar = APG.HEIGHT * 0.1;
         this.Key;
-        buttonUp = game.add.button(siteX, siteY-bar, 'up',function(){
-            APG.DeveloperModel.Key = 'UP';
-            // APG.Keys["UP"].justDown = true;
-        });
-        buttonDown = game.add.button(siteX, siteY+bar, 'down',function(){
-            APG.DeveloperModel.Key = 'DOWN';
-        });
-        buttonLeft = game.add.button(siteX-bar, siteY, 'left',function(){
-            APG.DeveloperModel.Key = 'LEFT';
-        });
-        buttonRight = game.add.button(siteX+bar, siteY, 'right',function(){
-            APG.DeveloperModel.Key = 'RIGHT';
-        });
 
         buttonTool1 = game.add.button(APG.WIDTH*0.8, siteY, 'tool1');
-        buttonTool1.events.onInputDown.add(function(){
-            APG.DeveloperModel.putXinbiao.apply(APG.DeveloperModel)
-        });
+        // buttonTool1.events.onInputDown.add(function(){
+        //     APG.DeveloperModel.putXinbiao.apply(APG.DeveloperModel)
+        // });
         // fullScreen();
         game.input.onTap.add(function(){
             // if(game.input.activePointer.isDown){
                 var clickX = game.input.activePointer.clientX;
                 var clickY = game.input.activePointer.clientY;
-                // alert(clickX,clickY);
-                //  console.log(clickX,clickY)
-            // console.log(buttonUp.x,buttonUp.y,buttonUp.width,buttonUp.height)
-                if(APG.Game.isInner(buttonUp,clickX,clickY)){
-                    // console.log(22)
-                    APG.DeveloperModel.Key = 'UP';
-                }else if(APG.Game.isInner(buttonDown,clickX, clickY)){
-                    APG.DeveloperModel.Key = 'DOWN';
-                }else if(APG.Game.isInner(buttonLeft,clickX, clickY)){
-                    APG.DeveloperModel.Key = 'LEFT';
-                }else if(APG.Game.isInner(buttonRight,clickX, clickY)){
-                    APG.DeveloperModel.Key = 'RIGHT';
-                }else if(APG.Game.isInner(buttonTool1,clickX, clickY)){
+                if(APG.Game.isInner(buttonTool1,clickX, clickY)){
                     APG.DeveloperModel.putXinbiao.apply(APG.DeveloperModel)
                 }
         },this)
@@ -106,8 +47,8 @@ YourGame = {
         // APG.Game.fullScreen();
 
         // ====== 特殊的参数 =====
-        this.xinbiaoMax = 3;    // 信标总数量
-        this.xinbiaoCount = 3;  // 信标数量
+        this.xinbiaoMax = 1;    // 信标总数量
+        this.xinbiaoCount = 1;  // 信标数量
         this.xinbiaoSite = [];
         this.wildXinbiao = [];
 /* 通过背包增加的对象组,和通过地图设定的对象组,都会自动创建并加入 APG.TargetGroups 中,
