@@ -1,16 +1,30 @@
 console.log("APG-core.js has been loaded successfully.")
 
+
+var isvertical = 0;
+var splitbar ;
 window.onload=function() {
     WIDTH = globalConfig.WIDTH? globalConfig.WIDTH: window.screen.width;
     HEIGHT = globalConfig.HEIGHT? globalConfig.HEIGHT: window.screen.height;
     MODE = globalConfig.MODE? globalConfig.MODE: 'CANVAS';
 
     APG.MODE = MODE;
+
+
     if(WIDTH<HEIGHT){
+        isvertical = 1;
         var temp = WIDTH
         WIDTH = HEIGHT;
         HEIGHT = temp;
     }
+
+    var gege = Math.min(WIDTH/16,HEIGHT/9);
+    console.log(gege,WIDTH, HEIGHT)
+    splitbar  = (WIDTH - HEIGHT/9*16 )/2;
+    WIDTH = Math.min(HEIGHT/9*16,WIDTH);
+    // HEIGHT = gege*9;
+    console.log(WIDTH, HEIGHT)
+
     APG.WIDTH = WIDTH;
     APG.HEIGHT = HEIGHT;
 
@@ -142,21 +156,29 @@ function someboot(){
             direction = '-'
         }
         // console.log(direction)
-        // if (direction == '1') {
-        var flag = 1;
+        if (direction == '1') {
+        // var flag = 1;
         // if(!game.scale.correct){
-        if(flag == 1){
+        // if(flag == 1){
             // game.scale.setGameSize(height, width)
             // game.scale.setGameSize(width, height)
 
-            this.x = game.camera.y + game.width;
-            this.y = -game.camera.x;
-            this.rotation = Phaser.Math.degToRad(Phaser.Math.wrapAngle(90));
+            // this.x = game.camera.y + game.width;
+            // this.y = -game.camera.x;
+            // this.rotation = Phaser.Math.degToRad(Phaser.Math.wrapAngle(90));
+            document.getElementsByTagName("body")[0].style.transform = "rotate(90deg)";
+            document.getElementsByTagName("body")[0].style.margin= '0px';
+            document.getElementsByTagName("body")[0].style.marginTop= splitbar + 'px';
+
         } else {
-            game.scale.setGameSize(width, height)
-            this.x = -game.camera.x;
-            this.y = -game.camera.y;
-            this.rotation = 0;
+            document.getElementsByTagName("body")[0].style.transform = "rotate(0deg)";
+            document.getElementsByTagName("body")[0].style.margin= '0px';
+            document.getElementsByTagName("body")[0].style.marginLeft= splitbar + 'px';
+
+            // game.scale.setGameSize(width, height)
+            // this.x = -game.camera.x;
+            // this.y = -game.camera.y;
+            // this.rotation = 0;
         }
         PIXI.DisplayObject.prototype.updateTransform.call(this);
     }
@@ -164,16 +186,21 @@ function someboot(){
 
 var bootstrap = {
     init: function () {
-        document.getElementsByTagName("canvas")[0].style.transform = "rotate(90deg)";
-        if (!(globalConfig.ScaleMode == "EXACT_FIT")){
-            game.scale.pageAlignHorizontally = true;
-            game.scale.pageAlignVertically = true;
+        if(isvertical){
+            // console.error(APG.HEIGHT, APG.WIDTH)
+            document.getElementsByTagName("body")[0].style.transform = "rotate(90deg)";
+            // document.getElementsByTagName("canvas")[0].style.transform = "rotate(90deg)";
+            game.scale.setGameSize(APG.WIDTH, APG.HEIGHT)
         }
-        game.scale.scaleMode = Phaser.ScaleManager[globalConfig.ScaleMode];
+        if (!(globalConfig.ScaleMode == "EXACT_FIT")){
+            // game.scale.pageAlignHorizontally = true;
+            // game.scale.pageAlignVertically = true;
+        }
+        // game.scale.scaleMode = Phaser.ScaleManager[globalConfig.ScaleMode];
         game.scale.refresh();
 
         // someinit();
-        // someboot();
+        someboot();
     },
     preload: function() {
 

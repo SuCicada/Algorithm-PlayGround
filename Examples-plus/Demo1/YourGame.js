@@ -23,7 +23,7 @@ YourGame = {
         // this.pad = game.plugins.add(Phaser.VirtualJoystick);
         // this.stick = this.pad.
 
-
+        // APG.Game.fullScreen();
 
         // ====== 特殊的参数 =====
         this.xinbiaoMax = 3;    // 信标总数量
