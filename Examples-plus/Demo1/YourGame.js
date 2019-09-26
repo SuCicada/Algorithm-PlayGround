@@ -39,17 +39,43 @@ YourGame = {
             '3..3..3',
             '3333333'
         ]
-        game.load.imageFromTexture('up', up, 10);
-        game.load.imageFromTexture('down', down, 10);
-        game.load.imageFromTexture('left', left, 10);
-        game.load.imageFromTexture('right', right, 10);
+
+        var tool1 = [
+            '13431234',
+            '23411232',
+            '12321231',
+            '4413123121'
+        ]
+        var size = APG.HEIGHT / 100;
+        game.load.imageFromTexture('up', up, size);
+        game.load.imageFromTexture('down', down, size);
+        game.load.imageFromTexture('left', left, size);
+        game.load.imageFromTexture('right', right, size);
+        game.load.imageFromTexture('tool1', tool1, size);
     },
     create: function(){
+        var siteX = APG.HEIGHT * 0.2 ;
+        var siteY = APG.HEIGHT *0.8
+        var bar = APG.HEIGHT * 0.1;
+        this.Key;
+        buttonUp = game.add.button(siteX, siteY-bar, 'up',function(){
+            APG.DeveloperModel.Key = 'UP';
+            // APG.Keys["UP"].justDown = true;
+        });
+        buttonDown = game.add.button(siteX, siteY+bar, 'down',function(){
+            APG.DeveloperModel.Key = 'DOWN';
+        });
+        buttonleft = game.add.button(siteX-bar, siteY, 'left',function(){
+            APG.DeveloperModel.Key = 'LEFT';
+        });
+        buttonRight = game.add.button(siteX+bar, siteY, 'right',function(){
+            APG.DeveloperModel.Key = 'RIGHT';
+        });
 
-        buttonUp = game.add.sprite(100, 200, 'up');
-        buttonDown = game.add.sprite(300, 200, 'down');
-        buttonleft = game.add.sprite(100, 300, 'left');
-        buttonRight = game.add.sprite(100, 100, 'right');
+        buttonTool1 = game.add.button(APG.WIDTH*0.8, siteY, 'tool1',function(){
+            APG.DeveloperModel.putXinbiao.apply(APG.DeveloperModel)
+        });
+
         // this.pad = game.plugins.add(Phaser.VirtualJoystick);
         // this.stick = this.pad.
 
@@ -105,7 +131,9 @@ YourGame = {
     update: function(){
         var site = APG.Character.getCharacterSite(this.player);
         // console.log(site)
-        APG.Update.listenKey.characterMoveEvent(this.player, this.check, this.dropDaolu, [site], null, null, this);
+        APG.Update.listenKey.characterMoveEvent(this.player, this.check, this.dropDaolu, [site], null, null, this,this.Key);
+        this.Key = '';
+
         var tile = APG.Character.getCharacterTile(this.player);
         if(!tile || APG.Tile.getTileId(tile)==2){
             setTimeout(function(){

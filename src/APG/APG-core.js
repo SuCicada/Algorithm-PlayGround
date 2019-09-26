@@ -120,40 +120,14 @@ APG.Group = {};
 APG.Target = {};
 APG.Character = {};
 
-let direction = '1'
-function getDirection() {
-    switch (window.orientation) {
-        case 0:
-        case 180:
-            direction = '1'
-            break;
-        case -90:
-        case 90:
-            direction = '一'
-            break;
-    }
-}
-// getDirection();
-function someinit(){
-    game.scale.onOrientationChange.add(function() {
-        if(game.scale.isLandscape) {
-            game.scale.correct = true;
-            game.scale.setGameSize(WIDTH, HEIGHT);
-        } else {
-            game.scale.correct = false;
-            game.scale.setGameSize(HEIGHT, WIDTH);
-        }
-    }, this)
-}
-
 function someboot(){
     Phaser.World.prototype.displayObjectUpdateTransform = function () {
         let height = screen.height;
         let width = screen.width;
         if(height>width){
-            direction = '1'
+            var direction = '1'
         }else{
-            direction = '-'
+            var direction = '-'
         }
         // console.log(direction)
         if (direction == '1') {
