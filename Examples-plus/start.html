@@ -42,9 +42,10 @@
     var h = screen.height;
 
     document.getElementsByClassName("bg")[0].style.height = w+"px";
-    document.getElementsByClassName("bg")[0].style.width = 'auto';
-    document.getElementsByClassName("bg")[0].style.marginLeft='30%';
-    // document.getElementById("img").style.height = '100%';
+    document.getElementsByClassName("bg")[0].style.width = h+'px';
+    // document.getElementsByClassName("bg")[0].style.marginLeft='30%';
+    document.getElementById("img").style.height = w+'px';
+    // document.getElementById("img").style.width = h+"px";
 
     var start = document.getElementById("start");
     style = start.style.cssText;
@@ -54,7 +55,8 @@
     // start.setAttribute("style","display:block;height:"+(w*0.15)+"px")
     start.style.width = w*0.55+"px";
     start.style.height = h*0.4+"px";
-    start.style.marginLeft = (h-w*0.3)/2+"px";
+    start.style.marginLeft = (h-h*0.3)/2+"px";
+    // start.style.marginBottom  = (w*0.7)+"px";
 
 
     let height = screen.height;
