@@ -12,12 +12,14 @@
 </head>
 <body>
     <iframe id="main" src="start.html" frameborder="0"
-            style="overflow:hidden;width:100%" scrolling ="">
+            style="overflow:hidden;" scrolling ="">
     </iframe>
 </body>
     <script>
         var main = document.getElementById("main");
         main.height = screen.height;
+        alert(main.height)
+        main.width = "100%"
 
         let height = screen.height;
         let width = screen.width;
