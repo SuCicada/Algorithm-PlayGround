@@ -41,35 +41,40 @@
 <!--"-->
 
     <div class="ShaShiDi">
-        <img src="./select.png"/>
+        <img id='img' src="./select.png"/>
     </div>
 
-    <div id="demo1"  style="
-            background-color:red;
-            opacity:0.0;
-            position: absolute;"
-         onclick="window.location.href='Demo1'"
-    >
-    </div>
-    <div id="demo2"  style="
-                background-color:red;
-                opacity:0.0;
-                position: absolute;"
-         onclick="window.location.href='Demo2'"
-    >
-    </div>
-    <div id="demo3"  style="
-                background-color:red;
-                opacity:0.0;
-                position: absolute;"
-         onclick="window.location.href='Demo3'"
-    >
-    </div>
+<!--    <div id="demo1"  style="-->
+<!--            background-color:red;-->
+<!--            opacity:0.5;-->
+<!--            position: absolute;"-->
+<!--         onclick="window.location.href='Demo1'"-->
+<!--    >-->
+<!--    </div>-->
+<!--    <div id="demo2"  style="-->
+<!--                background-color:red;-->
+<!--                opacity:0.5;-->
+<!--                position: absolute;"-->
+<!--         onclick="window.location.href='Demo2'"-->
+<!--    >-->
+<!--    </div>-->
+<!--    <div id="demo3"  style="-->
+<!--                background-color:red;-->
+<!--                opacity:0.5;-->
+<!--                position: absolute;"-->
+<!--         onclick="window.location.href='Demo3'"-->
+<!--    >-->
+<!--    </div>-->
 
 <script>
     var w = screen.width;
     var h = screen.height;
+    console.log(w,h)
     document.getElementsByClassName("ShaShiDi")[0].style.height = h+'px';
+    document.getElementsByClassName("ShaShiDi")[0].style.width = w+'px';
+    document.getElementById("img").style.height = 'auto';
+    document.getElementById("img").style.width = w+'px';
+    // document.getElementById("img").style.transform = "rotate(90deg)";
 
     var start = document.getElementById("demo1");
     style = start.style.cssText;
@@ -101,6 +106,23 @@
     demo3.style.marginTop = (h-h*0.5)/2+"px";
     demo3.style.marginLeft = ((w*0.04)*3+w*0.38*2)+"px";
 
+
+    let height = screen.height;
+    let width = screen.width;
+    if(height>width){
+        var direction = '1'
+        isvertical = 1;
+    }else{
+        var direction = '-'
+        isvertical = 0;
+    }
+    console.log(isvertical)
+    if(isvertical) {
+        // document.getElementsByTagName("body")[0].style.cssText += "transform:rotate(90deg);transform-origin:center;";
+        // document.getElementsByTagName("body")[0].style.transform = "rotate(90deg)";
+        document.getElementById("img").style.transform = "rotate(90deg)";
+        // document.getElementById("start").style.transform = "rotate(90deg)";
+    }
 </script>
 
 </body>

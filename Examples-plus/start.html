@@ -27,7 +27,7 @@
         /*margin: 0 auto;*/
         /*left: 50%;*/
         /*top: 50%;*/
-        opacity:0.0;
+        opacity:0.5;
         /*filter: alpha(opacity=10);*/
         position: absolute;"
         onclick="window.location.href='select.html'"
@@ -41,8 +41,10 @@
     var w = screen.width;
     var h = screen.height;
 
-    document.getElementsByClassName("bg")[0].style.height = h+"px";
-    document.getElementById("img").style.height = '100%';
+    document.getElementsByClassName("bg")[0].style.height = w+"px";
+    document.getElementsByClassName("bg")[0].style.width = 'auto';
+    document.getElementsByClassName("bg")[0].style.marginLeft='30%';
+    // document.getElementById("img").style.height = '100%';
 
     var start = document.getElementById("start");
     style = start.style.cssText;
@@ -50,9 +52,9 @@
     start.style.color = "red";
     start.style.top = "80%";
     // start.setAttribute("style","display:block;height:"+(w*0.15)+"px")
-    start.style.width = w*0.3+"px";
-    start.style.height = h*0.2+"px";
-    start.style.marginLeft = (w-w*0.3)/2+"px";
+    start.style.width = w*0.55+"px";
+    start.style.height = h*0.4+"px";
+    start.style.marginLeft = (h-w*0.3)/2+"px";
 
 
     let height = screen.height;
@@ -66,9 +68,9 @@
     }
     console.log(isvertical)
     if(isvertical) {
-        document.getElementsByTagName("body")[0].style.cssText += "transform:rotate(90deg);transform-origin:bottom left;";
+        document.getElementsByTagName("body")[0].style.cssText += "transform:rotate(90deg);transform-origin:;";
         // document.getElementsByTagName("body")[0].style.transform = "rotate(90deg)";
-        // document.getElementById("start").style.transform = "rotate(90deg)";
+        // document.getElementById("img").style.transform = "rotate(90deg)";
     }
 </script>
 </body>

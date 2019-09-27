@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="86d26d12-3ace-4d9a-80bb-fab78a9df1bb" name="aliyun" url="http://sucicada.tk">
-        <fileTransfer host="sucicada.tk" port="22" accessType="SFTP">
+        <fileTransfer host="sucicada.tk" port="22" rootFolder="/var/www/APG" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
