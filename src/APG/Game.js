@@ -108,7 +108,7 @@ APG.Game.WIN = function(str, func, that=APG.DeveloperModel){
     let w = WIDTH * 0.8;
     let h = HEIGHT * 0.8;
     let x = (WIDTH - w) / 2;
-    let y = (HEIGHT - w) / 2;
+    let y = (HEIGHT - h) / 2;
     let  bar = game.add.graphics();
     bar.beginFill('0x'+'#dfc9c8'.slice(1), 0.8);
     bar.drawRect(x, y, w, h);
