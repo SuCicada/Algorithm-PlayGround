@@ -4,17 +4,24 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        /*.bg{*/
-        /*    opacity:0.6;*/
-        /*    filter: alpha(opacity=60);*/
-        /*}*/
+        .bg {
+            text-align:center;
+            /*height: 100%;*/
+            /*opacity:0.6;*/
+            /*filter: alpha(opacity=60);*/
+        }
 
     </style>
 </head>
-<body class="bg" style="background:url(start.png) no-repeat ;
-    background-position-x: center;
-    background-size: auto ";
-    >
+<body >
+<!--class="bg" style="background:url(start.png) no-repeat ;-->
+<!--    background-position-x: center;-->
+<!--    background-size: 100% ";-->
+<!--    >-->
+
+    <div class="bg">
+        <img id="img" src="./start.png"/>
+    </div>
     <div id="start"  style="
         background-color:red;
         /*margin: 0 auto;*/
@@ -33,6 +40,10 @@
 <script>
     var w = screen.width;
     var h = screen.height;
+
+    document.getElementsByClassName("bg")[0].style.height = h+"px";
+    document.getElementById("img").style.height = '100%';
+
     var start = document.getElementById("start");
     style = start.style.cssText;
     start.setAttribute("style",style+"display:block;width:"+(w*0.3)+"px;height:"+(w*0.2)+"px;")
@@ -42,6 +53,23 @@
     start.style.width = w*0.3+"px";
     start.style.height = h*0.2+"px";
     start.style.marginLeft = (w-w*0.3)/2+"px";
+
+
+    let height = screen.height;
+    let width = screen.width;
+    if(height>width){
+        var direction = '1'
+        isvertical = 1;
+    }else{
+        var direction = '-'
+        isvertical = 0;
+    }
+    console.log(isvertical)
+    if(isvertical) {
+        document.getElementsByTagName("body")[0].style.cssText += "transform:rotate(90deg);transform-origin:bottom left;";
+        // document.getElementsByTagName("body")[0].style.transform = "rotate(90deg)";
+        // document.getElementById("start").style.transform = "rotate(90deg)";
+    }
 </script>
 </body>
 </html>

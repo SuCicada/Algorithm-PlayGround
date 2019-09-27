@@ -5,17 +5,32 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        /*body { transform: rotate(90deg);  }*/
+    </style>
     <title>Document</title>
 </head>
 <body>
     <iframe id="main" src="start.html" frameborder="0"
-            style="overflow:hidden;width:100%" scrolling ="no">
-
-
+            style="overflow:hidden;width:100%" scrolling ="">
     </iframe>
+</body>
     <script>
         var main = document.getElementById("main");
-        main.height = screen.height*0.95;
+        main.height = screen.height;
+
+        let height = screen.height;
+        let width = screen.width;
+        if(height>width){
+            var direction = '1'
+            isvertical = 1;
+        }else{
+            var direction = '-'
+            isvertical = 0;
+        }
+        if(isvertical) {
+            // document.getElementsByTagName("body")[0].style.cssText += "transform:rotate(90deg)";
+            // document.getElementById("main").style.transform = "rotate(90deg)";
+        }
     </script>
-</body>
 </html>
