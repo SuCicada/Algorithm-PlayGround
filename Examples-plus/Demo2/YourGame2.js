@@ -52,12 +52,15 @@ YourGame = {
         APG.Assets.playMusic('mu');
         this.exports = APG.Group.getTargetGroup("chukou");
         this.numBlocks = APG.Group.getTargetGroup("numBlock");
-
+        this.previousBlocks = [];
         let nums = new Array(7); // = [12,3,45,7,11,425,9];
+        this.blockColor = 'rgb(212,142,0)'
+        this.oneColor = '#cdcdcd'
+        this.twoColor = '#f93be2'
         for(let i=0;i<nums.length;i++){
             nums[i] = Math.round(Math.random()*200);
         }
-        APG.Target.loadTextBitMapBetween(this.numBlocks,nums,'rgb(212,142,0)');
+        APG.Target.loadTextBitMapBetween(this.numBlocks,nums,this.blockColor);
 
         this.player = APG.Group.getCharacterGroup('player');
         APG.Group.moveGroupUpTo(this.player, this.exports);
@@ -92,6 +95,7 @@ YourGame = {
             },100);
         }
 
+        this.checkColor();
         this.checkBlocks();
     },
     checkMove: function(newX,newY){
@@ -111,10 +115,18 @@ YourGame = {
         }
     },
     checkBlocks: function(){
+        /*检查是否排好序*/
         let blocks = APG.Sprite.getSpriteList(this.numBlocks);
         blocks = blocks.sort(function(a,b){
            return APG.Sprite.getSpriteSite(a).x < APG.Sprite.getSpriteSite(b);
         });
+
+        var blockNums = [];
+        for(let i = 0;i<blocks.length;i++) {
+            blockNums.push(parseInt(aboutTextBitMap(blocks[i]).text))
+        }
+        // console.log(blockNums)
+        blockNums = blockNums.sort(function(a,b){return a-b});
         let flag = 1;
         for(let i = 0;i<blocks.length-1;i++){
             let num1 = APG.Target.aboutTextBitMap(blocks[i]).text;
@@ -125,10 +137,64 @@ YourGame = {
                 flag = 0;
             }
         }
+
+        var yesColor = '#5ecd63'
+        for(let i = 0;i<blocks.length;i++) {
+            var info = aboutTextBitMap(blocks[i]).text;
+            if(parseInt(info) == blockNums[i]){
+                APG.Target.loadTextBitMap(blocks[i], info.text,yesColor);
+            }else{
+                break;
+            }
+        }
+
+        for(let i = blocks.length-1;i>=0;i--) {
+            var info = aboutTextBitMap(blocks[i]).text;
+            if(parseInt(info) == blockNums[i]){
+                APG.Target.loadTextBitMap(blocks[i], info.text, yesColor);
+            }else{
+                break;
+            }
+        }
+
+
         if(flag){
             APG.Assets.setAnimations(this.exports, 'light', [1]);
         }else{
             APG.Assets.setAnimations(this.exports, 'dark', [0]);
+        }
+    },
+    checkColor: function() {
+        /* 方向*/
+        let dir = APG.Character.getCharacterDirection(this.player);
+        /* 当前位置 */
+        let site = APG.Character.getCharacterSite(this.player);
+        /* 前方的块们 */
+        let block = APG.Sprite.getSpriteListFromSite(site.x, site.y+dir.y, this.numBlocks);
+        /* 前方的左边的块们 */
+        let blockLeft = APG.Sprite.getSpriteListFromSite(site.x+dir.y, site.y+dir.y, this.numBlocks);
+
+        var yes = 0;
+        if(block.length){
+            let info = APG.Target.aboutTextBitMap(block[0]);
+            if(info.text && blockLeft.length){
+                if(this.previousBlocks.length==0)
+                {
+                    let infoLeft = APG.Target.aboutTextBitMap(blockLeft[0]);
+                    // console.log(this.previousBlocks)
+                    this.previousBlocks = [block[0], blockLeft[0]];
+                    APG.Target.loadTextBitMap(block[0], info.text, this.oneColor);
+                    APG.Target.loadTextBitMap(blockLeft[0], infoLeft.text, this.twoColor);
+                }
+                yes = 1;
+            }
+        }
+        if(yes==0){
+            if(this.previousBlocks.length){
+                APG.Target.loadTextBitMap(this.previousBlocks[0], null, this.blockColor);
+                APG.Target.loadTextBitMap(this.previousBlocks[1], null, this.blockColor);
+                this.previousBlocks = [];
+            }
         }
     },
     swapBlock: function(){
@@ -145,8 +211,13 @@ YourGame = {
             let info = APG.Target.aboutTextBitMap(block[0]);
             if(info.text && blockLeft.length){
                 let infoLeft = APG.Target.aboutTextBitMap(blockLeft[0]);
-                APG.Target.loadTextBitMap(block[0], infoLeft.text);
-                APG.Target.loadTextBitMap(blockLeft[0], info.text);
+                // console.log(block[0][0])
+                // console.log(blockLeft[0][0])
+                APG.Target.loadTextBitMap(block[0], infoLeft.text,this.twoColor);
+                APG.Target.loadTextBitMap(blockLeft[0], info.text, this.oneColor);
+
+                // this.previousBlocks = [];
+
             }
         }
     },

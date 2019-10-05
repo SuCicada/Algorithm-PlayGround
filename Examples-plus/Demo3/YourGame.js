@@ -97,9 +97,15 @@ YourGame = {
 			switch(check()){
 				case 1: WIN("你赢了")
 					break
-				case 0: LOST("答案错误,点击重来",restartGame)
+				case 0: LOST("答案错误,点击重来",function(){
+					FM_List2_top = 0;
+					restartGame();
+				})
 					break
-				case -1: LOST("算式错误,点击重来",restartGame)
+				case -1: LOST("算式错误,点击重来",function(){
+					FM_List2_top = 0;
+					restartGame();
+				})
 					break
 			}
 
@@ -157,7 +163,17 @@ function push(){
 	drop({x:site.x,y:site.y-1})
 	if(block.length){
 		getItem(block)
+		text = aboutTextBitMap(block[0]).text;
+		console.log(text)
+		try {
+			if(typeof eval(text) == 'number'){
+				pop();
+			}
+		}catch (e) {
+
+		}
 		return true;
+
 	}else{
 		return false;
 	}
