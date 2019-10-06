@@ -27,6 +27,8 @@ YourGame = {
 			'4         4',
 			'44444444444',
 		]
+
+		FM_List2_top = 0;
 		var size = APG.HEIGHT / 60;
 		game.load.imageFromTexture('tool1', tool1, size);
 		game.load.imageFromTexture('tool2', tool2, size);
