@@ -34,13 +34,64 @@ YourGame = {
         },this)
 
 
+        font1 = WIDTH/(Math.sqrt(25))/5
+        let style1 = { font: "bold "+font1+"px Arial",
+            fill: '#111111',
+            boundsAlignH: "center",
+        };
+        this.bar1 = game.add.graphics();
+        this.bar1Y = APG.Game.getGameHEIGHT()*0.1
+        this.bar1X = APG.Game.getGameWIDTH()*0.3
+
+        this.bar1.anchor.set(0.5,0.5);
+        this.bar1.beginFill('0x'+"#b87e4d".slice(1),1);
+        this.bar1.drawRect(this.bar1X,this.bar1Y,font1*5,font1);
+        this.text1 = game.add.text(this.bar1X,this.bar1Y,"", style1);
+
+        font2 = WIDTH/(Math.sqrt(25))/13
+        style2 = this.style2 = { font: "bold "+font2+"px Arial",
+            fill: '#111111',
+            boundsAlignH: "center",
+        };
+        this.bar2 = game.add.graphics();
+        this.bar2X = APG.Game.getGameWIDTH()*0.7
+        this.bar2Y = APG.Game.getGameHEIGHT()*0.2
+        this.bar2.beginFill('0x'+"#b87e4d".slice(1),0.8);
+        this.bar2.drawRect(this.bar2X,this.bar2Y,font2*50,font2*10);
+        this.code = ["for(i=0;i<8;i++):",
+                    "    if(i+1<8 && num[i]>num[i+1]):",
+                    "        swap(num,i,i+1)",
+                    "for(i=7;i>=0;i--):",
+                    "    if(i-1>=0 && num[i-1]>num[i]):",
+                    "        swap(num,i-1,i)"]
+        this.text2 = []
+        for(i=0;i<this.code.length;i++){
+             a = game.add.text(this.bar2X,this.bar2Y+font2*i*1.1,this.code[i], style2);
+             this.text2.push(a);
+        }
+
+
+        font3 = WIDTH/(Math.sqrt(25))/6
+        style3 = { font: "bold "+font3+"px Arial",
+            fill: '#b41600',
+            boundsAlignH: "center",
+        };
+        this.bar3 = game.add.graphics();
+        this.bar3X = APG.Game.getGameWIDTH()*0.5
+        this.bar3Y = APG.Game.getGameHEIGHT()*0.1
+        this.bar3.beginFill('0x'+"#57b845".slice(1),0.8);
+        this.bar3.drawRect(this.bar3X,this.bar3Y,font3*20,font1*1);
+        this.codeline = ""
+        this.text3 = game.add.text(this.bar3X,this.bar3Y,this.codeline, style3);
+        this.forceCodeLineColor = '#b41600'
 
 
 
-/* 通过背包增加的对象组,和通过地图设定的   对象组,都会自动创建并加入 APG.TargetGroups 中,
-*  但是通过地图第三层, 即玩家层,创建的玩家对象组,会加入 APG.CharacterGroups 中
-* 两种用法都一样, 只需要从这两个js中的对象拿取相应的组即可
-* */
+
+        /* 通过背包增加的对象组,和通过地图设定的   对象组,都会自动创建并加入 APG.TargetGroups 中,
+        *  但是通过地图第三层, 即玩家层,创建的玩家对象组,会加入 APG.CharacterGroups 中
+        * 两种用法都一样, 只需要从这两个js中的对象拿取相应的组即可
+        * */
         // let  bar = game.add.graphics();
         // bar.beginFill('0x'+'#dd8269'.slice(1), 0.9);
         // bar.
@@ -84,7 +135,7 @@ YourGame = {
     },
     update: function(){
         // var site = APG.methods.getCharacterSite(this.player);
-        APG.Update.listenKey.characterMoveEvent(this.player, this.checkMove, null, null, null, null, this,this.Key);
+        APG.Update.listenKey.characterMoveEvent(this.player, this.checkMove, this.checkCode, null, null, null, this,this.Key);
         this.Key = '';
 
         var tile = APG.Character.getCharacterTile(this.player);
@@ -97,6 +148,28 @@ YourGame = {
 
         this.checkColor();
         this.checkBlocks();
+    },
+    checkCode: function(){
+        let nowSite = APG.Character.getCharacterSite(this.player);
+        var n = -1;
+        if(nowSite.x>1 && nowSite.x<9){
+            var str = "  i: "+(nowSite.x-1);
+            if(nowSite.y == 1){
+                var str2 = this.code[0].trim()
+                n = 0;
+            }else if(nowSite.y == 3){
+                var str2 = this.code[3].trim()
+                n = 3;
+            }
+        }else{
+            var str = "";
+            var str2 = "";
+        }
+        if(n>=0){
+            this.setCodeLineColor(n)
+        }
+        this.text1.setText(str);
+        this.text3.setText(str2);
     },
     checkMove: function(newX,newY){
         /* 无论之前检测是否能通行, 这里都会再次传入坐标执行,
@@ -185,11 +258,23 @@ YourGame = {
                     this.previousBlocks = [block[0], blockLeft[0]];
                     APG.Target.loadTextBitMap(block[0], info.text, this.oneColor);
                     APG.Target.loadTextBitMap(blockLeft[0], infoLeft.text, this.twoColor);
+
+
+                    if(dir.y == 1){
+                        this.text3.setText(this.code[1].trim())
+                        n = 1
+                    }else if(dir.y == -1){
+                        this.text3.setText(this.code[4].trim())
+                        n = 4
+                    }
+                    this.setCodeLineColor(n)
+
                 }
                 yes = 1;
             }
         }
         if(yes==0){
+            this.checkCode();
             if(this.previousBlocks.length){
                 APG.Target.loadTextBitMap(this.previousBlocks[0], null, this.blockColor);
                 APG.Target.loadTextBitMap(this.previousBlocks[1], null, this.blockColor);
@@ -217,9 +302,21 @@ YourGame = {
                 APG.Target.loadTextBitMap(blockLeft[0], info.text, this.oneColor);
 
                 // this.previousBlocks = [];
-
+                this.text3.setText(this.code[2].trim())
+                if(dir.y == 1){
+                    n = 2
+                }else if(dir.y == -1){
+                    n = 5
+                }
+                this.setCodeLineColor(n)
             }
         }
+    },
+    setCodeLineColor(n){
+        this.text2.forEach(function(t){t.setStyle(this.style2)})
+        this.style2.fill = this.forceCodeLineColor
+        this.text2[n].setStyle(this.style2)
+        this.style2.fill = '#111111'
     },
     getBaoshi: function(player, baoshi){
         // 得到宝石
