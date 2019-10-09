@@ -59,7 +59,7 @@ APG.Target.loadTextBitMap = function(sprite, text, bgColor) {
     }else if(!text){
         var text = "";
     }
-
+    // console.log(bgColor )
     if(info.bgColor && !bgColor){
         var bgColor = info.bgColor;
     }else if(!bgColor){

@@ -403,9 +403,11 @@ var startGame = {
         bg.autoScroll(Assets.background.scrollX,Assets.background.scrollY);
         APG.Assets.background[Assets.background.musicKey] = bg;
 
-        let music = game.add.audio(Assets.music.musicKey);
-        // music.play();
-        APG.Assets.music[Assets.music.musicKey] = music;
+        if(Assets.music){
+            let music = game.add.audio(Assets.music.musicKey);
+            // music.play();
+            APG.Assets.music[Assets.music.musicKey] = music;
+        }
 
         APG.Tilemap = game.add.tilemap('Tilemap');
         /* 第一个参数是json中的tileset名, 第二个参数是地图贴图的key
@@ -1545,7 +1547,8 @@ APG.Game.isInner =function(sprite, x,y){
         return true;
     }
     return false;
-}console.log("Group.js has been loaded successfully.")
+}
+console.log("Group.js has been loaded successfully.")
 
 /**
  * Group（组）：概念取自phaser，指代框架中多个的元素对象组合而来的组形式的对象。也是接口的一个分类。

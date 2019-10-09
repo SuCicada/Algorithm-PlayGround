@@ -10,8 +10,10 @@ var previewSize = 10;   // 小视图大小
 var spriteHeight = 20;　 // 画板长
 var spriteWidth = 20;　　// 画板宽
 var spriteHeightMAX = 21;  // 画板最大长
+var spriteHeightMIN = 1;  // 画板最小长
 var tileWidth  = 32;
 var spriteWidthMAX = 20;   // 画板最大宽
+var spriteWidthMIN = 1;  // 画板最小宽
 var tileHeight = 32;
 //  UI
 var paletteArrow;
@@ -713,7 +715,7 @@ function decreaseSize(sprite) {
 
     if (sprite.name === 'width')
     {
-        if (spriteWidth === 4)
+        if (spriteWidth === spriteWidthMIN)
         {
             return;
         }
@@ -722,7 +724,7 @@ function decreaseSize(sprite) {
     }
     else if (sprite.name === 'height')
     {
-        if (spriteHeight === 4)
+        if (spriteHeight === spriteHeightMIN)
         {
             return;
         }

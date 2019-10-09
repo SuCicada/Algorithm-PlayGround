@@ -401,11 +401,13 @@ var startGame = {
         let Assets = globalConfig.Assets;
         var bg = game.add.tileSprite(0,0,game.width,game.height,Assets.background.imgKey);
         bg.autoScroll(Assets.background.scrollX,Assets.background.scrollY);
-        APG.Assets.background[Assets.background.musicKey] = bg;
+        APG.Assets.background[Assets.background.imgKey] = bg;
 
-        let music = game.add.audio(Assets.music.musicKey);
-        // music.play();
-        APG.Assets.music[Assets.music.musicKey] = music;
+        if(Assets.music){
+            let music = game.add.audio(Assets.music.musicKey);
+            // music.play();
+            APG.Assets.music[Assets.music.musicKey] = music;
+        }
 
         APG.Tilemap = game.add.tilemap('Tilemap');
         /* 第一个参数是json中的tileset名, 第二个参数是地图贴图的key
@@ -439,6 +441,8 @@ var startGame = {
             let objPro = objectLayer[i].properties;
             /* 2.0: 目前都有keyName了*/
             let imgKey = objPro[0].imgKey;
+            console.log(globalConfig.Assets.spritesImg)
+            console.log(objPro)
             let imgMode = globalConfig.Assets.spritesImg.find(function(s){
                             return s.imgKey == objPro[0].imgKey;
                         }).imgMode;
@@ -447,13 +451,15 @@ var startGame = {
                 imgKey , frameId, true, false, group, Phaser.Sprite, false);
             console.log(group)
             /* 对 textbitmap 对象的特殊处理 */
-            if (imgMode == 'textbitmap') {
+            if (imgMode === 'textbitmap') {
                 group.forEach(function(s) {
-                    let bg = s[0].bgColor;
+                    let bg = globalConfig.Assets.spritesImg.find(function(s){
+                        return s.imgKey == objPro[0].imgKey;
+                    }).bgColor;
                     let text = s[0].text;
-                    if (bg && text) {
-                        APG.Target.loadTextBitMap(s, text, bg);
-                    }
+                    // if (bg && text) {
+                    APG.Target.loadTextBitMap(s, text, bg);
+                    // }
                 });
             }
 

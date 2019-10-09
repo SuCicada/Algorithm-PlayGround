@@ -107,6 +107,9 @@ APG.Bag.putItem = function(x, y, group) {
         let sprite;
         if(item.imgMode == "textbitmap") {
             sprite = APG.Target.addTextBitMap(x, y, imgObj.text, imgObj.bgColor);
+            if(group) {
+                group.add(sprite);
+            }
         }else{
             sprite = APG.Sprite.addSprite(x,y,imgObj.imgKey, imgObj.frameId, group, imgObj.keyName);
         }

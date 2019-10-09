@@ -127,7 +127,9 @@ APG.Update.listenKey.characterMoveEvent = function(playerG, role, resolve, resol
                 }
 
                 /* 无论能不能走, 都变化方向动画 */
-                APG.Assets.setAnimations(playerGroup, k,playerGroup.Assets.move[k], 1);
+                if(playerGroup.Assets && playerGroup.Assets.move[k]){
+                    APG.Assets.setAnimations(playerGroup, k,playerGroup.Assets.move[k], 1);
+                }
                 if (canMove) {
                     console.log('player move from ' + nowSite.x + ", " + nowSite.y + " to " + newX + ", " + newY);
                     APG.Character.setCharacterSite(playerGroup, newX, newY);
