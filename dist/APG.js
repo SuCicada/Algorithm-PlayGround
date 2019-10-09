@@ -401,7 +401,7 @@ var startGame = {
         let Assets = globalConfig.Assets;
         var bg = game.add.tileSprite(0,0,game.width,game.height,Assets.background.imgKey);
         bg.autoScroll(Assets.background.scrollX,Assets.background.scrollY);
-        APG.Assets.background[Assets.background.musicKey] = bg;
+        APG.Assets.background[Assets.background.imgKey] = bg;
 
         if(Assets.music){
             let music = game.add.audio(Assets.music.musicKey);
@@ -441,6 +441,8 @@ var startGame = {
             let objPro = objectLayer[i].properties;
             /* 2.0: 目前都有keyName了*/
             let imgKey = objPro[0].imgKey;
+            console.log(globalConfig.Assets.spritesImg)
+            console.log(objPro)
             let imgMode = globalConfig.Assets.spritesImg.find(function(s){
                             return s.imgKey == objPro[0].imgKey;
                         }).imgMode;
@@ -449,13 +451,15 @@ var startGame = {
                 imgKey , frameId, true, false, group, Phaser.Sprite, false);
             console.log(group)
             /* 对 textbitmap 对象的特殊处理 */
-            if (imgMode == 'textbitmap') {
+            if (imgMode === 'textbitmap') {
                 group.forEach(function(s) {
-                    let bg = s[0].bgColor;
+                    let bg = globalConfig.Assets.spritesImg.find(function(s){
+                        return s.imgKey == objPro[0].imgKey;
+                    }).bgColor;
                     let text = s[0].text;
-                    if (bg && text) {
-                        APG.Target.loadTextBitMap(s, text, bg);
-                    }
+                    // if (bg && text) {
+                    APG.Target.loadTextBitMap(s, text, bg);
+                    // }
                 });
             }
 
@@ -1023,6 +1027,9 @@ APG.Bag.putItem = function(x, y, group) {
         let sprite;
         if(item.imgMode == "textbitmap") {
             sprite = APG.Target.addTextBitMap(x, y, imgObj.text, imgObj.bgColor);
+            if(group) {
+                group.add(sprite);
+            }
         }else{
             sprite = APG.Sprite.addSprite(x,y,imgObj.imgKey, imgObj.frameId, group, imgObj.keyName);
         }
@@ -1853,7 +1860,7 @@ APG.Target.loadTextBitMap = function(sprite, text, bgColor) {
     }else if(!text){
         var text = "";
     }
-
+    // console.log(bgColor )
     if(info.bgColor && !bgColor){
         var bgColor = info.bgColor;
     }else if(!bgColor){
@@ -2095,7 +2102,9 @@ APG.Update.listenKey.characterMoveEvent = function(playerG, role, resolve, resol
                 }
 
                 /* 无论能不能走, 都变化方向动画 */
-                APG.Assets.setAnimations(playerGroup, k,playerGroup.Assets.move[k], 1);
+                if(playerGroup.Assets && playerGroup.Assets.move[k]){
+                    APG.Assets.setAnimations(playerGroup, k,playerGroup.Assets.move[k], 1);
+                }
                 if (canMove) {
                     console.log('player move from ' + nowSite.x + ", " + nowSite.y + " to " + newX + ", " + newY);
                     APG.Character.setCharacterSite(playerGroup, newX, newY);
