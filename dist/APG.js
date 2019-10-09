@@ -1,13 +1,33 @@
 console.log("APG-core.js has been loaded successfully.")
 
+
+var isvertical = 0;
+var splitbar ;
 window.onload=function() {
-    WIDTH = globalConfig.WIDTH? globalConfig.WIDTH: window.screen.width;
+    WIDTH = globalConfig.WIDTH? globalConfig.WIDTH: document.body.offsetWidth;
     HEIGHT = globalConfig.HEIGHT? globalConfig.HEIGHT: window.screen.height;
     MODE = globalConfig.MODE? globalConfig.MODE: 'CANVAS';
 
-    APG.WIDTH = WIDTH;
     APG.MODE = MODE;
+
+
+    if(WIDTH<HEIGHT){
+        isvertical = 1;
+        var temp = WIDTH
+        WIDTH = HEIGHT;
+        HEIGHT = temp;
+    }
+
+    var gege = Math.min(WIDTH/16,HEIGHT/9);
+    console.log(gege,WIDTH, HEIGHT)
+    splitbar  = (WIDTH - HEIGHT/9*16 )/2;
+    // WIDTH = Math.min(HEIGHT/9*16,WIDTH);
+    // HEIGHT = gege*9;
+    console.log(WIDTH, HEIGHT)
+
+    APG.WIDTH = WIDTH;
     APG.HEIGHT = HEIGHT;
+
 
     game = new Phaser.Game(WIDTH,HEIGHT,MODE, '');
     game.state.add('bootstrap', bootstrap);
@@ -100,21 +120,94 @@ APG.Group = {};
 APG.Target = {};
 APG.Character = {};
 
+function someboot(){
+    Phaser.World.prototype.displayObjectUpdateTransform = function () {
+        let height = screen.height;
+        let width = screen.width;
+        if(height>width){
+            var direction = '1'
+            isvertical = 1;
+        }else{
+            var direction = '-'
+            isvertical = 0;
+        }
+        // console.log(direction)
+        if(isvertical){
+            // console.error(APG.HEIGHT, APG.WIDTH)
+            document.getElementsByTagName("body")[0].style.transform = "rotate(90deg)";
+            // document.getElementsByTagName("canvas")[0].style.transform = "rotate(90deg)";
+            game.scale.setGameSize(APG.WIDTH, APG.HEIGHT)
+        // }
+        // if (direction == '1') {
+        // var flag = 1;
+        // if(!game.scale.correct){
+        // if(flag == 1){
+            // game.scale.setGameSize(height, width)
+            // game.scale.setGameSize(width, height)
+
+            // this.x = game.camera.y + game.width;
+            // this.y = -game.camera.x;
+            // this.rotation = Phaser.Math.degToRad(Phaser.Math.wrapAngle(90));
+            var body = document.getElementsByTagName("body")[0];
+            var canvas = document.getElementsByTagName("canvas")[0];
+            body.style.transform = "rotate(90deg)";
+            // body.style.margin= '0px';
+            // body.style.marginTop= splitbar + 'px';
+            // console.log(canvas.height)
+            // console.log(canvas.width)
+
+            // canvas.width = 1000;
+        } else {
+            document.getElementsByTagName("body")[0].style.transform = "rotate(0deg)";
+            // document.getElementsByTagName("body")[0].style.margin= '0px';
+            // document.getElementsByTagName("body")[0].style.marginLeft= splitbar + 'px';
+
+            // game.scale.setGameSize(width, height)
+            // this.x = -game.camera.x;
+            // this.y = -game.camera.y;
+            // this.rotation = 0;
+        }
+        PIXI.DisplayObject.prototype.updateTransform.call(this);
+    }
+}
+
 
 var bootstrap = {
     init: function () {
+
         if (!(globalConfig.ScaleMode == "EXACT_FIT")){
-            game.scale.pageAlignHorizontally = true;
-            game.scale.pageAlignVertically = true;
+            // game.scale.pageAlignHorizontally = true;
+            // game.scale.pageAlignVertically = true;
         }
-        game.scale.scaleMode = Phaser.ScaleManager[globalConfig.ScaleMode];
+        // game.scale.scaleMode = Phaser.ScaleManager[globalConfig.ScaleMode];
         game.scale.refresh();
+
+        // someinit();
+        someboot();
     },
     preload: function() {
-
+        showButton();
         game.load.json('mazajson', globalConfig.Assets.tileMap.tileMapJson);
     },
     create: function(){
+
+
+        game.input.onTap.add(function(){
+            var clickX = game.input.activePointer.clientX;
+            var clickY = game.input.activePointer.clientY;
+            if(APG.Game.isInner(buttonUp,clickX,clickY)){
+                APG.DeveloperModel.Key = 'UP';
+            }else if(APG.Game.isInner(buttonDown,clickX, clickY)){
+                APG.DeveloperModel.Key = 'DOWN';
+            }else if(APG.Game.isInner(buttonLeft,clickX, clickY)){
+                APG.DeveloperModel.Key = 'LEFT';
+            }else if(APG.Game.isInner(buttonRight,clickX, clickY)){
+                APG.DeveloperModel.Key = 'RIGHT';
+            }else if(APG.Game.isInner(buttonTool1,clickX, clickY)){
+                APG.DeveloperModel.swapBlock.apply(APG.DeveloperModel)
+            }
+        },this)
+
         /* 地图配置文件 */
         TileMapJson = game.cache.getJSON('mazajson');
         console.log(TileMapJson)
@@ -211,6 +304,7 @@ var preload = {
             }
         }
         console.log("js path: " + path);
+        game.load.crossOrigin = true;
         if(path && APG.Assets.scripts){
             APG.Assets.scripts.forEach(function(s){
                 game.load.script(s, path + s + ".js");
@@ -223,7 +317,9 @@ var preload = {
         game.load.image(Assets.mapImg.imgKey,     APG.Assets.mapImg);
         game.load.tilemap('Tilemap', null, TileMapJson, Phaser.Tilemap.TILED_JSON);
 
-        game.load.audio(Assets.music.musicKey,    Assets.music.musicUrl);
+        if(Assets.music){
+            game.load.audio(Assets.music.musicKey,    Assets.music.musicUrl);
+        }
         game.load.image(Assets.background.imgKey, Assets.background.imgUrl);
 
         this.spritesheets = [];
@@ -458,9 +554,13 @@ var startGame = {
             APG.DeveloperModel.create.apply(APG.DeveloperModel);
         }
 
+        myOtherCreate();
+
         if(globalConfig.README){
             APG.Game.README();
         }
+
+
     },
     update: function(){
         APG.FPSRate++;
@@ -529,7 +629,8 @@ var startGame = {
         });
 
         if(globalConfig.BagSystem){
-            APG.Update.bag();
+            // APG.Update.bag();
+            APG.Bag.updateBag();
         }
 
         /* 你的更新 */
@@ -589,6 +690,109 @@ function autoResizeImg(imgSrc, width, height){
         };
         img.src = imgSrc;
     });
+}
+
+var showButton = function(){
+    var up = [
+        '3333333',
+        '3..3..3',
+        '3.333.3',
+        '3333333',
+        '3..3..3',
+        '3..3..3',
+        '3333333'
+    ];
+    var down = [
+        '3333333',
+        '3..3..3',
+        '3..3..3',
+        '3333333',
+        '3.333.3',
+        '3..3..3',
+        '3333333'
+    ];
+    var left = [
+        '3333333',
+        '3..3..3',
+        '3.33..3',
+        '3333333',
+        '3.33..3',
+        '3..3..3',
+        '3333333'
+    ]
+    var right = [
+        '3333333',
+        '3..3..3',
+        '3..33.3',
+        '3333333',
+        '3..33.3',
+        '3..3..3',
+        '3333333'
+    ]
+
+    var exit = [
+        '2    2',
+        ' 2  2 ',
+        '  22  ',
+        ' 2  2 ',
+        '2    2',
+    ]
+    
+    var restart = [
+        ' 2222 ',
+        '2    2',
+        '2 2  2',
+        '2 2222',
+        '2     ',
+        ' 222  ',
+    ]
+
+    var size = APG.HEIGHT / 70;
+    game.load.imageFromTexture('up', up, size);
+    game.load.imageFromTexture('down', down, size);
+    game.load.imageFromTexture('left', left, size);
+    game.load.imageFromTexture('right', right, size);
+    game.load.imageFromTexture('exit', exit, size);
+    game.load.imageFromTexture('restart', restart, size);
+}
+
+
+function myOtherCreate(){
+    var site = APG.HEIGHT / 60;
+    var exitButton = game.add.sprite(site,site,'exit');
+    var restartButton = game.add.sprite(site*10,site,'restart');
+
+    game.input.onTap.add(function(){
+        var clickX = game.input.activePointer.clientX;
+        var clickY = game.input.activePointer.clientY;
+        if(APG.Game.isInner(exitButton,clickX,clickY)){
+            history.back(-1);
+        }else if(APG.Game.isInner(restartButton,clickX,clickY)){
+            restartGame();
+        }
+    },APG.DeveloperModel)
+
+
+    var siteX = APG.HEIGHT * 0.2 ;
+    var siteY = APG.HEIGHT *0.7
+    var bar = APG.HEIGHT * 0.1;
+    buttonUp = game.add.button(siteX, siteY-bar, 'up')
+    buttonDown = game.add.button(siteX, siteY+bar, 'down')
+    buttonLeft = game.add.button(siteX-bar, siteY, 'left')
+    buttonRight = game.add.button(siteX+bar, siteY, 'right')
+    game.input.onTap.add(function(){
+        var clickX = game.input.activePointer.clientX;
+        var clickY = game.input.activePointer.clientY;
+        if(APG.Game.isInner(buttonUp,clickX,clickY)){
+            APG.DeveloperModel.Key = 'UP';
+        }else if(APG.Game.isInner(buttonDown,clickX, clickY)){
+            APG.DeveloperModel.Key = 'DOWN';
+        }else if(APG.Game.isInner(buttonLeft,clickX, clickY)){
+            APG.DeveloperModel.Key = 'LEFT';
+        }else if(APG.Game.isInner(buttonRight,clickX, clickY)){
+            APG.DeveloperModel.Key = 'RIGHT';
+        }
+    },this)
 }console.log("Assets.js has been loaded successfully.")
 /* ==========    Assets ====================  */
 /**
@@ -1112,6 +1316,9 @@ APG.Game.getGameMODE = function(){
  */
 APG.Game.README = function(){
     let config = globalConfig.README;
+    config.font.size = WIDTH/(Math.sqrt(config.text.length/2))/5
+
+
     APG.Update.listenKey.stopListenKey();
 
     let w = WIDTH * 0.8;
@@ -1145,6 +1352,7 @@ APG.Game.README = function(){
         str += config.text[i];
         index++;
     }
+
     config.text = str;
     let text = game.add.text(WIDTH/2, y*1.2, config.text, style);
     text.anchor.set(0.5,0);
@@ -1152,8 +1360,9 @@ APG.Game.README = function(){
     text2.anchor.set(1,1);
 
     bar.inputEnabled = true;
-    bar.input.useHandCursor = true;
+    // bar.input.useHandCursor = true;
     bar.events.onInputDown.add(function(){
+        // console.log(1111)
         bar.destroy();
         text.destroy();
         text2.destroy();
@@ -1171,10 +1380,10 @@ APG.Game.README = function(){
 APG.Game.WIN = function(str, func, that=APG.DeveloperModel){
     game.input.keyboard.stop();
 
-    let w = WIDTH * 0.5;
-    let h = HEIGHT * 0.5;
+    let w = WIDTH * 0.8;
+    let h = HEIGHT * 0.8;
     let x = (WIDTH - w) / 2;
-    let y = (HEIGHT - w) / 2;
+    let y = (HEIGHT - h) / 2;
     let  bar = game.add.graphics();
     bar.beginFill('0x'+'#dfc9c8'.slice(1), 0.8);
     bar.drawRect(x, y, w, h);
@@ -1204,10 +1413,10 @@ APG.Game.WIN = function(str, func, that=APG.DeveloperModel){
 APG.Game.LOST = function(str, func, that=APG.DeveloperModel){
     game.input.keyboard.stop();
 
-    let w = WIDTH * 0.5;
-    let h = HEIGHT * 0.5;
-    let x = (WIDTH - w) / 2;
-    let y = (HEIGHT - w) / 2;
+    let w = APG.WIDTH * 0.8;
+    let h = APG.HEIGHT * 0.8;
+    let x = (APG.WIDTH - w) / 2;
+    let y = (APG.HEIGHT - h) / 2;
     let  bar = game.add.graphics();
     bar.beginFill('0x'+'#dfc9c8'.slice(1), 0.8);
     bar.drawRect(x, y, w, h);
@@ -1286,10 +1495,57 @@ APG.Game.restartGame = function(){
 };
 
 
+APG.Game.fireKeyEvent = function(el, evtType, keyCode){
+    var doc = el.ownerDocument;
+    var win = doc.defaultView || doc.parentWindow,
+        evtObj;
+    if(doc.createEvent){
+        if(win.KeyEvent) {
+            evtObj = doc.createEvent('KeyEvents');
+            evtObj.initKeyEvent( evtType, true, true, win, false, false, false, false, keyCode, 0 );
+        }
+        else {
+            evtObj = doc.createEvent('UIEvents');
+            Object.defineProperty(evtObj, 'keyCode', {
+                get : function() { return this.keyCodeVal; }
+            });
+            Object.defineProperty(evtObj, 'which', {
+                get : function() { return this.keyCodeVal; }
+            });
+            evtObj.initUIEvent( evtType, true, true, win, 1 );
+            evtObj.keyCodeVal = keyCode;
+            if (evtObj.keyCode !== keyCode) {
+                console.log("keyCode " + evtObj.keyCode + " 和 (" + evtObj.which + ") 不匹配");
+            }
+        }
+        el.dispatchEvent(evtObj);
+    }
+    else if(doc.createEventObject){
+        evtObj = doc.createEventObject();
+        evtObj.keyCode = keyCode;
+        el.fireEvent('on' + evtType, evtObj);
+    }
+}
 
+APG.Game.isInner =function(sprite, x,y){
+    s = {}
+    s.x = sprite.x
+    s.y = sprite.y
+    s.width = sprite.width
+    s.height = sprite.height
+    if(isvertical){
+        s.x = APG.HEIGHT-sprite.y-sprite.height;
+        s.y = sprite.x
+    }
+    console.log(s)
+    console.log(x,y)
 
-
-console.log("Group.js has been loaded successfully.")
+    if(x>=s.x && x<=s.x+s.width &&
+        y>=s.y && y<=s.y+s.height){
+        return true;
+    }
+    return false;
+}console.log("Group.js has been loaded successfully.")
 
 /**
  * Group（组）：概念取自phaser，指代框架中多个的元素对象组合而来的组形式的对象。也是接口的一个分类。
@@ -1771,9 +2027,9 @@ APG.Update.listenKey.addKeyEvent = function(key, feedback, context, that=APG.Dev
  * @param {Array} rejectContext - 失败函数传入的参数
  * @param {{}} [that = APG.DeveloperModel] - 回调上下文
  */
-APG.Update.listenKey.characterMoveEvent = function(playerG, role, resolve, resolveContext, reject, rejectContext, that=APG.DeveloperModel) {
+APG.Update.listenKey.characterMoveEvent = function(playerG, role, resolve, resolveContext, reject, rejectContext, that=APG.DeveloperModel, secretKey) {
     for (var k in APG.Keys.move) {
-        if (APG.Keys[APG.Keys.move[k]].justDown) {
+        if (APG.Keys[APG.Keys.move[k]].justDown || k == secretKey) {
             console.log(k+" is justDown.")
             var playerGroup = playerG;
             var player = APG.Character.getCharacterSprite(playerGroup);
