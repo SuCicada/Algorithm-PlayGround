@@ -316,7 +316,9 @@ var preload = {
         game.load.image(Assets.mapImg.imgKey,     APG.Assets.mapImg);
         game.load.tilemap('Tilemap', null, TileMapJson, Phaser.Tilemap.TILED_JSON);
 
-        game.load.audio(Assets.music.musicKey,    Assets.music.musicUrl);
+        if(Assets.music){
+            game.load.audio(Assets.music.musicKey,    Assets.music.musicUrl);
+        }
         game.load.image(Assets.background.imgKey, Assets.background.imgUrl);
 
         this.spritesheets = [];

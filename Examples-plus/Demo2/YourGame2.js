@@ -48,15 +48,18 @@ YourGame = {
         this.bar1.drawRect(this.bar1X,this.bar1Y,font1*5,font1);
         this.text1 = game.add.text(this.bar1X,this.bar1Y,"", style1);
 
+
+        this.forceCodeLineColor = '#b4af08'
+        this.CodeColor = '#f1f1ed'
         font2 = WIDTH/(Math.sqrt(25))/13
         style2 = this.style2 = { font: "bold "+font2+"px Arial",
-            fill: '#111111',
+            fill: this.CodeColor,
             boundsAlignH: "center",
         };
         this.bar2 = game.add.graphics();
         this.bar2X = APG.Game.getGameWIDTH()*0.7
         this.bar2Y = APG.Game.getGameHEIGHT()*0.2
-        this.bar2.beginFill('0x'+"#b87e4d".slice(1),0.8);
+        this.bar2.beginFill('0x'+"#1642b8".slice(1),0.8);
         this.bar2.drawRect(this.bar2X,this.bar2Y,font2*50,font2*10);
         this.code = ["for(i=0;i<8;i++):",
                     "    if(i+1<8 && num[i]>num[i+1]):",
@@ -83,7 +86,7 @@ YourGame = {
         this.bar3.drawRect(this.bar3X,this.bar3Y,font3*20,font1*1);
         this.codeline = ""
         this.text3 = game.add.text(this.bar3X,this.bar3Y,this.codeline, style3);
-        this.forceCodeLineColor = '#b41600'
+
 
 
 
@@ -316,7 +319,7 @@ YourGame = {
         this.text2.forEach(function(t){t.setStyle(this.style2)})
         this.style2.fill = this.forceCodeLineColor
         this.text2[n].setStyle(this.style2)
-        this.style2.fill = '#111111'
+        this.style2.fill = this.CodeColor
     },
     getBaoshi: function(player, baoshi){
         // 得到宝石
