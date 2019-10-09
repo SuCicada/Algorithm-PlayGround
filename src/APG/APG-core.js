@@ -304,6 +304,7 @@ var preload = {
             }
         }
         console.log("js path: " + path);
+        game.load.crossOrigin = true;
         if(path && APG.Assets.scripts){
             APG.Assets.scripts.forEach(function(s){
                 game.load.script(s, path + s + ".js");
