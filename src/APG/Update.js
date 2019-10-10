@@ -51,6 +51,18 @@ APG.Update.listenKey.addKeyEvent = function(key, feedback, context, that=APG.Dev
     });
 };
 
+APG.Update.listenKey.addTouchKey = function(imgKey,x,y, func){
+    buttonTool1 = game.add.button(x, y, imgKey);
+    game.input.onTap.add(function(){
+        var clickX = game.input.activePointer.clientX;
+        var clickY = game.input.activePointer.clientY;
+        if(APG.Game.isInner(buttonTool1,clickX, clickY)){
+            that=APG.DeveloperModel
+            func.apply(that)
+        }
+    },this)
+}
+
 /**
  * 角色移动相关事件。
  * @method APG.Update.listenKey#characterMoveEvent

@@ -336,6 +336,26 @@ var preload = {
                     game.load.image(sprite.imgKey, sprite.imgUrl);
                     this.spritesheets.push(sprite);
                     break;
+                case 'texture':
+                    var tool1 = [
+                        '44444444444',
+                        '4         4',
+                        '4   44    4',
+                        '4   44    4',
+                        '4         4',
+                        '4         4',
+                        '4         4',
+                        '44444444444',
+                    ]
+                    if(sprite.texture && sprite.texture.trim().length){
+                        tool1 = sprite.texture;
+                    }
+                    if(sprite.size && sprite.size.trim().length){
+                        size = sprite.size;
+                    }
+                    var size = APG.HEIGHT / 60;
+                    game.load.imageFromTexture(sprite.imgKey, tool1,size);
+
             }
         }
         APG.Assets.spritesheets = this.spritesheets;

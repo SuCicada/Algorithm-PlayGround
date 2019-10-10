@@ -43,6 +43,13 @@ var globalConfig = {
                 imgUrl: "player.png",
                 rows: 1,
                 columns: 4
+            },
+            {
+                type: "key",
+                imgMode: "texture",
+                imgKey: 'tool',
+                texture:'',
+                size: '',
             }
         ]
     },          /* 游戏资源*/

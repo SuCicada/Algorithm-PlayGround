@@ -89,6 +89,7 @@ stopListenKey               = APG.Update.listenKey.stopListenKey
 startListenKey              = APG.Update.listenKey.startListenKey
 setMoveKey                  = APG.Update.listenKey.setMoveKey
 addKeyEvent                 = APG.Update.listenKey.addKeyEvent
+addTouchKey                 = APG.Update.listenKey.addTouchKey
 characterMoveEvent          = APG.Update.listenKey.characterMoveEvent
 setCollideWorldBounds       = APG.Update.collision.setCollideWorldBounds
 blockTileOverlap            = APG.Update.collision.blockTileOverlap

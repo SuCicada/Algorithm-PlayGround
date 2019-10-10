@@ -7,6 +7,7 @@ var YourGame = {
         blockTileOverlap(this.player, 0)
         blockGroupOverlap(this.player, this.numBlock)
         addKeyEvent('E',this.opera)
+        addTouchKey('tool',getGameWIDTH()*0.8,getGameHEIGHT()*0.7,this.opera)
         setBagCapacity(1)
     },
     update: function(){

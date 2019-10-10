@@ -271,3 +271,5 @@ APG.Game.isInner =function(sprite, x,y){
     }
     return false;
 }
+
+
