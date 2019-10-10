@@ -203,9 +203,11 @@ YourGame = {
         var sprite = APG.Sprite.getSpriteListFromSite(site.x,site.y,this.exports);
         var frame = APG.Assets.getFrame(sprite[0])
         if(frame == 1){
-            str = "贡献者:SuCicada";
+            str = "贡献者:SuCicada\n点击前往更大更广阔的世界吧.";
             APG.Game.WIN(str,function(){
-                window.location.href="https://github.com/SuCicada/Algorithm-PlayGround"
+                // window.location.href="https://github.com/SuCicada/Algorithm-PlayGround"
+                window.location.href = 'part2.html'
+
             });
         }
     }
