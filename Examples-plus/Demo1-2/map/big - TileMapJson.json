@@ -1,0 +1,1166 @@
+{
+    "height": 21,
+    "width": 20,
+    "tileheight": 146,
+    "tilewidth": 146,
+    "infinite": false,
+    "layers": [
+        {
+            "id": 1,
+            "data": [
+                1,
+                0,
+                0,
+                0,
+                1,
+                1,
+                0,
+                1,
+                1,
+                1,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                2,
+                1,
+                0,
+                2,
+                1,
+                2,
+                0,
+                1,
+                2,
+                1,
+                2,
+                2,
+                2,
+                1,
+                2,
+                2,
+                2,
+                2,
+                2,
+                1,
+                0,
+                1,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+                1,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+                1,
+                2,
+                2,
+                1,
+                2,
+                2,
+                2,
+                2,
+                2,
+                0,
+                1,
+                0,
+                1,
+                2,
+                2,
+                1,
+                2,
+                1,
+                2,
+                0,
+                1,
+                0,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+                1,
+                1,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                2,
+                2,
+                2,
+                2,
+                1,
+                2,
+                2,
+                2,
+                1,
+                2,
+                0,
+                1,
+                2,
+                0,
+                1,
+                2,
+                2,
+                1,
+                2,
+                1,
+                0,
+                1,
+                1,
+                0,
+                1,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                1,
+                1,
+                1,
+                1,
+                0,
+                0,
+                1,
+                0,
+                1,
+                1,
+                1,
+                2,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+                1,
+                2,
+                2,
+                2,
+                2,
+                1,
+                1,
+                1,
+                0,
+                2,
+                1,
+                2,
+                0,
+                2,
+                2,
+                2,
+                2,
+                2,
+                1,
+                0,
+                1,
+                1,
+                1,
+                1,
+                0,
+                2,
+                1,
+                1,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+                2,
+                2,
+                2,
+                1,
+                1,
+                1,
+                1,
+                2,
+                0,
+                2,
+                1,
+                2,
+                2,
+                2,
+                2,
+                1,
+                2,
+                2,
+                1,
+                0,
+                1,
+                1,
+                0,
+                1,
+                2,
+                2,
+                2,
+                0,
+                1,
+                1,
+                1,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+                2,
+                1,
+                0,
+                1,
+                0,
+                1,
+                1,
+                0,
+                1,
+                2,
+                2,
+                0,
+                1,
+                2,
+                2,
+                2,
+                2,
+                2,
+                1,
+                0,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+                1,
+                0,
+                1,
+                0,
+                1,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+                0,
+                1,
+                2,
+                1,
+                2,
+                2,
+                1,
+                0,
+                2,
+                0,
+                1,
+                0,
+                2,
+                0,
+                2,
+                1,
+                2,
+                2,
+                1,
+                0,
+                0,
+                1,
+                1,
+                1,
+                0,
+                1,
+                1,
+                1,
+                1,
+                0,
+                1,
+                1,
+                1,
+                0,
+                1,
+                1,
+                0,
+                1,
+                1,
+                0,
+                0,
+                1,
+                2,
+                1,
+                0,
+                1,
+                2,
+                2,
+                2,
+                1,
+                1,
+                2,
+                1,
+                0,
+                2,
+                2,
+                0,
+                2,
+                1,
+                0,
+                1,
+                1,
+                0,
+                1,
+                0,
+                1,
+                0,
+                0,
+                1,
+                1,
+                2,
+                0,
+                1,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+                2,
+                1,
+                0,
+                1,
+                0,
+                1,
+                1,
+                1,
+                1,
+                2,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                2,
+                1,
+                1,
+                0,
+                0,
+                1,
+                1,
+                1,
+                1,
+                2,
+                2,
+                2,
+                2,
+                0,
+                0,
+                2,
+                2,
+                2,
+                2,
+                2,
+                0,
+                2,
+                1,
+                1,
+                0,
+                2,
+                2,
+                2,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                2
+            ],
+            "height": 21,
+            "width": 20,
+            "name": "layer1",
+            "opacity": 1,
+            "type": "tilelayer",
+            "visible": true,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "id": 2,
+            "draworder": "toptodown",
+            "name": "Object Layer",
+            "objects": [
+                {
+                    "id": 1,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 584,
+                    "y": 0,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1022,
+                    "y": 0,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1314,
+                    "y": 0,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 2774,
+                    "y": 0,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1898,
+                    "y": 146,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 2190,
+                    "y": 292,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 2774,
+                    "y": 292,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 8,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 0,
+                    "y": 438,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 9,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 584,
+                    "y": 584,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 10,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1898,
+                    "y": 584,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 11,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 2044,
+                    "y": 584,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 12,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 2190,
+                    "y": 584,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 13,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1752,
+                    "y": 876,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 14,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1898,
+                    "y": 1022,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 15,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 0,
+                    "y": 1168,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 16,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 730,
+                    "y": 1168,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 17,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1022,
+                    "y": 1314,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 18,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1314,
+                    "y": 1314,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 19,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1752,
+                    "y": 1314,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 20,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1898,
+                    "y": 1314,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 21,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 0,
+                    "y": 1606,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 22,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 2336,
+                    "y": 1606,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 23,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 730,
+                    "y": 1752,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 24,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1168,
+                    "y": 1898,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 25,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1460,
+                    "y": 1898,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 26,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1752,
+                    "y": 1898,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 27,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 2044,
+                    "y": 1898,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 28,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 438,
+                    "y": 2044,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 29,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1168,
+                    "y": 2190,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 30,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 2044,
+                    "y": 2190,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 31,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 2482,
+                    "y": 2190,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 32,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 0,
+                    "y": 2482,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 33,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 2044,
+                    "y": 2482,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 34,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 2628,
+                    "y": 2482,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 35,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 1606,
+                    "y": 2628,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 36,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 2482,
+                    "y": 2628,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 37,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 292,
+                    "y": 2774,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 38,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 584,
+                    "y": 2774,
+                    "properties": [
+                        {
+                            "keyName": "baoshi",
+                            "imgKey": "baoshi"
+                        }
+                    ]
+                },
+                {
+                    "id": 39,
+                    "gid": 2,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "visible": true,
+                    "x": 2774,
+                    "y": 2774,
+                    "properties": [
+                        {
+                            "keyName": "chukou",
+                            "imgKey": "chukou"
+                        }
+                    ]
+                }
+            ],
+            "opacity": 1,
+            "type": "objectgroup",
+            "visible": true,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "id": 3,
+            "draworder": "toptodown",
+            "name": "Character Layer",
+            "objects": [
+                {
+                    "id": 40,
+                    "gid": 1,
+                    "height": 146,
+                    "width": 146,
+                    "name": "",
+                    "rotation": 0,
+                    "type": "player",
+                    "visible": true,
+                    "x": 0,
+                    "y": 0,
+                    "properties": [
+                        {
+                            "keyName": "player",
+                            "imgKey": "player"
+                        }
+                    ]
+                }
+            ],
+            "opacity": 1,
+            "type": "objectgroup",
+            "visible": true,
+            "x": 0,
+            "y": 0
+        }
+    ],
+    "nextlayerid": 2,
+    "nextobjectid": 1,
+    "orientation": "orthogonal",
+    "renderorder": "right-down",
+    "tilesets": [
+        {
+            "columns": 1,
+            "firstgid": 1,
+            "imageheight": 292,
+            "imagewidth": 147,
+            "margin": 0,
+            "name": "maza",
+            "spacing": 0,
+            "tilecount": 2,
+            "tileheight": 146,
+            "tilewidth": 147
+        }
+    ],
+    "type": "map"
+}

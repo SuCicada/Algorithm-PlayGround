@@ -90,7 +90,9 @@ APG.Target.loadTextBitMap = function(sprite, text, bgColor) {
     }
 
     let textColor = '#'+color.toString(16);
-    let style = { font: "bold "+APG.Tile.width/2+"px Arial",
+
+    let style = {
+        font: "bold "+APG.Tile.width/Math.max(2,text.toString().length)+"px Arial",
         fill: textColor,
         boundsAlignH: "center",
         wordWrap: true,

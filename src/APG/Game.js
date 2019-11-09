@@ -86,8 +86,7 @@ APG.Game.README = function(){
 
     bar.inputEnabled = true;
     // bar.input.useHandCursor = true;
-    bar.events.onInputDown.add(function(){
-        // console.log(1111)
+    game.input.onTap.addOnce(function(){
         bar.destroy();
         text.destroy();
         text2.destroy();
@@ -207,7 +206,6 @@ APG.Game.restartGame = function(){
     APG.Assets.stopMusic();
     APG.Tilemap.destroy();
     APG.Layer.destroy();
-    game.state.restart();
 
     for(m in APG.CharacterGroups) {
         APG.CharacterGroups[m].destroy();
@@ -217,6 +215,11 @@ APG.Game.restartGame = function(){
         APG.TargetGroups[m].removeAll();
         APG.TargetGroups[m].destroy();
     }
+    for(b of APG.Assets.virtualButton){
+        b.buttonObj.destroy();
+    }
+    APG.Assets.virtualButton = [];
+    game.state.restart();
 };
 
 

@@ -38,13 +38,52 @@ var globalConfig = {
             imgUrl: 'map/maza.png',
         },
         tileMap: {
-            tileMapJson: 'map/2019-8-14 11_28_26 - 21 x 20 - TileMapJson.json'
+            tileMapJson: 'map/big - TileMapJson.json'
         },
         virtualButton: [
             {
                 // imgMode: "spritesheet",   // default
                 imgKey: "tool1",
                 imgUrl: "../assets/bnt/UP.png",
+                rows:2,
+                columns: 1,
+            },
+            {
+                imgKey: "exit",
+                imgUrl: "../assets/bnt/UP.png",
+                rows:2,
+                columns: 1,
+            },
+            {
+                imgKey: "restart",
+                imgUrl: "../assets/bnt/UP.png",
+                rows:2,
+                columns: 1,
+            },
+            {
+                // imgMode: "spritesheet",
+                imgKey: "UP",
+                imgUrl: "../assets/bnt/UP.png",
+                rows:2,
+                columns: 1,
+            },{
+                // imgMode: "spritesheet",
+                imgKey: "DOWN",
+                imgUrl: "../assets/bnt/DOWN.png",
+                rows:2,
+                columns: 1,
+            },
+            {
+                // imgMode: "spritesheet",
+                imgKey: "LEFT",
+                imgUrl: "../assets/bnt/LEFT.png",
+                rows:2,
+                columns: 1,
+            },
+            {
+                // imgMode: "spritesheet",
+                imgKey: "RIGHT",
+                imgUrl: "../assets/bnt/RIGHT.png",
                 rows:2,
                 columns: 1,
             },

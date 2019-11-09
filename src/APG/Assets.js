@@ -5,6 +5,7 @@ console.log("Assets.js has been loaded successfully.")
  * @class APG.Assets
  */
 APG.Assets;
+APG.Assets.virtualButton;
 
 /**
  * 播放音乐
@@ -41,6 +42,9 @@ APG.Assets.stopMusic = function(keyName){
 APG.Assets.setAnimations = function(obj, name, frames, frameRate=1, loop=false){
     /*
     * */
+    if(typeof frames == "number"){
+        frames = [frames]
+    }
     if(!obj.forEach){
         let s = obj;
         if(frames){
@@ -115,5 +119,13 @@ APG.Assets.getFrame = function(obj){
 };
 
 
-
-
+APG.Assets.setVirtualButton = function(name, x, y, func){
+    // APG.Assets.virtualButton["button"] = button;
+    APG.Assets.virtualButton.push({
+        "name": name,
+        "x": x,
+        "y": y,
+        "func": func,
+        "buttonObj": null, // 会由APG-core进行赋值
+    })
+};
