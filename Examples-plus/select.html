@@ -38,7 +38,8 @@
 <script>
     var w = screen.width;
     var h = screen.height;
-
+    var body = document.getElementsByTagName("body")[0];
+    // body.style.width = 2000+"px"
     var father = document.getElementById("father");
     father.style.background='url(select.png)'
     father.style.width = (w*2)+"px"
@@ -62,16 +63,11 @@
 
 
     var demos = [
-        {url:'',img:'start.png'},
-        {url:'',img:'start.png'},
-        {url:'',img:'start.png'},
-        {url:'',img:'start.png'},
-        {url:'',img:'start.png'},
-        {url:'',img:'start.png'},
-        {url:'',img:'start.png'},
-        {url:'',img:'start.png'},
-        {url:'',img:'start.png'},
-        {url:'',img:'start.png'},
+        {url:'Demo1',img:'start.png'},
+        {url:'Demo1-2',img:'start.png'},
+        {url:'Demo2',img:'start.png'},
+        {url:'Demo3',img:'start.png'},
+        {url:'Demo4',img:'start.png'},
     ]
     for(i = 0;i<demos.length;i++){
         var demoInfo = demos[i];
