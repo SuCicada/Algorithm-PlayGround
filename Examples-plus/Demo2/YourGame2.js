@@ -1,37 +1,13 @@
 YourGame = {
-    init: function(){
-    },
-    preload: function(){
-        var tool1 = [
-            '22222222222',
-            '2         2',
-            '2   22    2',
-            '2   22    2',
-            '2         2',
-            '2         2',
-            '2         2',
-            '22222222222',
-        ]
-        var size = APG.HEIGHT / 60;
-        game.load.imageFromTexture('tool1', tool1, size);
-    },
     create: function(){
         var siteX = APG.HEIGHT * 0.2 ;
         var siteY = APG.HEIGHT *0.7
         var bar = APG.HEIGHT * 0.1;
-        this.Key;
 
-        buttonTool1 = game.add.button(APG.WIDTH*0.8, siteY, 'tool1');
-        // buttonTool1.events.onInputDown.add(function(){
-            // APG.DeveloperModel.swapBlock.apply(APG.DeveloperModel)
-        // });
-        game.input.onTap.add(function(){
-            var clickX = game.input.activePointer.clientX;
-            var clickY = game.input.activePointer.clientY;
-            if(APG.Game.isInner(buttonTool1,clickX, clickY)){
-                APG.DeveloperModel.swapBlock.apply(APG.DeveloperModel)
-            }
-        },this)
+        APG.Assets.setVirtualButton('tool1', APG.WIDTH*0.8, siteY, function(){
+            this.swapBlock();//.apply(APG.DeveloperModel)
+        });
+
 
 
         font1 = WIDTH/(Math.sqrt(25))/5
@@ -49,24 +25,35 @@ YourGame = {
         this.text1 = game.add.text(this.bar1X,this.bar1Y,"", style1);
 
 
+        /* 代码块 */
         this.forceCodeLineColor = '#b4af08'
         this.CodeColor = '#f1f1ed'
-        font2 = WIDTH/(Math.sqrt(25))/13
+        this.bar2 = game.add.graphics();
+        var maxSide = Math.max(APG.WIDTH,APG.HEIGHT)
+        var minSide = Math.min(APG.WIDTH,APG.HEIGHT)
+        console.log(maxSide,minSide)
+        if(maxSide / minSide >= 2.4){
+            this.bar2X = APG.Game.getGameWIDTH()*0.7
+            this.bar2Y = APG.Game.getGameHEIGHT()*0.2
+        }else{
+            this.bar2X = APG.Game.getGameWIDTH()*0.3
+            this.bar2Y = APG.Game.getGameHEIGHT()*0.7
+
+        }
+        font2 = WIDTH/(Math.sqrt(25))/10
         style2 = this.style2 = { font: "bold "+font2+"px Arial",
             fill: this.CodeColor,
             boundsAlignH: "center",
         };
-        this.bar2 = game.add.graphics();
-        this.bar2X = APG.Game.getGameWIDTH()*0.7
-        this.bar2Y = APG.Game.getGameHEIGHT()*0.2
         this.bar2.beginFill('0x'+"#1642b8".slice(1),0.8);
-        this.bar2.drawRect(this.bar2X,this.bar2Y,font2*50,font2*10);
+        this.bar2.drawRect(this.bar2X,this.bar2Y,font2*20,font2*10);
         this.code = ["for(i=0;i<8;i++):",
                     "    if(i+1<8 && num[i]>num[i+1]):",
-                    "        swap(num,i,i+1)",
+                    "        swap(num[i],num[i+1])",
                     "for(i=7;i>=0;i--):",
                     "    if(i-1>=0 && num[i-1]>num[i]):",
-                    "        swap(num,i-1,i)"]
+                    "        swap(num[i],num[i+1])"
+                    ]
         this.text2 = []
         for(i=0;i<this.code.length;i++){
              a = game.add.text(this.bar2X,this.bar2Y+font2*i*1.1,this.code[i], style2);

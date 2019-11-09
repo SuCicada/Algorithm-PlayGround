@@ -6,53 +6,17 @@ var FORMULA = "(2-5+1)*6/3";
 var ANSWER = eval(FORMULA)
 YourGame = {
 	/*	游戏初始（文本块） 玩家操作（按键绑定）  碰撞检测  自定义属性变量 元素动画*/
-	preload: function(){
-		var tool1 = [
-			'22222222222',
-			'2         2',
-			'2   22    2',
-			'2   22    2',
-			'2         2',
-			'2         2',
-			'2         2',
-			'22222222222',
-		]
-		var tool2 = [
-			'44444444444',
-			'4         4',
-			'4   44    4',
-			'4   44    4',
-			'4         4',
-			'4         4',
-			'4         4',
-			'44444444444',
-		]
-
-		FM_List2_top = 0;
-		var size = APG.HEIGHT / 60;
-		game.load.imageFromTexture('tool1', tool1, size);
-		game.load.imageFromTexture('tool2', tool2, size);
-	},
 	create: function(){
 		var siteX = APG.HEIGHT * 0.2 ;
 		var siteY = APG.HEIGHT *0.7
 		var bar = APG.HEIGHT * 0.1;
-		this.Key;
 
-		buttonTool1 = game.add.button(APG.WIDTH*0.8, siteY, 'tool1');
-		buttonTool2 = game.add.button(APG.WIDTH*0.9, siteY, 'tool2');
-		game.input.onTap.add(function(){
-			var clickX = game.input.activePointer.clientX;
-			var clickY = game.input.activePointer.clientY;
-			if(APG.Game.isInner(buttonTool1,clickX, clickY)){
-				push()
-				// APG.DeveloperModel.push.apply(APG.DeveloperModel)
-			}else if(APG.Game.isInner(buttonTool2,clickX, clickY)) {
-				pop()
-				// APG.DeveloperModel.pop.apply(APG.DeveloperModel)
-			}
-		},this)
-
+		APG.Assets.setVirtualButton('tool1', APG.WIDTH*0.8, siteY, function(){
+			push()
+		});
+		APG.Assets.setVirtualButton('tool2', APG.WIDTH*0.9, siteY, function(){
+			pop()
+		});
 
 		APG.Assets.playMusic('mu')
 

@@ -74,7 +74,9 @@ APG.Update.listenKey.addTouchKey = function(imgKey,x,y, func){
  * @param {Array} rejectContext - 失败函数传入的参数
  * @param {{}} [that = APG.DeveloperModel] - 回调上下文
  */
-APG.Update.listenKey.characterMoveEvent = function(playerG, role, resolve, resolveContext, reject, rejectContext, that=APG.DeveloperModel, secretKey) {
+APG.Update.listenKey.characterMoveEvent = function(playerG, role, resolve, resolveContext, reject, rejectContext, that=APG.DeveloperModel) {
+    var secretKey = APG.currentClickKey;
+    APG.currentClickKey = '';
     for (var k in APG.Keys.move) {
         if (APG.Keys[APG.Keys.move[k]].justDown || k == secretKey) {
             console.log(k+" is justDown.")

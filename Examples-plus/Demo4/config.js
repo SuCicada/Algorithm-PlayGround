@@ -18,9 +18,15 @@ var globalConfig = {
         y: 40,
     },         /* 地图区域*/
     Assets: {
+        music: {
+            musicKey: 'mu',
+            musicUrl: '../assets/audio/魔法少女小圆 -【Staff Roll 】(Av19711120,P1).Mp3'
+        },
         background: {
             imgKey: "bg",
             imgUrl: "bg.png",
+            scrollX: 100,
+            scrollY: 0,
         },
         mapImg: {
             imgKey: "maza",
@@ -29,6 +35,15 @@ var globalConfig = {
         tileMap: {
             tileMapJson: "2019-10-10 12_47_42 - 4 x 4 - TileMapJson.json"
         },
+        virtualButton: [
+            {
+                // imgMode: "spritesheet",   // default
+                imgKey: "tool1",
+                imgUrl: "../assets/bnt/UP.png",
+                rows:2,
+                columns: 1,
+            },
+        ],
         spritesImg: [
             {
                 type: 'object',

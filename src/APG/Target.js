@@ -16,11 +16,11 @@ APG.Target;
  * @param {string} bg - `TextBitMap`的颜色
  * @returns {Phaser.Sprite} TextBitMap
  */
-APG.Target.addTextBitMap = function(x,y, text, bg){
+APG.Target.addTextBitMap = function(x,y, text, bg, fontColor, fontAlpha){
     /* 创建一个 TextBitMap */
     let sprite = APG.Sprite.addSprite(x,y);
     sprite[0].imgMode = "textbitmap";
-    return APG.Target.loadTextBitMap(sprite,text,bg);
+    return APG.Target.loadTextBitMap(sprite,text,bg, fontColor, fontAlpha);
 };
 
 /**
@@ -46,7 +46,7 @@ APG.Target.aboutTextBitMap = function(sprite){
  * @param {string} bg - `TextBitMap`的颜色
  * @returns {Phaser.Sprite} TextBitMap
  */
-APG.Target.loadTextBitMap = function(sprite, text, bgColor) {
+APG.Target.loadTextBitMap = function(sprite, text, bgColor, fontColor, fontAlpha) {
     if(sprite){
         var info = APG.Target.aboutTextBitMap(sprite);
     }else{
@@ -74,9 +74,15 @@ APG.Target.loadTextBitMap = function(sprite, text, bgColor) {
     bmd.name = "bgColor";
 
     let rect = game.add.graphics(0, 0);
-    let color = '0x'+bgColor.slice(1);
-    color = 0xffffff - parseInt(color);
-    rect.lineStyle(APG.Tile.width/20, color, 1);
+    var color;
+
+    if(fontColor && fontColor.length){
+        color = fontColor;
+    }else{
+        color = '0x'+bgColor.slice(1);
+        color = 0xffffff - parseInt(color);
+    }
+    rect.lineStyle(APG.Tile.width/20, color, fontAlpha?fontAlpha:1);
     rect.drawRect(0,0,APG.Tile.width,APG.Tile.height);
     rect.name = "rect";
 
@@ -89,8 +95,14 @@ APG.Target.loadTextBitMap = function(sprite, text, bgColor) {
         sprite.loadTexture(bmd);
     }
 
-    let textColor = '#'+color.toString(16);
-    let style = { font: "bold "+APG.Tile.width/2+"px Arial",
+    let textColor = '#'+parseInt(color).toString(16);
+    if(fontAlpha){
+        textColor += parseInt(0x100 * fontAlpha).toString(16)
+    }
+    // console.log(textColor)
+
+    let style = {
+        font: "bold "+APG.Tile.width/Math.max(2,text.toString().length)+"px Arial",
         fill: textColor,
         boundsAlignH: "center",
         wordWrap: true,

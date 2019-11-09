@@ -26,7 +26,7 @@ var globalConfig = {
     Assets:{
         music:{
             musicKey: 'mu',
-            musicUrl: 'audio/魔法少女小圆 -【Staff Roll 】(Av19711120,P1).Mp3'
+            musicUrl: '../assets/audio/魔法少女小圆 -【Staff Roll 】(Av19711120,P1).Mp3'
         },
         background:{
             imgKey: 'bg',
@@ -41,6 +41,15 @@ var globalConfig = {
         tileMap:{
             tileMapJson: 'map/2019-8-2 18_00_10 - 6 x 11 - TileMapJson.json'
         },
+        virtualButton: [
+            {
+                // imgMode: "spritesheet",   // default
+                imgKey: "tool1",
+                imgUrl: "../assets/bnt/UP.png",
+                rows:2,
+                columns: 1,
+            },
+        ],
         spritesImg: [
             {
                 imgKey: "chukou",

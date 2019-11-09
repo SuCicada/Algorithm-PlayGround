@@ -2,7 +2,7 @@ console.log("APG-core.js has been loaded successfully.")
 
 
 var isvertical = 0;
-var splitbar ;
+var splitbar;
 window.onload=function() {
     WIDTH = globalConfig.WIDTH? globalConfig.WIDTH: document.body.offsetWidth;
     HEIGHT = globalConfig.HEIGHT? globalConfig.HEIGHT: window.screen.height;
@@ -66,6 +66,41 @@ APG.Assets.scripts = [
     'Update',
     'Methods',
 ];
+APG.Assets.virtualButton = [];
+// 默认配置
+APG.Assets.virtualButtonConfig = [
+    {
+        imgKey: "exit",
+        imgUrl: "../assets/bnt/UP.png",
+        rows:2,
+        columns: 1,
+    },{
+        imgKey: "restart",
+        imgUrl: "../assets/bnt/UP.png",
+        rows:2,
+        columns: 1,
+    },{
+        imgKey: "UP",
+        imgUrl: "../assets/bnt/UP.png",
+        rows:2,
+        columns: 1,
+    },{
+        imgKey: "DOWN",
+        imgUrl: "../assets/bnt/DOWN.png",
+        rows:2,
+        columns: 1,
+    },{
+        imgKey: "LEFT",
+        imgUrl: "../assets/bnt/LEFT.png",
+        rows:2,
+        columns: 1,
+    },{
+        imgKey: "RIGHT",
+        imgUrl: "../assets/bnt/RIGHT.png",
+        rows:2,
+        columns: 1,
+    },
+]
 
 // APG.players = [{group:null,animations:{}}];
 // APG.objects = {};
@@ -85,6 +120,7 @@ APG.Keys.move = {
     LEFT:  'LEFT',
     RIGHT: 'RIGHT',
 };
+APG.currentClickKey;  // 当前按下的键
 APG.UDLRDir = {
     UP:    {x: 0, y:-1},
     DOWN:  {x: 0, y: 1},
@@ -186,27 +222,10 @@ var bootstrap = {
         someboot();
     },
     preload: function() {
-        showButton();
+        // showButton();
         game.load.json('mazajson', globalConfig.Assets.tileMap.tileMapJson);
     },
     create: function(){
-
-
-        game.input.onTap.add(function(){
-            var clickX = game.input.activePointer.clientX;
-            var clickY = game.input.activePointer.clientY;
-            if(APG.Game.isInner(buttonUp,clickX,clickY)){
-                APG.DeveloperModel.Key = 'UP';
-            }else if(APG.Game.isInner(buttonDown,clickX, clickY)){
-                APG.DeveloperModel.Key = 'DOWN';
-            }else if(APG.Game.isInner(buttonLeft,clickX, clickY)){
-                APG.DeveloperModel.Key = 'LEFT';
-            }else if(APG.Game.isInner(buttonRight,clickX, clickY)){
-                APG.DeveloperModel.Key = 'RIGHT';
-            }else if(APG.Game.isInner(buttonTool1,clickX, clickY)){
-                APG.DeveloperModel.swapBlock.apply(APG.DeveloperModel)
-            }
-        },this)
 
         /* 地图配置文件 */
         TileMapJson = game.cache.getJSON('mazajson');
@@ -358,6 +377,19 @@ var preload = {
 
             }
         }
+        if(Assets.virtualButton && Assets.virtualButton.length){
+            for(sprite of Assets.virtualButton){
+                game.load.image(sprite.imgKey, sprite.imgUrl);
+                this.spritesheets.push(sprite);
+            }
+        }
+        for(sprite  of APG.Assets.virtualButtonConfig){
+            if(!game.cache.checkImageKey(sprite.imgKey)){
+                game.load.image(sprite.imgKey, sprite.imgUrl);
+                this.spritesheets.push(sprite);
+            }
+        }
+
         APG.Assets.spritesheets = this.spritesheets;
         console.log(APG.Assets.spritesheets)
 
@@ -373,6 +405,7 @@ var preload = {
 var startGame = {
     init: function(){
         APG.DeveloperModel = eval(globalConfig.DeveloperModel);   /*回调上下文全局对象，默认YourGame*/
+        APG.Assets.virtualButton = [];
 
         // APG.Side.x = APG.Tile.width;
         // APG.Side.y = APG.Tile.height;
@@ -409,6 +442,7 @@ var startGame = {
                 a.width / ss.columns, a.height / ss.rows);
         }
         APG.Assets.spritesheets = [];
+        console.log("load spritesheets successful")
 
         /* 你的 preload */
 
@@ -580,7 +614,7 @@ var startGame = {
             APG.DeveloperModel.create.apply(APG.DeveloperModel);
         }
 
-        myOtherCreate();
+        createVirtualButton();
 
         if(globalConfig.README){
             APG.Game.README();
@@ -782,41 +816,55 @@ var showButton = function(){
     game.load.imageFromTexture('restart', restart, size);
 }
 
-
-function myOtherCreate(){
+function createVirtualButton(){
     var site = APG.HEIGHT / 60;
-    var exitButton = game.add.sprite(site,site,'exit');
-    var restartButton = game.add.sprite(site*10,site,'restart');
-
-    game.input.onTap.add(function(){
-        var clickX = game.input.activePointer.clientX;
-        var clickY = game.input.activePointer.clientY;
-        if(APG.Game.isInner(exitButton,clickX,clickY)){
-            history.back(-1);
-        }else if(APG.Game.isInner(restartButton,clickX,clickY)){
-            restartGame();
-        }
-    },APG.DeveloperModel)
-
 
     var siteX = APG.HEIGHT * 0.2 ;
     var siteY = APG.HEIGHT *0.7
     var bar = APG.HEIGHT * 0.1;
-    buttonUp = game.add.button(siteX, siteY-bar, 'up')
-    buttonDown = game.add.button(siteX, siteY+bar, 'down')
-    buttonLeft = game.add.button(siteX-bar, siteY, 'left')
-    buttonRight = game.add.button(siteX+bar, siteY, 'right')
+
+    var direBnt = [
+        {name:'UP',     x:siteX,     y: siteY-bar},
+        {name:'DOWN',   x:siteX ,    y: siteY+bar},
+        {name:'LEFT',   x:siteX-bar, y: siteY},
+        {name:'RIGHT',  x:siteX+bar, y: siteY},
+        {name:'exit',   x:site,      y: site,   func:function(){history.back(-1);}},
+        {name:'restart',x:site*10,   y: site,   func:function(){restartGame()}},
+    ];
+    direBnt.forEach(function(b){
+        APG.Assets.setVirtualButton(b.name, b.x, b.y, b.func);
+    });
+
+    var buttons = APG.Assets.virtualButton;
+    buttons.forEach(function (binfo) {
+        // b = b.button;
+        console.log(binfo)
+        var b = game.add.button(binfo.x, binfo.y, binfo.name);
+        b.width = bar;
+        b.height = bar;
+        binfo.buttonObj = b;
+        APG.Assets.setAnimations(b,binfo.name+'0',0);
+    })
+    console.log(APG.Assets.virtualButton)
+
     game.input.onTap.add(function(){
         var clickX = game.input.activePointer.clientX;
         var clickY = game.input.activePointer.clientY;
-        if(APG.Game.isInner(buttonUp,clickX,clickY)){
-            APG.DeveloperModel.Key = 'UP';
-        }else if(APG.Game.isInner(buttonDown,clickX, clickY)){
-            APG.DeveloperModel.Key = 'DOWN';
-        }else if(APG.Game.isInner(buttonLeft,clickX, clickY)){
-            APG.DeveloperModel.Key = 'LEFT';
-        }else if(APG.Game.isInner(buttonRight,clickX, clickY)){
-            APG.DeveloperModel.Key = 'RIGHT';
+        for(var binfo of buttons){
+            if(APG.Game.isInner(binfo.buttonObj,clickX,clickY)) {
+                var keyName = binfo.name;
+                var buttonObj = binfo.buttonObj
+                var func = binfo.func;
+                APG.currentClickKey = keyName;
+                APG.Assets.setAnimations(buttonObj,keyName+'1',1);  // 按下
+                setTimeout(function(){
+                    APG.Assets.setAnimations(buttonObj,keyName+'0',0);  // 未按下`
+                    if(func){
+                        func.apply(APG.DeveloperModel)
+                    }
+                },100)
+                break;
+            }
         }
-    },this)
+    },this);
 }

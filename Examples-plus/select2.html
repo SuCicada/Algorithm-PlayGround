@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .ShaShiDi{
+            /*width:500px;*/
+            /*height:400px;*/
+            /*display:flex;*/
+            /*align-items:center;*/
+            /*justify-content:center;*/
+            /*为了效果明显，可以将如下边框打开，看一下效果*/
+            /* border:1px solid black; */
+            /*position:relative*/
+            position: absolute;
+        }
+
+        .ShaShiDi img{
+            height:100%;
+            /*width:100%;*/
+            /*margin-left: 0;*/
+            /*object-fit:cover;*/
+
+        }
+
+    </style>
+</head>
+<body style="background-color:#dbdbdb">
+<!--        class="bg" style="background:url(select.png) no-repeat ;-->
+<!--    /*background-position-y: center;*/-->
+<!--    height:1200%;-->
+<!--    width: 200%;-->
+<!--    left:0;-->
+<!--    min-height: 100%;-->
+
+<!--    /*background-size:;*/-->
+<!--"-->
+
+    <div class="ShaShiDi">
+        <img id='img' src="./select.png"/>
+    </div>
+
+    <div id="demo1"  style="
+            background-color:red;
+            opacity:0.0;
+            position: absolute;"
+         onclick="window.location.href='Demo1'"
+    >
+    </div>
+    <div id="demo2"  style="
+                background-color:red;
+                opacity:0.0;
+                position: absolute;"
+         onclick="window.location.href='Demo2'"
+    >
+    </div>
+    <div id="demo3"  style="
+                background-color:red;
+                opacity:0.0;
+                position: absolute;"
+         onclick="window.location.href='Demo3'"
+    >
+    </div>
+
+<script>
+    var w = screen.width;
+    var h = screen.height;
+    console.log(w,h)
+    document.getElementsByClassName("ShaShiDi")[0].style.height = h+'px';
+    document.getElementsByClassName("ShaShiDi")[0].style.width = w+'px';
+    document.getElementById("img").style.height = 'auto';
+    document.getElementById("img").style.width = w+'px';
+    // document.getElementById("img").style.transform = "rotate(90deg)";
+
+    var demo1 = document.getElementById("demo1");
+    style = demo1.style.cssText;
+    demo1.setAttribute("style",style+"kwidth:"+(w*0.3)+"px;height:"+(w*0.2)+"px;")
+    demo1.style.color = "red";
+    demo1.style.width = w*0.44+"px";
+    demo1.style.height = h*0.38+"px";
+    demo1.style.marginLeft = (w-w*0.44)/2+"px";
+    demo1.style.marginTop= (w*0.04)+"px";
+
+
+    var demo2 = document.getElementById("demo2");
+    style = demo2.style.cssText;
+    demo2.setAttribute("style",style+"width:"+(w*0.38)+"px;height:"+(w*0.45)+"px;")
+    demo2.style.color = "red";
+    demo2.style.width = w*0.44+"px";
+    demo2.style.height = h*0.38+"px";
+    demo2.style.marginLeft = (w-w*0.44)/2+"px";
+    demo2.style.marginTop = ((w*0.11)+w*0.04+h*0.38)+"px";
+
+    var demo3 = document.getElementById("demo3");
+    style = demo3.style.cssText;
+    demo3.setAttribute("style",style+"width:"+(w*0.38)+"px;height:"+(w*0.45)+"px;")
+    demo3.style.color = "red";
+    demo3.style.width = w*0.44+"px";
+    demo3.style.height = h*0.38+"px";
+    demo3.style.marginLeft = (w-w*0.44)/2+"px";
+    demo3.style.marginTop = ((w*0.12)*2+w*0.04+h*0.38*2)+"px";
+
+
+    let height = screen.height;
+    let width = screen.width;
+    if(height>width){
+        var direction = '1'
+        isvertical = 1;
+    }else{
+        var direction = '-'
+        isvertical = 0;
+    }
+    console.log(isvertical)
+    if(isvertical) {
+        // document.getElementsByTagName("body")[0].style.cssText += "transform:rotate(90deg);transform-origin:center;";
+        // document.getElementsByTagName("body")[0].style.transform = "rotate(90deg)";
+        // document.getElementById("img").style.transform = "rotate(90deg)";
+        // document.getElementById("start").style.transform = "rotate(90deg)";
+    }
+</script>
+
+</body>
+</html>

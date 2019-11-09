@@ -26,7 +26,7 @@ var globalConfig = {
     Assets:{
         music:{
             musicKey: 'mu',
-            musicUrl: '卑微的承诺.mp3'
+            musicUrl: '../assets/audio/魔法少女小圆 -【Staff Roll 】(Av19711120,P1).Mp3'
         },
         background:{
             imgKey: 'bg',
@@ -41,6 +41,20 @@ var globalConfig = {
         tileMap:{
             tileMapJson: '9-2019-8 NaN_34_09 - 7 x 13 - TileMapJson.json'
         },
+        virtualButton: [
+            {
+                imgKey: "tool1",
+                imgUrl: "../assets/bnt/UP.png",
+                rows:2,
+                columns: 1,
+            },
+            {
+                imgKey: "tool2",
+                imgUrl: "../assets/bnt/UP.png",
+                rows:2,
+                columns: 1,
+            },
+        ],
         spritesImg: [
             {
                 type: "object",

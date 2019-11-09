@@ -12,8 +12,8 @@ YourGame = {
         // APG.Game.fullScreen();
 
         // ====== 特殊的参数 =====
-        this.xinbiaoMax = 1;    // 信标总数量
-        this.xinbiaoCount = 1;  // 信标数量
+        this.xinbiaoMax = 3;    // 信标总数量
+        this.xinbiaoCount = 3;  // 信标数量
         this.xinbiaoSite = [];
         this.wildXinbiao = [];
 /* 通过背包增加的对象组,和通过地图设定的对象组,都会自动创建并加入 APG.TargetGroups 中,
