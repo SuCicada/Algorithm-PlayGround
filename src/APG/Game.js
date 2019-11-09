@@ -123,7 +123,8 @@ APG.Game.WIN = function(str, func, that=APG.DeveloperModel){
     bar.inputEnabled = true;
     bar.input.useHandCursor = true;
     if(func){
-        bar.events.onInputDown.add(func,that);
+        game.input.onTap.addOnce(func,that)
+        // bar.events.onInputDown.add(func,that);
     }
 };
 
@@ -156,7 +157,8 @@ APG.Game.LOST = function(str, func, that=APG.DeveloperModel){
     bar.inputEnabled = true;
     bar.input.useHandCursor = true;
     if(func){
-        bar.events.onInputDown.add(func,that);
+        game.input.onTap.addOnce(func,that)
+        // bar.events.onInputDown.add(func,that);
     }
 };
 

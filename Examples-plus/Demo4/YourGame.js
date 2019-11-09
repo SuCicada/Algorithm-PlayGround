@@ -20,12 +20,24 @@ var YourGame = {
                     this.opera();//.apply(APG.DeveloperModel)
                 });
 
-        var varA = addTextBitMap(0,3,"a",'#111111')
-        var varB = addTextBitMap(1,3,"b",'#111111')
-        var varTemp = addTextBitMap(2,3,"temp",'#111111')
+        // let style = {
+        //     font: "bold "+APG.Tile.width/3+"px Arial",
+        //     fill: '#111111',
+        //     boundsAlignH: "center",
+        // };
+        // var textObj = game.add.text(0, 0, "a",style);
+        // textObj.x = APG.Tile.width*0.1;
+        // var blockA = getSpriteList(this.numBlock)[0]
+        // blockA.addChild(textObj);
+        // getSpriteList(this.numBlock)[1].addChild(game.add.text(APG.Tile.width*0.1,0,"b",style))
+
+        var varA = addTextBitMap(0,1,"a",'#3acd7d')
+        var varB = addTextBitMap(1,1,"b",'#3acd7d')
+        var varTemp = addTextBitMap(2,1,"temp",'#3acd7d')
         moveGroupDownTo(varA,this.numBlock)
         moveGroupDownTo(varB,this.numBlock)
         moveGroupDownTo(varTemp,this.numBlock)
+        this.clearBlock = [];
     },
     update: function(){
         characterMoveEvent(this.player)
@@ -33,18 +45,26 @@ var YourGame = {
     opera: function(){
         site = getCharacterSite(this.player)
         block = getSpriteListFromSite(site.x, site.y+1, this.numBlock)
-        console.log(site)
-        if(block.length){
+        console.log(block.length)
+        console.log(APG.Bag.getBagSize())
+        if(!APG.Bag.getBagSize() && block.length){
             getItem(block)
             if(site.x < 2){
-                var bg = aboutTextBitMap(block[0]).bgColor;
-                this.clearBlock = addTextBitMap(site.x, site.y+1, "?",bg)
+                var info = aboutTextBitMap(block[0]);
+                this.clearBlock.push(
+                    addTextBitMap(site.x, site.y+1, info.text,
+                        'rgba(202,190,43,0.6)',
+                        '0x3541d4',0.3
+                        ));
             }
-        }else{
+        }else if(!block.length && APG.Bag.getBagSize()){
             tile = getTileFromSite(site.x,site.y+1)
             if(getTileId(tile)!=0){
                 if(site.x < 2) {
-                    destroySprite(this.clearBlock)
+                    cb = getSpriteListFromSite(site.x, site.y+1, this.clearBlock)[0]
+                    destroySprite(cb)
+                    // cb = getSpriteListFromSite(site.x, site.y+1, this.numBlock)[0]
+                    // destroySprite(cb)
                 }
                 putItem(site.x, site.y+1, this.numBlock)
             }

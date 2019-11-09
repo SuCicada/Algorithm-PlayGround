@@ -49,10 +49,11 @@ YourGame = {
         this.bar2.drawRect(this.bar2X,this.bar2Y,font2*20,font2*10);
         this.code = ["for(i=0;i<8;i++):",
                     "    if(i+1<8 && num[i]>num[i+1]):",
-                    "        swap(num,i,i+1)",
+                    "        swap(num[i],num[i+1])",
                     "for(i=7;i>=0;i--):",
                     "    if(i-1>=0 && num[i-1]>num[i]):",
-                    "        swap(num,i-1,i)"]
+                    "        swap(num[i],num[i+1])"
+                    ]
         this.text2 = []
         for(i=0;i<this.code.length;i++){
              a = game.add.text(this.bar2X,this.bar2Y+font2*i*1.1,this.code[i], style2);
