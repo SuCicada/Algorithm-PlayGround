@@ -129,3 +129,26 @@ APG.Assets.setVirtualButton = function(name, x, y, func){
         "buttonObj": null, // 会由APG-core进行赋值
     })
 };
+
+APG.Assets.deleteVirtualButton = function(name){
+    for(i = 0;i<APG.Assets.virtualButton.length;i++) {
+        if (APG.Assets.virtualButton[i].name = name) {
+            var obj = APG.Assets.virtualButton[i].buttonObj;
+            if (obj) {
+                obj.destroy()
+            }
+            APG.Assets.virtualButton.pop(i)
+            break;
+        }
+    }
+}
+
+APG.Assets.changeVirtualButton = function(name,newName){
+    var bnt = APG.Assets.virtualButton.find(function(b){
+        return b.name==name;
+    })
+    if(bnt && game.cache.checkImageKey(newName)){
+        bnt.name = newName;
+        bnt.buttonObj.loadTexture(newName)
+    }
+}

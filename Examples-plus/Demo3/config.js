@@ -44,13 +44,13 @@ var globalConfig = {
         virtualButton: [
             {
                 imgKey: "tool1",
-                imgUrl: "../assets/bnt/UP.png",
+                imgUrl: "bnt/pop.png",
                 rows:2,
                 columns: 1,
             },
             {
                 imgKey: "tool2",
-                imgUrl: "../assets/bnt/UP.png",
+                imgUrl: "bnt/push.png",
                 rows:2,
                 columns: 1,
             },

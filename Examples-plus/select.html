@@ -10,30 +10,6 @@
 <body >
     <div id="father">
     </div>
-<!--    <div class="ShaShiDi">-->
-<!--        <img id='img' src="./select.png"/>-->
-<!--    </div>-->
-<!--    <div id="demo1"  style="-->
-<!--            /*background-color:red;*/-->
-<!--            /*opacity:0.0;*/-->
-<!--            position: absolute;"-->
-<!--            onclick="window.location.href='Demo1'"-->
-<!--    >-->
-<!--    </div>-->
-<!--    <div id="demo2"  style="-->
-<!--                background-color:red;-->
-<!--                opacity:0.0;-->
-<!--                position: absolute;"-->
-<!--         onclick="window.location.href='Demo2'"-->
-<!--    >-->
-<!--    </div>-->
-<!--    <div id="demo3"  style="-->
-<!--                background-color:red;-->
-<!--                opacity:0.0;-->
-<!--                position: absolute;"-->
-<!--         onclick="window.location.href='Demo3'"-->
-<!--    >-->
-<!--    </div>-->
 
 <script>
     var w = screen.width;
@@ -41,7 +17,7 @@
     var body = document.getElementsByTagName("body")[0];
     // body.style.width = 2000+"px"
     var father = document.getElementById("father");
-    father.style.background='url(select.png)'
+    father.style.background='url(assets/select/select.png)'
     father.style.width = (w*2)+"px"
     father.style.height = h+"px"
     father.style.cssText += "float:right;"
@@ -54,7 +30,7 @@
     exit.style.height = exit_height+"px";
     exit.style.right= (exit_side)+"px";
     exit.style.top = exit_side+"px";
-    exit.style.background='url(start.png)'
+    exit.style.background='url(assets/select/EXIT.png)'
     exit.style.position= 'absolute'
     exit.onclick=function(){
         history.back(-1);
@@ -63,11 +39,12 @@
 
 
     var demos = [
-        {url:'Demo1',img:'start.png'},
-        {url:'Demo1-2',img:'start.png'},
-        {url:'Demo2',img:'start.png'},
-        {url:'Demo3',img:'start.png'},
-        {url:'Demo4',img:'start.png'},
+        {url:'Demo4',img:'assets/select/demo4.png'},
+        {url:'Demo2',img:'assets/select/demo2.png'},
+        {url:'Demo1',img:'assets/select/demo1.png'},
+        {url:'Demo1-2',img:'assets/select/demo1-2.png'},
+        {url:'Demo3',img:'assets/select/demo3.png'},
+        {url:'',img:'assets/select/demo-more.png'},
     ]
     for(i = 0;i<demos.length;i++){
         var demoInfo = demos[i];
@@ -86,9 +63,11 @@
         demo1.style.right= (exit_side+exit_width+side + (row*(width+side)))+"px";
         demo1.style.top = (side + column*(height+side))+"px";
         demo1.style.background='url('+demoInfo.img+')'
+        demo1.style.backgroundSize = '100%'
         demo1.style.position= 'absolute'
+        let url = demoInfo.url;
         demo1.onclick=function(){
-            window.location.href=demoInfo.url;
+            window.location.href=url;
         }
         document.getElementById("father").appendChild(demo1);
     }

@@ -3,8 +3,10 @@ YourGame = {
         var siteX = APG.HEIGHT * 0.2 ;
         var siteY = APG.HEIGHT *0.7
         var bar = APG.HEIGHT * 0.1;
+        this.siteX = siteX;
+        this.siteY = siteY;
 
-        APG.Assets.setVirtualButton('tool1', APG.WIDTH*0.8, siteY, function(){
+        APG.Assets.setVirtualButton('tool2', APG.WIDTH*0.8, siteY, function(){
             APG.DeveloperModel.putXinbiao();//.apply(APG.DeveloperModel)
         });
 
@@ -57,6 +59,14 @@ YourGame = {
         APG.Update.collision.activeGroupOverlap(this.player, this.baoshis, this.getBaoshi, null, this);
         APG.Update.collision.activeGroupOverlap(this.player, this.exports, this.export);
         APG.Update.listenKey.addKeyEvent('D', this.putXinbiao, null, this);
+
+        this.isXinbiao = 0;
+
+
+        // a = game.add.button(100,120,'tool1')
+        // setTimeout(function(){
+        //     console.log(11111111)
+        // },1000)
     },
     update: function(){
         var site = APG.Character.getCharacterSite(this.player);
@@ -77,6 +87,26 @@ YourGame = {
         }else{
             APG.Assets.setAnimations(this.exports, 'dark', [0]);
         }
+
+        var nowIs = this.isXinbiaoSite()
+        var delBnt,setBnt;
+        console.log(nowIs,this.isXinbiao)
+        if(nowIs != this.isXinbiao) {
+            this.isXinbiao = nowIs
+            if (nowIs) {
+                delBnt = 'tool2';
+                setBnt = 'tool1';
+            } else {
+                delBnt = 'tool1';
+                setBnt = 'tool2';
+            }
+            APG.Assets.changeVirtualButton(delBnt, setBnt)
+            // APG.Assets.deleteVirtualButton(delBnt);
+        // APG.Assets.setVirtualButton(setBnt, this.siteX, this.siteY, function(){
+        //     APG.DeveloperModel.putXinbiao();//.apply(APG.DeveloperModel)
+        // });
+        }
+
     },
     check: function(x,y){
         var tile = APG.Tile.getTileFromSite(x,y);
@@ -128,6 +158,11 @@ YourGame = {
                 APG.Tile.removeTile(downtile);
             }
         }
+    },
+    isXinbiaoSite: function(){
+        var site = APG.Character.getCharacterSite(this.player);
+        var sprites = APG.Sprite.getSpriteListFromSite(site.x, site.y, this.wildXinbiao);
+        return sprites.length
     },
     putXinbiao: function(){
         var site = APG.Character.getCharacterSite(this.player);

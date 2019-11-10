@@ -98,9 +98,14 @@ YourGame = {
         this.blockColor = 'rgb(212,142,0)'
         this.oneColor = '#cdcdcd'
         this.twoColor = '#f93be2'
+
         for(let i=0;i<nums.length;i++){
-            nums[i] = Math.round(Math.random()*200);
+            do{
+                num = Math.round((Math.random()+1)*200);
+            }while(nums.indexOf(num)!=-1)
+            nums[i] = num
         }
+        console.log(nums)
         APG.Target.loadTextBitMapBetween(this.numBlocks,nums,this.blockColor);
 
         this.player = APG.Group.getCharacterGroup('player');

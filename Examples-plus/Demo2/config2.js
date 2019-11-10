@@ -45,7 +45,7 @@ var globalConfig = {
             {
                 // imgMode: "spritesheet",   // default
                 imgKey: "tool1",
-                imgUrl: "../assets/bnt/UP.png",
+                imgUrl: "bnt/change.png",
                 rows:2,
                 columns: 1,
             },

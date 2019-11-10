@@ -38,9 +38,27 @@ var YourGame = {
         moveGroupDownTo(varB,this.numBlock)
         moveGroupDownTo(varTemp,this.numBlock)
         this.clearBlock = [];
+
+        this.isBlock = 1  // 记录一下上一次, 省去几次改变
     },
     update: function(){
         characterMoveEvent(this.player)
+
+        var nowIs = this.checkIsBlock()
+        var delBnt,setBnt;
+        // console.log(nowIs,this.isBlock)
+        if(nowIs != this.isBlock) {
+            this.isBlock = nowIs
+            if (nowIs) {
+                delBnt = 'tool2';
+                setBnt = 'tool1';
+            } else {
+                delBnt = 'tool1';
+                setBnt = 'tool2';
+            }
+            APG.Assets.changeVirtualButton(delBnt, setBnt)
+        }
+
     },
     opera: function(){
         site = getCharacterSite(this.player)
@@ -82,6 +100,11 @@ var YourGame = {
         ){
             WIN("再玩一次",function(){restartGame()});
         }
-    }
+    },
+    checkIsBlock: function(){
+        var site = APG.Character.getCharacterSite(this.player);
+        var sprites = APG.Sprite.getSpriteListFromSite(site.x, site.y+1, this.numBlock);
+        return sprites.length
+    },
 
 }

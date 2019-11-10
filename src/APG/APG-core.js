@@ -70,13 +70,13 @@ APG.Assets.virtualButton = [];
 // 默认配置
 APG.Assets.virtualButtonConfig = [
     {
-        imgKey: "exit",
-        imgUrl: "../assets/bnt/UP.png",
+        imgKey: "EXIT",
+        imgUrl: "../assets/bnt/EXIT.png",
         rows:2,
         columns: 1,
     },{
-        imgKey: "restart",
-        imgUrl: "../assets/bnt/UP.png",
+        imgKey: "RESTART",
+        imgUrl: "../assets/bnt/RESTART.png",
         rows:2,
         columns: 1,
     },{
@@ -821,15 +821,15 @@ function createVirtualButton(){
 
     var siteX = APG.HEIGHT * 0.2 ;
     var siteY = APG.HEIGHT *0.7
-    var bar = APG.HEIGHT * 0.1;
+    var bar = APG.HEIGHT * 0.15;
 
     var direBnt = [
         {name:'UP',     x:siteX,     y: siteY-bar},
         {name:'DOWN',   x:siteX ,    y: siteY+bar},
         {name:'LEFT',   x:siteX-bar, y: siteY},
         {name:'RIGHT',  x:siteX+bar, y: siteY},
-        {name:'exit',   x:site,      y: site,   func:function(){history.back(-1);}},
-        {name:'restart',x:site*10,   y: site,   func:function(){restartGame()}},
+        {name:'EXIT',   x:site,      y: site,   func:function(){history.back(-1);}},
+        {name:'RESTART',x:site*10,   y: site,   func:function(){restartGame()}},
     ];
     direBnt.forEach(function(b){
         APG.Assets.setVirtualButton(b.name, b.x, b.y, b.func);
@@ -850,6 +850,7 @@ function createVirtualButton(){
     game.input.onTap.add(function(){
         var clickX = game.input.activePointer.clientX;
         var clickY = game.input.activePointer.clientY;
+            // console.log(buttons)
         for(var binfo of buttons){
             if(APG.Game.isInner(binfo.buttonObj,clickX,clickY)) {
                 var keyName = binfo.name;
