@@ -4,8 +4,8 @@ console.log("APG-core.js has been loaded successfully.")
 var isvertical = 0;
 var splitbar;
 window.onload=function() {
-    WIDTH = globalConfig.WIDTH? globalConfig.WIDTH: document.body.offsetWidth;
-    HEIGHT = globalConfig.HEIGHT? globalConfig.HEIGHT: window.screen.height;
+    WIDTH = globalConfig.WIDTH? globalConfig.WIDTH: window.screen.availWidth;
+    HEIGHT = globalConfig.HEIGHT? globalConfig.HEIGHT: window.screen.availHeight;
     MODE = globalConfig.MODE? globalConfig.MODE: 'CANVAS';
 
     APG.MODE = MODE;
@@ -29,7 +29,7 @@ window.onload=function() {
     APG.HEIGHT = HEIGHT;
 
 
-    game = new Phaser.Game(WIDTH,HEIGHT,MODE, '');
+    game = new Phaser.Game(WIDTH,HEIGHT,MODE, 'game');
     game.state.add('bootstrap', bootstrap);
     game.state.start('bootstrap');
 };
