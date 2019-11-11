@@ -31,6 +31,7 @@
     exit.style.right= (exit_side)+"px";
     exit.style.top = exit_side+"px";
     exit.style.background='url(assets/select/EXIT.png)'
+    exit.style.backgroundSize = '100% 100%'
     exit.style.position= 'absolute'
     exit.onclick=function(){
         history.back(-1);
@@ -64,7 +65,7 @@
         demo1.style.right= (exit_side+exit_width+side + (row*(width+side)))+"px";
         demo1.style.top = (side + column*(height+side))+"px";
         demo1.style.background='url('+demoInfo.img+')'
-        demo1.style.backgroundSize = '100%'
+        demo1.style.backgroundSize = '100% 100%'
         demo1.style.position= 'absolute'
         let url = demoInfo.url;
         demo1.onclick=function(){
