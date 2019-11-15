@@ -38,6 +38,7 @@ var YourGame = {
         moveGroupDownTo(varB,this.numBlock)
         moveGroupDownTo(varTemp,this.numBlock)
         this.clearBlock = [];
+        this.clearBlock_pre = [];
 
         this.isBlock = 1  // 记录一下上一次, 省去几次改变
     },
@@ -67,23 +68,26 @@ var YourGame = {
         console.log(APG.Bag.getBagSize())
         if(!APG.Bag.getBagSize() && block.length){
             getItem(block)
-            if(site.x < 2){
-                var info = aboutTextBitMap(block[0]);
+            // if(site.x < 2){
+                var inf = aboutTextBitMap(block[0]);
+                // 放置虚像, 放置当下的这个时候应该消灭之前那个，因为背包只能有一个快快，
+                // 所以地图上只会有一个虚像。
+                destroySprite(this.clearBlock.pop())
                 this.clearBlock.push(
                     addTextBitMap(site.x, site.y+1, info.text,
                         'rgba(202,190,43,0.6)',
                         '0x3541d4',0.3
                         ));
-            }
+            // }
         }else if(!block.length && APG.Bag.getBagSize()){
             tile = getTileFromSite(site.x,site.y+1)
             if(getTileId(tile)!=0){
-                if(site.x < 2) {
+                // if(site.x < 2) {
                     cb = getSpriteListFromSite(site.x, site.y+1, this.clearBlock)[0]
                     destroySprite(cb)
                     // cb = getSpriteListFromSite(site.x, site.y+1, this.numBlock)[0]
                     // destroySprite(cb)
-                }
+                // }
                 putItem(site.x, site.y+1, this.numBlock)
             }
         }
