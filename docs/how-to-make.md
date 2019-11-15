@@ -1,4 +1,7 @@
 # How TO Make A Whole Game
+
+[视频讲解](/how-to-make-video)
+
 ## 1. 下载项目 
 
 [download ZIP](https://github.com/SuCicada/Algorithm-PlayGround/archive/master.zip)

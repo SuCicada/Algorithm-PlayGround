@@ -14,7 +14,6 @@
 
 3. config游戏配置文件
 
-
 <video width="100%" controls>
   <source src="http://sucicada.tk:39/resource/tutorial/3.mp4"  type="video/mp4">
 </video>
