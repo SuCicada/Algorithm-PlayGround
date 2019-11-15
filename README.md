@@ -14,9 +14,8 @@
 
 提供可视化的地图编辑方案
 
-<video height="500" controls>
+<video width="100%" controls>
   <source src="http://sucicada.tk:39/resource/display.mp4"  type="video/mp4">
-  您的浏览器不支持 HTML5 video 标签。
 </video>
 
 视频制作by[@llwwdbd](https://github.com/llwwdbd)
