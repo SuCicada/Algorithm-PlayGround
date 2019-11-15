@@ -69,7 +69,7 @@ var YourGame = {
         if(!APG.Bag.getBagSize() && block.length){
             getItem(block)
             // if(site.x < 2){
-                var inf = aboutTextBitMap(block[0]);
+                var info= aboutTextBitMap(block[0]);
                 // 放置虚像, 放置当下的这个时候应该消灭之前那个，因为背包只能有一个快快，
                 // 所以地图上只会有一个虚像。
                 destroySprite(this.clearBlock.pop())

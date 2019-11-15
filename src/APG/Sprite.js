@@ -106,7 +106,9 @@ APG.Sprite.getSpriteListFromSite = function(x, y, group=game.world, recursive=fa
  * @param {Phaser.Sprite} sprite - 要摧毁的精灵对象
  */
 APG.Sprite.destroySprite = function(sprite){
-    sprite.destroy();
+    if(sprite){
+        sprite.destroy();
+    }
 };
 
 /**
