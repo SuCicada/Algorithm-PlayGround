@@ -210,7 +210,7 @@ YourGame = {
                 href ="https://github.com/SuCicada/Algorithm-PlayGround"
             }else{
                 str += "\n点击前往更大更广阔的世界吧.";
-                href = 'part2.html'
+                href = '../Demo1-2'
             }
             APG.Game.WIN(str,function(){
                 window.location.href = href;
