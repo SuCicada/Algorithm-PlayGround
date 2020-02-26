@@ -1,6 +1,13 @@
 # APG (Algorithm PlayGround)
 
 ## 更新记录
+2020/2/26
++ APG-core 修复了一个BUG, 此BUG表现为 <br>
+ > 将APG-core.js等APG库文件放置于index.html同级目录下时, <br> 
+ > 同时index.html文件中的js引用为 `<script src="APG-core.js"></script>`
+ > <br> 则游戏会因为无法加载相关APG库而报错
+> <br> [注] 此BUG只会在使用 APG-core 分段加载 APG库文件时出现
+
 8/10
 + 虚空碰撞检测
 + 背包系统更新.
