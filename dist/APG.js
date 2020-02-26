@@ -2,10 +2,10 @@ console.log("APG-core.js has been loaded successfully.")
 
 
 var isvertical = 0;
-var splitbar ;
+var splitbar;
 window.onload=function() {
-    WIDTH = globalConfig.WIDTH? globalConfig.WIDTH: document.body.offsetWidth;
-    HEIGHT = globalConfig.HEIGHT? globalConfig.HEIGHT: window.screen.height;
+    WIDTH = globalConfig.WIDTH? globalConfig.WIDTH: window.screen.availWidth;
+    HEIGHT = globalConfig.HEIGHT? globalConfig.HEIGHT: window.screen.availHeight;
     MODE = globalConfig.MODE? globalConfig.MODE: 'CANVAS';
 
     APG.MODE = MODE;
@@ -29,7 +29,7 @@ window.onload=function() {
     APG.HEIGHT = HEIGHT;
 
 
-    game = new Phaser.Game(WIDTH,HEIGHT,MODE, '');
+    game = new Phaser.Game(WIDTH,HEIGHT,MODE, 'game');
     game.state.add('bootstrap', bootstrap);
     game.state.start('bootstrap');
 };
@@ -66,6 +66,41 @@ APG.Assets.scripts = [
     'Update',
     'Methods',
 ];
+APG.Assets.virtualButton = [];
+// 默认配置
+APG.Assets.virtualButtonConfig = [
+    {
+        imgKey: "EXIT",
+        imgUrl: "../assets/bnt/EXIT.png",
+        rows:2,
+        columns: 1,
+    },{
+        imgKey: "RESTART",
+        imgUrl: "../assets/bnt/RESTART.png",
+        rows:2,
+        columns: 1,
+    },{
+        imgKey: "UP",
+        imgUrl: "../assets/bnt/UP.png",
+        rows:2,
+        columns: 1,
+    },{
+        imgKey: "DOWN",
+        imgUrl: "../assets/bnt/DOWN.png",
+        rows:2,
+        columns: 1,
+    },{
+        imgKey: "LEFT",
+        imgUrl: "../assets/bnt/LEFT.png",
+        rows:2,
+        columns: 1,
+    },{
+        imgKey: "RIGHT",
+        imgUrl: "../assets/bnt/RIGHT.png",
+        rows:2,
+        columns: 1,
+    },
+]
 
 // APG.players = [{group:null,animations:{}}];
 // APG.objects = {};
@@ -85,6 +120,7 @@ APG.Keys.move = {
     LEFT:  'LEFT',
     RIGHT: 'RIGHT',
 };
+APG.currentClickKey;  // 当前按下的键
 APG.UDLRDir = {
     UP:    {x: 0, y:-1},
     DOWN:  {x: 0, y: 1},
@@ -186,27 +222,10 @@ var bootstrap = {
         someboot();
     },
     preload: function() {
-        showButton();
+        // showButton();
         game.load.json('mazajson', globalConfig.Assets.tileMap.tileMapJson);
     },
     create: function(){
-
-
-        game.input.onTap.add(function(){
-            var clickX = game.input.activePointer.clientX;
-            var clickY = game.input.activePointer.clientY;
-            if(APG.Game.isInner(buttonUp,clickX,clickY)){
-                APG.DeveloperModel.Key = 'UP';
-            }else if(APG.Game.isInner(buttonDown,clickX, clickY)){
-                APG.DeveloperModel.Key = 'DOWN';
-            }else if(APG.Game.isInner(buttonLeft,clickX, clickY)){
-                APG.DeveloperModel.Key = 'LEFT';
-            }else if(APG.Game.isInner(buttonRight,clickX, clickY)){
-                APG.DeveloperModel.Key = 'RIGHT';
-            }else if(APG.Game.isInner(buttonTool1,clickX, clickY)){
-                APG.DeveloperModel.swapBlock.apply(APG.DeveloperModel)
-            }
-        },this)
 
         /* 地图配置文件 */
         TileMapJson = game.cache.getJSON('mazajson');
@@ -336,8 +355,41 @@ var preload = {
                     game.load.image(sprite.imgKey, sprite.imgUrl);
                     this.spritesheets.push(sprite);
                     break;
+                case 'texture':
+                    var tool1 = [
+                        '44444444444',
+                        '4         4',
+                        '4   44    4',
+                        '4   44    4',
+                        '4         4',
+                        '4         4',
+                        '4         4',
+                        '44444444444',
+                    ]
+                    if(sprite.texture && sprite.texture.trim().length){
+                        tool1 = sprite.texture;
+                    }
+                    if(sprite.size && sprite.size.trim().length){
+                        size = sprite.size;
+                    }
+                    var size = APG.HEIGHT / 60;
+                    game.load.imageFromTexture(sprite.imgKey, tool1,size);
+
             }
         }
+        if(Assets.virtualButton && Assets.virtualButton.length){
+            for(sprite of Assets.virtualButton){
+                game.load.image(sprite.imgKey, sprite.imgUrl);
+                this.spritesheets.push(sprite);
+            }
+        }
+        for(sprite  of APG.Assets.virtualButtonConfig){
+            if(!game.cache.checkImageKey(sprite.imgKey)){
+                game.load.image(sprite.imgKey, sprite.imgUrl);
+                this.spritesheets.push(sprite);
+            }
+        }
+
         APG.Assets.spritesheets = this.spritesheets;
         console.log(APG.Assets.spritesheets)
 
@@ -353,6 +405,7 @@ var preload = {
 var startGame = {
     init: function(){
         APG.DeveloperModel = eval(globalConfig.DeveloperModel);   /*回调上下文全局对象，默认YourGame*/
+        APG.Assets.virtualButton = [];
 
         // APG.Side.x = APG.Tile.width;
         // APG.Side.y = APG.Tile.height;
@@ -389,6 +442,7 @@ var startGame = {
                 a.width / ss.columns, a.height / ss.rows);
         }
         APG.Assets.spritesheets = [];
+        console.log("load spritesheets successful")
 
         /* 你的 preload */
 
@@ -560,7 +614,7 @@ var startGame = {
             APG.DeveloperModel.create.apply(APG.DeveloperModel);
         }
 
-        myOtherCreate();
+        createVirtualButton();
 
         if(globalConfig.README){
             APG.Game.README();
@@ -762,43 +816,58 @@ var showButton = function(){
     game.load.imageFromTexture('restart', restart, size);
 }
 
-
-function myOtherCreate(){
+function createVirtualButton(){
     var site = APG.HEIGHT / 60;
-    var exitButton = game.add.sprite(site,site,'exit');
-    var restartButton = game.add.sprite(site*10,site,'restart');
-
-    game.input.onTap.add(function(){
-        var clickX = game.input.activePointer.clientX;
-        var clickY = game.input.activePointer.clientY;
-        if(APG.Game.isInner(exitButton,clickX,clickY)){
-            history.back(-1);
-        }else if(APG.Game.isInner(restartButton,clickX,clickY)){
-            restartGame();
-        }
-    },APG.DeveloperModel)
-
 
     var siteX = APG.HEIGHT * 0.2 ;
     var siteY = APG.HEIGHT *0.7
-    var bar = APG.HEIGHT * 0.1;
-    buttonUp = game.add.button(siteX, siteY-bar, 'up')
-    buttonDown = game.add.button(siteX, siteY+bar, 'down')
-    buttonLeft = game.add.button(siteX-bar, siteY, 'left')
-    buttonRight = game.add.button(siteX+bar, siteY, 'right')
+    var bar = APG.HEIGHT * 0.15;
+
+    var direBnt = [
+        {name:'UP',     x:siteX,     y: siteY-bar},
+        {name:'DOWN',   x:siteX ,    y: siteY+bar},
+        {name:'LEFT',   x:siteX-bar, y: siteY},
+        {name:'RIGHT',  x:siteX+bar, y: siteY},
+        {name:'EXIT',   x:site,      y: site,   func:function(){history.back(-1);}},
+        {name:'RESTART',x:site*10,   y: site,   func:function(){restartGame()}},
+    ];
+    direBnt.forEach(function(b){
+        APG.Assets.setVirtualButton(b.name, b.x, b.y, b.func);
+    });
+
+    var buttons = APG.Assets.virtualButton;
+    buttons.forEach(function (binfo) {
+        // b = b.button;
+        console.log(binfo)
+        var b = game.add.button(binfo.x, binfo.y, binfo.name);
+        b.width = bar;
+        b.height = bar;
+        binfo.buttonObj = b;
+        APG.Assets.setAnimations(b,binfo.name+'0',0);
+    })
+    console.log(APG.Assets.virtualButton)
+
     game.input.onTap.add(function(){
         var clickX = game.input.activePointer.clientX;
         var clickY = game.input.activePointer.clientY;
-        if(APG.Game.isInner(buttonUp,clickX,clickY)){
-            APG.DeveloperModel.Key = 'UP';
-        }else if(APG.Game.isInner(buttonDown,clickX, clickY)){
-            APG.DeveloperModel.Key = 'DOWN';
-        }else if(APG.Game.isInner(buttonLeft,clickX, clickY)){
-            APG.DeveloperModel.Key = 'LEFT';
-        }else if(APG.Game.isInner(buttonRight,clickX, clickY)){
-            APG.DeveloperModel.Key = 'RIGHT';
+            // console.log(buttons)
+        for(var binfo of buttons){
+            if(APG.Game.isInner(binfo.buttonObj,clickX,clickY)) {
+                var keyName = binfo.name;
+                var buttonObj = binfo.buttonObj
+                var func = binfo.func;
+                APG.currentClickKey = keyName;
+                APG.Assets.setAnimations(buttonObj,keyName+'1',1);  // 按下
+                setTimeout(function(){
+                    APG.Assets.setAnimations(buttonObj,keyName+'0',0);  // 未按下`
+                    if(func){
+                        func.apply(APG.DeveloperModel)
+                    }
+                },100)
+                break;
+            }
         }
-    },this)
+    },this);
 }console.log("Assets.js has been loaded successfully.")
 /* ==========    Assets ====================  */
 /**
@@ -806,6 +875,7 @@ function myOtherCreate(){
  * @class APG.Assets
  */
 APG.Assets;
+APG.Assets.virtualButton;
 
 /**
  * 播放音乐
@@ -842,6 +912,9 @@ APG.Assets.stopMusic = function(keyName){
 APG.Assets.setAnimations = function(obj, name, frames, frameRate=1, loop=false){
     /*
     * */
+    if(typeof frames == "number"){
+        frames = [frames]
+    }
     if(!obj.forEach){
         let s = obj;
         if(frames){
@@ -916,9 +989,39 @@ APG.Assets.getFrame = function(obj){
 };
 
 
+APG.Assets.setVirtualButton = function(name, x, y, func){
+    // APG.Assets.virtualButton["button"] = button;
+    APG.Assets.virtualButton.push({
+        "name": name,
+        "x": x,
+        "y": y,
+        "func": func,
+        "buttonObj": null, // 会由APG-core进行赋值
+    })
+};
 
+APG.Assets.deleteVirtualButton = function(name){
+    for(i = 0;i<APG.Assets.virtualButton.length;i++) {
+        if (APG.Assets.virtualButton[i].name = name) {
+            var obj = APG.Assets.virtualButton[i].buttonObj;
+            if (obj) {
+                obj.destroy()
+            }
+            APG.Assets.virtualButton.pop(i)
+            break;
+        }
+    }
+}
 
-console.log("Bag.js has been loaded successfully.")
+APG.Assets.changeVirtualButton = function(name,newName){
+    var bnt = APG.Assets.virtualButton.find(function(b){
+        return b.name==name;
+    })
+    if(bnt && game.cache.checkImageKey(newName)){
+        bnt.name = newName;
+        bnt.buttonObj.loadTexture(newName)
+    }
+}console.log("Bag.js has been loaded successfully.")
 
 /*APG.Bag.views = [];*/
 
@@ -1370,8 +1473,7 @@ APG.Game.README = function(){
 
     bar.inputEnabled = true;
     // bar.input.useHandCursor = true;
-    bar.events.onInputDown.add(function(){
-        // console.log(1111)
+    game.input.onTap.addOnce(function(){
         bar.destroy();
         text.destroy();
         text2.destroy();
@@ -1408,7 +1510,8 @@ APG.Game.WIN = function(str, func, that=APG.DeveloperModel){
     bar.inputEnabled = true;
     bar.input.useHandCursor = true;
     if(func){
-        bar.events.onInputDown.add(func,that);
+        game.input.onTap.addOnce(func,that)
+        // bar.events.onInputDown.add(func,that);
     }
 };
 
@@ -1441,7 +1544,8 @@ APG.Game.LOST = function(str, func, that=APG.DeveloperModel){
     bar.inputEnabled = true;
     bar.input.useHandCursor = true;
     if(func){
-        bar.events.onInputDown.add(func,that);
+        game.input.onTap.addOnce(func,that)
+        // bar.events.onInputDown.add(func,that);
     }
 };
 
@@ -1491,7 +1595,6 @@ APG.Game.restartGame = function(){
     APG.Assets.stopMusic();
     APG.Tilemap.destroy();
     APG.Layer.destroy();
-    game.state.restart();
 
     for(m in APG.CharacterGroups) {
         APG.CharacterGroups[m].destroy();
@@ -1501,6 +1604,11 @@ APG.Game.restartGame = function(){
         APG.TargetGroups[m].removeAll();
         APG.TargetGroups[m].destroy();
     }
+    for(b of APG.Assets.virtualButton){
+        b.buttonObj.destroy();
+    }
+    APG.Assets.virtualButton = [];
+    game.state.restart();
 };
 
 
@@ -1555,6 +1663,8 @@ APG.Game.isInner =function(sprite, x,y){
     }
     return false;
 }
+
+
 console.log("Group.js has been loaded successfully.")
 
 /**
@@ -1728,7 +1838,9 @@ APG.Sprite.getSpriteListFromSite = function(x, y, group=game.world, recursive=fa
  * @param {Phaser.Sprite} sprite - 要摧毁的精灵对象
  */
 APG.Sprite.destroySprite = function(sprite){
-    sprite.destroy();
+    if(sprite){
+        sprite.destroy();
+    }
 };
 
 /**
@@ -1817,11 +1929,11 @@ APG.Target;
  * @param {string} bg - `TextBitMap`的颜色
  * @returns {Phaser.Sprite} TextBitMap
  */
-APG.Target.addTextBitMap = function(x,y, text, bg){
+APG.Target.addTextBitMap = function(x,y, text, bg, fontColor, fontAlpha){
     /* 创建一个 TextBitMap */
     let sprite = APG.Sprite.addSprite(x,y);
     sprite[0].imgMode = "textbitmap";
-    return APG.Target.loadTextBitMap(sprite,text,bg);
+    return APG.Target.loadTextBitMap(sprite,text,bg, fontColor, fontAlpha);
 };
 
 /**
@@ -1847,7 +1959,7 @@ APG.Target.aboutTextBitMap = function(sprite){
  * @param {string} bg - `TextBitMap`的颜色
  * @returns {Phaser.Sprite} TextBitMap
  */
-APG.Target.loadTextBitMap = function(sprite, text, bgColor) {
+APG.Target.loadTextBitMap = function(sprite, text, bgColor, fontColor, fontAlpha) {
     if(sprite){
         var info = APG.Target.aboutTextBitMap(sprite);
     }else{
@@ -1875,9 +1987,15 @@ APG.Target.loadTextBitMap = function(sprite, text, bgColor) {
     bmd.name = "bgColor";
 
     let rect = game.add.graphics(0, 0);
-    let color = '0x'+bgColor.slice(1);
-    color = 0xffffff - parseInt(color);
-    rect.lineStyle(APG.Tile.width/20, color, 1);
+    var color;
+
+    if(fontColor && fontColor.length){
+        color = fontColor;
+    }else{
+        color = '0x'+bgColor.slice(1);
+        color = 0xffffff - parseInt(color);
+    }
+    rect.lineStyle(APG.Tile.width/20, color, fontAlpha?fontAlpha:1);
     rect.drawRect(0,0,APG.Tile.width,APG.Tile.height);
     rect.name = "rect";
 
@@ -1890,8 +2008,14 @@ APG.Target.loadTextBitMap = function(sprite, text, bgColor) {
         sprite.loadTexture(bmd);
     }
 
-    let textColor = '#'+color.toString(16);
-    let style = { font: "bold "+APG.Tile.width/2+"px Arial",
+    let textColor = '#'+parseInt(color).toString(16);
+    if(fontAlpha){
+        textColor += parseInt(0x100 * fontAlpha).toString(16)
+    }
+    // console.log(textColor)
+
+    let style = {
+        font: "bold "+APG.Tile.width/Math.max(2,text.toString().length)+"px Arial",
         fill: textColor,
         boundsAlignH: "center",
         wordWrap: true,
@@ -2026,6 +2150,18 @@ APG.Update.listenKey.addKeyEvent = function(key, feedback, context, that=APG.Dev
     });
 };
 
+APG.Update.listenKey.addTouchKey = function(imgKey,x,y, func){
+    buttonTool1 = game.add.button(x, y, imgKey);
+    game.input.onTap.add(function(){
+        var clickX = game.input.activePointer.clientX;
+        var clickY = game.input.activePointer.clientY;
+        if(APG.Game.isInner(buttonTool1,clickX, clickY)){
+            that=APG.DeveloperModel
+            func.apply(that)
+        }
+    },this)
+}
+
 /**
  * 角色移动相关事件。
  * @method APG.Update.listenKey#characterMoveEvent
@@ -2037,7 +2173,9 @@ APG.Update.listenKey.addKeyEvent = function(key, feedback, context, that=APG.Dev
  * @param {Array} rejectContext - 失败函数传入的参数
  * @param {{}} [that = APG.DeveloperModel] - 回调上下文
  */
-APG.Update.listenKey.characterMoveEvent = function(playerG, role, resolve, resolveContext, reject, rejectContext, that=APG.DeveloperModel, secretKey) {
+APG.Update.listenKey.characterMoveEvent = function(playerG, role, resolve, resolveContext, reject, rejectContext, that=APG.DeveloperModel) {
+    var secretKey = APG.currentClickKey;
+    APG.currentClickKey = '';
     for (var k in APG.Keys.move) {
         if (APG.Keys[APG.Keys.move[k]].justDown || k == secretKey) {
             console.log(k+" is justDown.")
@@ -2371,6 +2509,7 @@ stopListenKey               = APG.Update.listenKey.stopListenKey
 startListenKey              = APG.Update.listenKey.startListenKey
 setMoveKey                  = APG.Update.listenKey.setMoveKey
 addKeyEvent                 = APG.Update.listenKey.addKeyEvent
+addTouchKey                 = APG.Update.listenKey.addTouchKey
 characterMoveEvent          = APG.Update.listenKey.characterMoveEvent
 setCollideWorldBounds       = APG.Update.collision.setCollideWorldBounds
 blockTileOverlap            = APG.Update.collision.blockTileOverlap
