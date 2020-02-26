@@ -49,9 +49,14 @@
 
 + github直连
 ```
-https://sucicada.github.io/Algorithm-PlayGround/dist/APG.js
+http://apg.sucicada.ml/dist/APG.js
 ```
-+ 国内使用（更快）
+或者
+```
+http://apg.sucicada.ml/src/APG/APG-core.js
+```
+
++ 国内使用（更快,更新不及时）
 ```
 http://sucicada.tk:39/APG/dist/APG.js
 ```
