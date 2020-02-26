@@ -317,7 +317,7 @@ var preload = {
         console.log(scripts)
         let path;
         for(i=0;i<scripts.length;i++){
-            let file = scripts[i].getAttribute("src");
+            let file = "./" + scripts[i].getAttribute("src");
             if(file && file.substring(file.lastIndexOf('/')+1, file.lastIndexOf('.')) == "APG-core"){
                 path = file.substring(0, file.lastIndexOf('/')+1);
             }
@@ -797,7 +797,7 @@ var showButton = function(){
         ' 2  2 ',
         '2    2',
     ]
-    
+
     var restart = [
         ' 2222 ',
         '2    2',
