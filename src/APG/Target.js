@@ -95,7 +95,7 @@ APG.Target.loadTextBitMap = function(sprite, text, bgColor, fontColor, fontAlpha
         sprite.loadTexture(bmd);
     }
 
-    let textColor = '#'+parseInt(color).toString(16);
+    let textColor = '#'+("000000"+parseInt(color).toString(16)).slice(-6);
     if(fontAlpha){
         textColor += parseInt(0x100 * fontAlpha).toString(16)
     }
