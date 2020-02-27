@@ -37,6 +37,7 @@
 
 ## 使用在线地图编辑器
 + [APG MapEditor](https://sucicada.github.io/Algorithm-PlayGround/src/MapEditor/index.html)
++ [APG MapEditor(备用)](http://sucicada.tk:39/APG/src/MapEditor/index.html)
 
 ![](resource/display3.png)
 
