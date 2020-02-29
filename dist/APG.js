@@ -1021,7 +1021,9 @@ APG.Assets.changeVirtualButton = function(name,newName){
         bnt.name = newName;
         bnt.buttonObj.loadTexture(newName)
     }
-}console.log("Bag.js has been loaded successfully.")
+}
+
+console.log("Bag.js has been loaded successfully.")
 
 /*APG.Bag.views = [];*/
 

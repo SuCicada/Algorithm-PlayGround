@@ -914,6 +914,9 @@ function dataDownload(content, filename) {
     }
 }
 function generate(){
+    //  Save current frame
+    frames[frame - 1] = cloneData();
+
     /*地图配置生成*/
     // var tilemap_data = {};
     generate_tilemap_data(frames,function(tilemap_data){
