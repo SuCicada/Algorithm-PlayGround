@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Algorithm PlayGround Class: Character</title>
+	<link rel="stylesheet" href="styles/site.phaser.css?">
+</head>
+
+<body>
+
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+  <div class="container-fluid">
+  	<div class="navbar-header">
+  		<a class="navbar-brand" href="index.html">Algorithm PlayGround</a>
+  		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+  			<span class="icon-bar"></span>
+  			<span class="icon-bar"></span>
+  			<span class="icon-bar"></span>
+      </button>
+  	</div>
+  	<div class="navbar-collapse collapse" id="topNavigation">
+  		<ul class="nav navbar-nav">
+  			
+  			<li class="dropdown">
+  				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+  				<ul class="dropdown-menu ">
+  					<li><a href="APG.Assets.html">APG.Assets</a></li><li><a href="APG.Bag.html">APG.Bag</a></li><li><a href="APG.Character.html">APG.Character</a></li><li><a href="APG.Game.html">APG.Game</a></li><li><a href="APG.Group.html">APG.Group</a></li><li><a href="APG.Sprite.html">APG.Sprite</a></li><li><a href="APG.Target.html">APG.Target</a></li><li><a href="APG.CharacterTile.html">APG.CharacterTile</a></li><li><a href="APG.Update.listenKey.html">APG.Update.listenKey</a></li><li><a href="APG.Update.collision.html">APG.Update.collision</a></li>
+  				</ul>
+  			</li>
+  			
+        <li>
+  <a href="https://github.com/SuCicada/Algorithm-PlayGround">
+    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+    GitHub
+  </a>
+</li>
+
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+    <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+    Community
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li>
+      <a href="http:../">APG</a>
+    </li>
+    <li>
+      <a href="https://github.com/SuCicada/Algorithm-PlayGround">APG on GitHub</a>
+    </li>
+    <li>
+      <a href="http:../../Examples">APG Examples</a>
+    </li>
+    <li>
+      <a href="">Forum</a>
+    </li>
+    <li>
+      <a href="">Twitter</a>
+    </li>
+    <li>
+      <a href="">Donate</a>
+    </li>
+  </ul>
+</li>
+
+  		</ul>
+          
+  	</div>
+  </div>
+</div>
+
+
+<div class="container-fluid" id="toc-content">
+	<div class="row">
+		
+	  <div class="col-md-9 col-md-offset-3">
+		
+			<div id="main">
+
+	<h1 class="page-title">Class: Character</h1>
+<section>
+
+<header>
+    
+        <h2>
+        Character
+        </h2>
+        
+    
+</header>
+
+
+<article>
+    <div class="container-overview">
+    
+        
+<dt>
+    <h4 class="name" id="Character" data-name="Character">
+      <span class="type-signature"></span>new Character<span class="signature">()</span><span class="type-signature"></span>
+      
+    </h4>
+    
+</dt>
+<dd>
+
+    
+    <div class="description method-description">
+        <p>角色</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Character.js.html">Character.js</a>,
+				<a href="Character.js.html#sunlight-1-line-3">line 3</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<dt>
+    <h4 class="name" id="getCharacterSprite" data-name="getCharacterSprite">
+      <span class="type-signature"></span>getCharacterSprite<span class="signature">(playerG [, index])</span><span class="type-signature"> &rarr; {<a href="APG.Sprite.html">APG.Sprite</a>}</span>
+      
+    </h4>
+    
+</dt>
+<dd>
+
+    
+    <div class="description method-description">
+        <p>得到角色精灵对象</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>playerG</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Phaser.Group</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description param-description last"><p>角色组对象</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description param-description last"><p>index - 要选取的角色所在的角色组中的下标</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Character.js.html">Character.js</a>,
+				<a href="Character.js.html#sunlight-1-line-10">line 10</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="APG.Sprite.html">APG.Sprite</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getCharacterSite" data-name="getCharacterSite">
+      <span class="type-signature"></span>getCharacterSite<span class="signature">(playerObj [, index])</span><span class="type-signature"> &rarr; {Object|Object}</span>
+      
+    </h4>
+    
+</dt>
+<dd>
+
+    
+    <div class="description method-description">
+        <p>得到单个玩家的相对坐标,相对于地图Area<br>
+默认取得角色组里的第一个角色<br>
+可以传入玩家精灵</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>playerObj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Phaser.Group</span>
+|
+
+<span class="param-type">Phaser.Sprite</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description param-description last"><p>角色组对象 or 角色精灵对象</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description param-description last"><p>index - 要选取的角色所在的角色组中的下标</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Character.js.html">Character.js</a>,
+				<a href="Character.js.html#sunlight-1-line-30">line 30</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+|
+
+<span class="param-type">Object</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getCharacterDirection" data-name="getCharacterDirection">
+      <span class="type-signature"></span>getCharacterDirection<span class="signature">(playerObj [, index])</span><span class="type-signature"> &rarr; {Object}</span>
+      
+    </h4>
+    
+</dt>
+<dd>
+
+    
+    <div class="description method-description">
+        <p>得到玩家方向, 1 代表坐标轴正向, -1 代表轴负方向</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>playerObj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Phaser.Group</span>
+|
+
+<span class="param-type">Phaser.Sprite</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description param-description last"><p>角色组对象 or 角色精灵对象</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description param-description last"><p>index - 要选取的角色所在的角色组中的下标</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Character.js.html">Character.js</a>,
+				<a href="Character.js.html#sunlight-1-line-48">line 48</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getCharacterTile" data-name="getCharacterTile">
+      <span class="type-signature"></span>getCharacterTile<span class="signature">(playerObj [, index])</span><span class="type-signature"> &rarr; {<a href="APG.Tile.html">APG.Tile</a>}</span>
+      
+    </h4>
+    
+</dt>
+<dd>
+
+    
+    <div class="description method-description">
+        <p>得到玩家所处瓷砖</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>playerObj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Phaser.Group</span>
+|
+
+<span class="param-type">Phaser.Sprite</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description param-description last"><p>角色组对象 or 角色精灵对象</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description param-description last"><p>index - 要选取的角色所在的角色组中的下标</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Character.js.html">Character.js</a>,
+				<a href="Character.js.html#sunlight-1-line-60">line 60</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="APG.Tile.html">APG.Tile</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getCharacterSiteAll" data-name="getCharacterSiteAll">
+      <span class="type-signature"></span>getCharacterSiteAll<span class="signature">(character)</span><span class="type-signature"> &rarr; {Array}</span>
+      
+    </h4>
+    
+</dt>
+<dd>
+
+    
+    <div class="description method-description">
+        <p>返回角色组的坐标列表({x:number, y:number}),相对坐标,相对于地图Area</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>character</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description param-description last"><p>角色组名</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Character.js.html">Character.js</a>,
+				<a href="Character.js.html#sunlight-1-line-73">line 73</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setCharacterSite" data-name="setCharacterSite">
+      <span class="type-signature"></span>setCharacterSite<span class="signature">(playerGroup, x, y)</span><span class="type-signature"></span>
+      
+    </h4>
+    
+</dt>
+<dd>
+
+    
+    <div class="description method-description">
+        <p>对玩家组中的第一个精灵设置相对位置,相对于APG.MapArea<br>
+传入的坐标是相对坐标</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>playerGroup</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="APG.Group.html">APG.Group</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description param-description last"><p>角色组</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description param-description last"><p>x</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description param-description last"><p>y</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Character.js.html">Character.js</a>,
+				<a href="Character.js.html#sunlight-1-line-87">line 87</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="moveCharacter" data-name="moveCharacter">
+      <span class="type-signature"></span>moveCharacter<span class="signature">()</span><span class="type-signature"> &rarr; {APG.Character.setCharacterSite}</span>
+      
+    </h4>
+    
+</dt>
+<dd>
+
+    
+    <div class="description method-description">
+        <p>参见 {APG.Character.setCharacterSite}</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Character.js.html">Character.js</a>,
+				<a href="Character.js.html#sunlight-1-line-109">line 109</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">APG.Character.setCharacterSite</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+</div>
+	    <footer class="footer">
+
+
+
+
+	<p class="footer-message">
+	啊啊啊啊啊 
+	</p>
+
+
+
+	<p class="copyright">
+	APG Copyright © ....
+	</p>
+
+
+<p class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
+	
+		on 2020-03-Su
+	
+	using <a href="https://github.com/photonstorm/phaser-ce/tree/master/resources/docstrap-master">Tomorrow</a>.
+</p>
+
+</footer>
+
+		</div>
+    
+      <div class="toc-container hidden-xs hidden-sm">
+  <div class="toc-filter">
+    <div class="form-inline">
+    <div class="form-group">
+      <label for="filter" class="control-label">Filter</label>
+      <input type="text" class="form-control" id="toc-filter-input">
+    </div>
+  </div>
+  </div>
+  <div id="toc">
+    <div class="list-group">
+      <div id="toc-insert"></div>
+    </div>
+  </div>
+</div>
+
+    
+	</div>
+</div>
+
+<script defer src="scripts/bundle.js?"></script>
+
+
+
+</body>
+</html>
