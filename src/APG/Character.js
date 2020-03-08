@@ -1,6 +1,10 @@
 console.log("Character.js has been loaded successfully.")
 
-/* 角色 */
+/**
+ *  角色
+ * @class APG.Character
+ */
+
 APG.Character;
 
 /**
@@ -25,9 +29,9 @@ APG.Character.getCharacterSprite = function (playerG, index = 0) {
 
 /**
  * 得到单个玩家的相对坐标,相对于地图Area
- * @method APG.Character#getCharacterSite
  *  默认取得角色组里的第一个角色
  *  可以传入玩家精灵
+ * @method APG.Character#getCharacterSite
  * @param {Phaser.Group|Phaser.Sprite} playerObj - 角色组对象 or 角色精灵对象
  * @param {integer} [index = 0] index - 要选取的角色所在的角色组中的下标
  * @returns {{x: number, y: number}|{x, y}}

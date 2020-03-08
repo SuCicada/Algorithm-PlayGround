@@ -1,7 +1,10 @@
 console.log("Tile.js has been loaded successfully.")
 
-/* Tile 瓷砖*/
-APG.Tile
+/**
+ * Tile 瓷砖
+ * @class APG.CharacterTile
+ */
+APG.Tile;
 
 /**
  * 得到瓷砖id
