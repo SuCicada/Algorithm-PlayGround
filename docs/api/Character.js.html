@@ -5,7 +5,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Algorithm PlayGround Source: Group.js</title>
+	<title>Algorithm PlayGround Source: Character.js</title>
 	<link rel="stylesheet" href="styles/site.phaser.css?">
 </head>
 
@@ -88,75 +88,120 @@
 		
 			<div id="main">
 
-		<h1 class="page-title">Source: Group.js</h1>
+		<h1 class="page-title">Source: Character.js</h1>
     
 <section>
     <article>
-        <pre class="language-javascript linenums">console.log("Group.js has been loaded successfully.")
+        <pre class="language-javascript linenums">console.log("Character.js has been loaded successfully.")
+
+/* 角色 */
+APG.Character;
 
 /**
- * Group（组）：概念取自phaser，指代框架中多个的元素对象组合而来的组形式的对象。也是接口的一个分类。
- * @class APG.Group
+ * 得到角色精灵对象
+ * @method APG.Character#getCharacterSprite
+ * @param {Phaser.Group} playerG - 角色组对象
+ * @param {integer} [index = 0] index - 要选取的角色所在的角色组中的下标
+ * @returns {APG.Sprite}
  */
-APG.Group;
-
-
-/**
- * 创建一个组，
- * 默认存在0个精灵, 默认key 为spritesheet, index 从1开始。
- * @method APG.Group#setGroup
- * @returns {Phaser.Group}
- */
-APG.Group.setGroup = function () {
-    var group = game.add.group();
-    group.enableBody = true;
-    game.physics.arcade.enable(group);
-    return group;
-};
-
-/**
- * 移动 groupUp 对象到 groupDown 对象上面。
- * @method APG.Group#moveGroupUpTo
- * @param {Phaser.Group} groupUp
- * @param {Phaser.Group} groupDown
- */
-APG.Group.moveGroupUpTo = function (groupUp, groupDown) {
-    while (groupUp.z &lt;= groupDown.z) {
-        game.world.moveUp(groupUp);
-        console.log(groupUp.z, groupDown.z)
+APG.Character.getCharacterSprite = function (playerG, index = 0) {
+    /* 传入角色组,默认返回第一个精灵
+    *  如果传入角色精灵,直接返回
+    *  如果传入
+    * */
+    let player = playerG.children[index];
+    if (!player) {
+        player = playerG;
     }
+    return player;
 };
+
+
 /**
- * 移动 groupDown 对象到 groupUp 对象下面。
- * @method APG.Group#moveGroupDownTo
- * @param {Phaser.Group} groupDown
- * @param {Phaser.Group} groupUp
+ * 得到单个玩家的相对坐标,相对于地图Area
+ * @method APG.Character#getCharacterSite
+ *  默认取得角色组里的第一个角色
+ *  可以传入玩家精灵
+ * @param {Phaser.Group|Phaser.Sprite} playerObj - 角色组对象 or 角色精灵对象
+ * @param {integer} [index = 0] index - 要选取的角色所在的角色组中的下标
+ * @returns {{x: number, y: number}|{x, y}}
  */
-APG.Group.moveGroupDownTo = function (groupDown, groupUp) {
-    while (groupDown.z >= groupUp.z) {
-        game.world.moveDown(groupDown);
+APG.Character.getCharacterSite = function (playerObj, index = 0) {
+    var player = playerObj.children[index];
+    if (!player) {
+        player = playerObj;
     }
+    return APG.Sprite.getSpriteSite(player);
+};
+
+
+/**
+ * 得到玩家方向, 1 代表坐标轴正向, -1 代表轴负方向
+ * @method APG.Character#getCharacterDirection
+ * @param {Phaser.Group|Phaser.Sprite} playerObj - 角色组对象 or 角色精灵对象
+ * @param {integer} [index = 0] index - 要选取的角色所在的角色组中的下标
+ * @returns {{x:integer, y:integer}}
+ */
+APG.Character.getCharacterDirection = function (playerObj, index = 0) {
+    let player = APG.Character.getCharacterSprite(playerObj, index);
+    return player.direction;
 };
 
 /**
- * 得到 `target `组对象，`target` 是设置在游戏配置文件中的。
- * @method APG.Group#getTargetGroup
- * @param {string} name - Target组名
- * @returns {Phaser.Group}
+ * 得到玩家所处瓷砖
+ * @method APG.Character#getCharacterTile
+ * @param {Phaser.Group|Phaser.Sprite} playerObj - 角色组对象 or 角色精灵对象
+ * @param {integer} [index = 0] index - 要选取的角色所在的角色组中的下标
+ * @returns {APG.Tile}
  */
-APG.Group.getTargetGroup = function (name) {
-    return APG.TargetGroups[name];
+APG.Character.getCharacterTile = function (player, index = 0) {
+    var site = APG.Character.getCharacterSite(player, index);
+    var tile = APG.Tile.getTileFromSite(site.x, site.y);
+    return tile;
 };
 
 /**
- * 得到 `Character` 组对象，`Character` 是设置在游戏配置文件中的。
- * @method APG.Group#getCharacterGroup
- * @param {string} name - Character组名
- * @returns {Phaser.Group}
+ * 返回角色组的坐标列表({x:number, y:number}),相对坐标,相对于地图Area
+ * @method APG.Character#getCharacterSiteAll
+ * @param {string} character - 角色组名
+ * @return {Array}
  */
-APG.Group.getCharacterGroup = function (name) {
-    return APG.CharacterGroups[name];
+APG.Character.getCharacterSiteAll = function (character) {
+    var site = [];
+    APG.CharacterGroups[character].forEach(function (cha) {
+        site.push(APG.Sprite.getSpriteSite(cha));
+    });
+    return site;
 };
+
+/**
+ * 对玩家组中的第一个精灵设置相对位置,相对于APG.MapArea
+ * 传入的坐标是相对坐标
+ * @method APG.Character#setCharacterSite
+ * @param {APG.Group} playerGroup - 角色组
+ * @param {number} x - x
+ * @param {number} y - y
+ */
+APG.Character.setCharacterSite = function (playerGroup, x, y) {
+    var player = APG.Character.getCharacterSprite(playerGroup);
+    var nowSite = APG.Character.getCharacterSite(playerGroup);
+    player.oldx = nowSite.x;
+    player.oldy = nowSite.y;
+
+    player.relx = x;
+    player.rely = y;
+
+    var site = APG.Sprite.siteDecode(x, y);
+    player.x = site.x;
+    player.y = site.y;
+};
+
+/**
+ * 参见 {APG.Character.setCharacterSite}
+ * @method APG.Character#moveCharacter
+ * @type {APG.Character.setCharacterSite}
+ */
+APG.Character.moveCharacter = APG.Character.setCharacterSite;
 </pre>
     </article>
 </section>

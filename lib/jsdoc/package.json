@@ -1,0 +1,11 @@
+{
+  "name": "Algorithm-PlayGround",
+  "version": "1.0.0",
+  "dependencies": {
+    "jsdoc": "^3.6.3",
+    "moment": "^2.24.0",
+    "sanitize-html": "^1.22.0",
+    "taffydb": "latest",
+    "underscore": "latest"
+  }
+}

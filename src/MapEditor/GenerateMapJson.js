@@ -1,6 +1,6 @@
 console.log("GenerateMapJson.js is loaded");
 
-function generate_tilemap_data(mapData, callback){
+function generate_tilemap_data(mapData, callback) {
     map = {};
     map.height = mapData[0].length;
     map.width = mapData[0][0].length;
@@ -35,22 +35,22 @@ function generate_tilemap_data(mapData, callback){
     };
 
     var tilFilePro = showWindow();
-    var pro3 = tilFilePro.then(function(imgSize){
+    var pro3 = tilFilePro.then(function (imgSize) {
         console.log(imgSize)
-        return setMapTilesets(tilemap_data,imgSize);
+        return setMapTilesets(tilemap_data, imgSize);
     });
 
-    let pro1and2 = pro3.then(function(){
+    let pro1and2 = pro3.then(function () {
         var pro1 = setMapLayerData(tilemap_data, mapData);
         var pro2 = setMapObjects(tilemap_data, mapData);
-        return Promise.all([pro1,pro2]);
+        return Promise.all([pro1, pro2]);
     });
 
 
     let pro4 = pro1and2.then(function () {
         return setProperties(tilemap_data);
     });
-    pro4.then(function(){
+    pro4.then(function () {
         console.log(tilemap_data)
         /* 移除加入的地图映射集  */
         let mapjs = document.getElementById('mapjs');
@@ -61,16 +61,17 @@ function generate_tilemap_data(mapData, callback){
 }
 
 /*=======================================*/
+
 /*      地图配置自动装配中   */
 
-function setMapLayerData(tilemap_data, mapData){
+function setMapLayerData(tilemap_data, mapData) {
     /* 设置layer层
      * 将map的配置, 给 tilemap_data 中的layer 的data*/
-    return new Promise(function(resolve, reject){
-        var mapdata = Array.prototype.concat.apply([],mapData[0]);
+    return new Promise(function (resolve, reject) {
+        var mapdata = Array.prototype.concat.apply([], mapData[0]);
 
-        for(let i of mapdata ){
-            var block = BLOCKS.Layers.TileLayer.find(function(block){
+        for (let i of mapdata) {
+            var block = BLOCKS.Layers.TileLayer.find(function (block) {
                 return block.mapId.toString() == i.toString();
             });
             /* 没有砖块的地方定为0 */
@@ -82,9 +83,9 @@ function setMapLayerData(tilemap_data, mapData){
     });
 }
 
-function setMapObjects(tilemap_data, mapData){
+function setMapObjects(tilemap_data, mapData) {
     /* 设置对象层 */
-    return new Promise(function(resolve, reject){
+    return new Promise(function (resolve, reject) {
         let objectData = mapData.slice(1);  /* 第二层 */
         let nowLayerId = 2;   /* 1 是地形 */
         let nowObjectId = 1;
@@ -104,15 +105,15 @@ function setMapObjects(tilemap_data, mapData){
             y: 0,
         };
 
-        for(let objectLevel of objectData){
+        for (let objectLevel of objectData) {
             /* 一共两层, 两次循环*/
             let objectList;
             let thislayer = JSON.parse(JSON.stringify(layer));  /* 深拷贝一份*/
             thislayer.id = nowLayerId++;
-            if(thislayer.id == 2){
+            if (thislayer.id == 2) {
                 thislayer.name = "Object Layer";
                 objectList = BLOCKS.Layers.TargetLayer;
-            }else if(thislayer.id == 3){
+            } else if (thislayer.id == 3) {
                 thislayer.name = "Character Layer";
                 objectList = BLOCKS.Layers.CharacterLayer;
             }
@@ -120,9 +121,9 @@ function setMapObjects(tilemap_data, mapData){
 
             /* 对每一个元素遍历 */
             var gidIndexs = {};  /* map_id -> gid*/
-            for(var i in objectLevel){
-                for(var j in objectLevel[i]){
-                    if(objectLevel[i][j] == '.'){
+            for (var i in objectLevel) {
+                for (var j in objectLevel[i]) {
+                    if (objectLevel[i][j] == '.') {
                         continue;
                     }
 
@@ -144,15 +145,15 @@ function setMapObjects(tilemap_data, mapData){
                             }]
                     };
                     object.id = nowObjectId++;
-                    var block = objectList.find(function(block) {
+                    var block = objectList.find(function (block) {
                         return block && block.mapId == objectLevel[i][j];
                     });
-                    if(gidIndexs[block.mapId]){
+                    if (gidIndexs[block.mapId]) {
                         object.gid = gidIndexs[block.mapId];
-                    }else{
-                        if(thislayer.name == "Character Layer"){
+                    } else {
+                        if (thislayer.name == "Character Layer") {
                             object.gid = nowCharacterGID++;
-                        }else if(thislayer.name == "Object Layer"){
+                        } else if (thislayer.name == "Object Layer") {
                             object.gid = nowObjectGID++;
                         }
                         gidIndexs[block.mapId] = object.gid;
@@ -161,7 +162,7 @@ function setMapObjects(tilemap_data, mapData){
                     // object.properties[0].gid = block.tileId;
                     // object.properties[0].imgUrl = block.bg_img;
                     object.properties[0].keyName = block.keyName;
-                    object.properties[0].imgKey = block.imgKey? block.imgKey: block.keyName;
+                    object.properties[0].imgKey = block.imgKey ? block.imgKey : block.keyName;
                     object.type = block.type;   /*为了特殊类型,比如 player*/
                     object.x = tilemap_data.tilewidth * j;
                     object.y = tilemap_data.tileheight * i;
@@ -183,7 +184,7 @@ function setMapObjects(tilemap_data, mapData){
 function setProperties(tilemap_data) {
     /* 目前仅支持对象层和角色层的自定义属性 */
     return new Promise(function (resolve) {
-        if(BLOCKS.Sprites){
+        if (BLOCKS.Sprites) {
             BLOCKS.Sprites.forEach(function (sprite) {
                 if (sprite.z == 1 || sprite.z == 2) {
                     let obj = tilemap_data.layers[sprite.z].objects.find(function (obj) {
@@ -193,13 +194,13 @@ function setProperties(tilemap_data) {
                         return obj.x == sprite.x * tilemap_data.tilewidth &&
                             obj.y == sprite.y * tilemap_data.tileheight;
                     });
-                    if(obj){
+                    if (obj) {
                         obj.properties[0] = Object.assign(obj.properties[0], sprite.properties);
                     }
                 }
             });
             console.log("setProperties has been completed!")
-        }else{
+        } else {
             console.log("Properties of BLOCKS.Sprites don't exist!")
         }
         resolve();
@@ -208,7 +209,7 @@ function setProperties(tilemap_data) {
 
 function setMapTilesets(tilemap_data, tileSize) {
     /* 设置tileSet 瓷砖集, 暂定只有一个, 因为只有一张地图 */
-    return new Promise(function(resolve){
+    return new Promise(function (resolve) {
         let nowgid = 1;
         let tilewidth;
         let tileheight;
@@ -225,7 +226,7 @@ function setMapTilesets(tilemap_data, tileSize) {
             margin: 0,
             name: img.imgKey,
             spacing: 0,
-            tilecount:  img.rows *　img.columns,  /*先默认贴图是矩形*/
+            tilecount: img.rows * img.columns,  /*先默认贴图是矩形*/
             tileheight: img.height / img.rows,
             tilewidth: img.width / img.columns,
         };
@@ -235,7 +236,7 @@ function setMapTilesets(tilemap_data, tileSize) {
         tilsets.push(one);
 
         tilemap_data.tilesets = tilsets;
-        let side = Math.min(tilewidth,tileheight);
+        let side = Math.min(tilewidth, tileheight);
         /* 强制变成方形 */
         tilemap_data.tilewidth = tilemap_data.tileheight = side;
 
@@ -246,16 +247,17 @@ function setMapTilesets(tilemap_data, tileSize) {
 
 
 /*=======================================*/
+
 /*      读取 地图瓷砖素材图片文件  和 瓷砖映射表js文件  */
 
-function showWindow(){
+function showWindow() {
     //定义让模态窗口显示或隐藏的函数
-    return new Promise(function(resolve){
+    return new Promise(function (resolve) {
         var overdiv = document.getElementById('over');
-        if(!overdiv){
+        if (!overdiv) {
             overdiv = document.createElement('div');
 
-            overdiv.setAttribute('id','over');
+            overdiv.setAttribute('id', 'over');
             // overdiv.style.display = 'block';
             overdiv.innerHTML = '<div id="content">\n' +
                 '        <h3>选择文件</h3>\n\n' +
@@ -287,7 +289,7 @@ function showWindow(){
 
         }
 
-        let showOrHidden = function() {
+        let showOrHidden = function () {
             // 获取到模态窗口
             var over = document.querySelector('#over');
             over.style.display = over.style.display == 'none' ? 'block' : 'none';
@@ -309,14 +311,14 @@ function showWindow(){
         };
 
         /* 点击确认按钮  */
-        document.querySelector("#sure").onclick = function(){
+        document.querySelector("#sure").onclick = function () {
             var tileImgFile = document.getElementById('tileImgFile').files[0];
             var imgSize = {};
             var pro1 = getImgInfo(tileImgFile, imgSize);
 
             var blocksFile = document.getElementById('blocksFile').files[0];
             var pro2 = mapConfigImport(blocksFile);
-            Promise.all([pro1,pro2]).then(function () {
+            Promise.all([pro1, pro2]).then(function () {
                 showOrHidden();   /* 关闭窗口 */
                 resolve(imgSize); /* 将图片大小传出 */
             })
@@ -324,12 +326,12 @@ function showWindow(){
     });
 }
 
-function getImgInfo(tileImgFile, imgSize){
+function getImgInfo(tileImgFile, imgSize) {
     /* 读取图片大小 */
-    return new Promise(function(resolve){
+    return new Promise(function (resolve) {
         var fileReader = new FileReader();
         fileReader.readAsDataURL(tileImgFile);
-        fileReader.onload = function(e) {
+        fileReader.onload = function (e) {
             let base64 = this.result;
             let img = new Image();
             img.src = base64;
@@ -344,13 +346,13 @@ function getImgInfo(tileImgFile, imgSize){
 
 function mapConfigImport(blocksFile) {
     /* 加载js文件, 创建script标签, id为mapjs */
-    return new Promise(function(resolve){
+    return new Promise(function (resolve) {
         var reader = new FileReader();//这是核心,读取操作就是由它完成.
         reader.readAsText(blocksFile);//读取文件的内容,也可以读取文件的URL
         reader.onload = function () {
             var str = reader.result;
             var mapjs = document.createElement('script');
-            mapjs.setAttribute('id','mapjs');
+            mapjs.setAttribute('id', 'mapjs');
             mapjs.text = str;
             document.body.appendChild(mapjs);
             resolve();

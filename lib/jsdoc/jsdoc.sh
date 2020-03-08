@@ -1,1 +1,2 @@
-node_modules/jsdoc/jsdoc.js -c ./config.json
+# 注意: 执行之前 先清空 docs/api 目录
+jsdoc -c ./config.json

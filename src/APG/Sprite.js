@@ -17,22 +17,22 @@ APG.Sprite;
  * @param {string} [keyName = imgKey]- 设置的精灵的名，如果没有就和 `imgKey` 一样
  * @returns {*}
  */
-APG.Sprite.addSprite = function(x, y, imgKey, frame, group, keyName){
-    var site = APG.Sprite.siteDecode(x,y);
-    var s = game.add.sprite(site.x, site.y, imgKey, frame-1);
+APG.Sprite.addSprite = function (x, y, imgKey, frame, group, keyName) {
+    var site = APG.Sprite.siteDecode(x, y);
+    var s = game.add.sprite(site.x, site.y, imgKey, frame - 1);
     // s.x += APG.MapArea.x;
     // s.y += APG.MapAre    a.y;
     s.scale.setTo(1);
     s.scale.setTo(Math.min(APG.Tile.width / s.width,
         APG.Tile.height / s.height));
     game.physics.enable(s, Phaser.Physics.ARCADE);
-    APG.Sprite.setBody(s,0.6,0.6,0.2,0.2);
+    APG.Sprite.setBody(s, 0.6, 0.6, 0.2, 0.2);
     s[0] = {
-        keyName: keyName? keyName: imgKey,
+        keyName: keyName ? keyName : imgKey,
         imgKey: imgKey,
         frameId: frame
     };
-    if(group){
+    if (group) {
         group.add(s);
     }
     return s;
@@ -45,8 +45,8 @@ APG.Sprite.addSprite = function(x, y, imgKey, frame, group, keyName){
  * @param {integer} x - 相对坐标x
  * @param {integer} y - 相对坐标y
  */
-APG.Sprite.setSpriteSite = function(s, x, y){
-    var site = APG.Sprite.siteDecode(x,y);
+APG.Sprite.setSpriteSite = function (s, x, y) {
+    var site = APG.Sprite.siteDecode(x, y);
     s.x = site.x;
     s.y = site.y;
 };
@@ -56,7 +56,7 @@ APG.Sprite.setSpriteSite = function(s, x, y){
  * @param {Phaser.Group} group - 组对象
  * @returns {Array}
  */
-APG.Sprite.getSpriteList = function(group){
+APG.Sprite.getSpriteList = function (group) {
     return group.children;
 };
 
@@ -70,27 +70,27 @@ APG.Sprite.getSpriteList = function(group){
  * @param {integer} [safe = 5] - 递归深度,为0则为无限.
  * @returns {Array}
  */
-APG.Sprite.getSpriteListFromSite = function(x, y, group=game.world, recursive=false, safe=5){
-    if(safe > 0){
-        var newsafe = safe-1 == 0? -1: safe-1;
-    }else if(safe < 0){
+APG.Sprite.getSpriteListFromSite = function (x, y, group = game.world, recursive = false, safe = 5) {
+    if (safe > 0) {
+        var newsafe = safe - 1 == 0 ? -1 : safe - 1;
+    } else if (safe < 0) {
         return [];
-    }else if(safe == 0){
+    } else if (safe == 0) {
         var newsafe = safe;
     }
     var sprites = [];
-    if(group){
-        group.forEach(function(s){
-            if(!s.alive){
+    if (group) {
+        group.forEach(function (s) {
+            if (!s.alive) {
                 return;
             }
             // console.log(s.x,s.y)
-            if(s.children.length && recursive){
-                var ss = APG.Sprite.getSpritesFromSite(x,y,s,true,newsafe);
+            if (s.children.length && recursive) {
+                var ss = APG.Sprite.getSpritesFromSite(x, y, s, true, newsafe);
                 sprite = sprite.concat(ss);
             }
             var site = APG.Sprite.getSpriteSite(s);
-            if(site.x == x && site.y == y){
+            if (site.x == x && site.y == y) {
                 /* or
                 *     s.relx == x && s.rely == y
                 * */
@@ -105,8 +105,8 @@ APG.Sprite.getSpriteListFromSite = function(x, y, group=game.world, recursive=fa
  * 摧毁一个精灵对象。
  * @param {Phaser.Sprite} sprite - 要摧毁的精灵对象
  */
-APG.Sprite.destroySprite = function(sprite){
-    if(sprite){
+APG.Sprite.destroySprite = function (sprite) {
+    if (sprite) {
         sprite.destroy();
     }
 };
@@ -116,8 +116,8 @@ APG.Sprite.destroySprite = function(sprite){
  * @param {Phaser.Sprite} sprite - 精灵对象
  * @returns {{x: number, y: number}|{x, y}}
  */
-APG.Sprite.getSpriteSite = function(sprite){
-    return APG.Sprite.siteCode(sprite.x,sprite.y);
+APG.Sprite.getSpriteSite = function (sprite) {
+    return APG.Sprite.siteCode(sprite.x, sprite.y);
 };
 
 /**
@@ -126,14 +126,14 @@ APG.Sprite.getSpriteSite = function(sprite){
  * @param {integer} y - 相对坐标y
  * @returns {{x: number, y: number}}
  */
-APG.Sprite.siteDecode = function(x, y){
+APG.Sprite.siteDecode = function (x, y) {
     /* 将相对地址变成绝对地址  */
-    if(typeof x == "object"){
+    if (typeof x == "object") {
         var y = x.y;
         var x = x.x;
     }
     return {
-        x: x * APG.Tile.width  + APG.MapArea.offsetX,
+        x: x * APG.Tile.width + APG.MapArea.offsetX,
         y: y * APG.Tile.height + APG.MapArea.offsetY,
     }
 };
@@ -144,8 +144,8 @@ APG.Sprite.siteDecode = function(x, y){
  * @param {number} y - 绝对坐标y
  * @returns {{x: integer, y: integer}}
  */
-APG.Sprite.siteCode = function(x, y){
-    if(typeof x == "object"){
+APG.Sprite.siteCode = function (x, y) {
+    if (typeof x == "object") {
         var y = x.y;
         var x = x.x;
     }
@@ -154,8 +154,8 @@ APG.Sprite.siteCode = function(x, y){
         x: (x - APG.MapArea.offsetX) / APG.Tile.width,
         y: (y - APG.MapArea.offsetY) / APG.Tile.height,
     };
-    let about = function(num){
-        return (num - Math.floor(num)) < (Math.ceil(num) - num)? Math.floor(num): Math.ceil(num);
+    let about = function (num) {
+        return (num - Math.floor(num)) < (Math.ceil(num) - num) ? Math.floor(num) : Math.ceil(num);
     };
 
     site.x = about(site.x);
@@ -171,11 +171,11 @@ APG.Sprite.siteCode = function(x, y){
  * @param {number} ratex - 相对坐标x比例
  * @param {number} ratey - 相对坐标y比例
  */
-APG.Sprite.setBody = function(s, ratew, rateh, ratex, ratey){
+APG.Sprite.setBody = function (s, ratew, rateh, ratex, ratey) {
     s.body.setSize(
-        s.width  / s.scale.x * ratew,
+        s.width / s.scale.x * ratew,
         s.height / s.scale.y * rateh,
-        s.width  / s.scale.x * ratex,
+        s.width / s.scale.x * ratex,
         s.height / s.scale.y * ratey);
 };
 

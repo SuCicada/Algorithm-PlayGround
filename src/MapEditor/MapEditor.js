@@ -1,4 +1,3 @@
-
 var game = new Phaser.Game(800, 600, Phaser.CANVAS, '', {
     init: init,
     preload: preload,
@@ -11,7 +10,7 @@ var spriteHeight = 20;　 // 画板长
 var spriteWidth = 20;　　// 画板宽
 var spriteHeightMAX = 21;  // 画板最大长
 var spriteHeightMIN = 1;  // 画板最小长
-var tileWidth  = 32;
+var tileWidth = 32;
 var spriteWidthMAX = 20;   // 画板最大宽
 var spriteWidthMIN = 1;  // 画板最小宽
 var tileHeight = 32;
@@ -54,7 +53,7 @@ var isErase = false;
 var ci = 0;
 var color = 0;
 var palette = 0;
-var pmap = [0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F'];
+var pmap = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F'];
 
 //  Data
 var frame = 1;
@@ -63,34 +62,36 @@ var frames = [[]];
 
 var data;
 
-function init(){
+function init() {
     game.scale.pageAlignHorizontally = true;
     game.scale.pageAlignVertically = true;
     game.scale.scaleMode = Phaser.ScaleManager["SHOW_ALL"];
     game.scale.refresh();
 }
 
-function preload(){
+function preload() {
     // game.load.script('GenerateMapJson.js','GenerateMapJson.js');
     preloadUItexture();
 }
 
 function create() {
     //   So we can right-click to erase
-    document.body.oncontextmenu = function() { return false; };
+    document.body.oncontextmenu = function () {
+        return false;
+    };
 
     Phaser.Canvas.setUserSelect(game.canvas, 'none');
     Phaser.Canvas.setTouchAction(game.canvas, 'none');
 
     game.stage.backgroundColor = '#525252';
 
-    game.create.grid('uiGrid', tileWidth * 16, tileHeight, tileWidth, tileHeight, 'rgba(255,255,255,0.5)', true, function(){
-        game.create.grid('drawingGrid', 20 * canvasZoom, 20 * canvasZoom, canvasZoom, canvasZoom, 'rgba(0,191,243,0.8)', true, function(){
+    game.create.grid('uiGrid', tileWidth * 16, tileHeight, tileWidth, tileHeight, 'rgba(255,255,255,0.5)', true, function () {
+        game.create.grid('drawingGrid', 20 * canvasZoom, 20 * canvasZoom, canvasZoom, canvasZoom, 'rgba(0,191,243,0.8)', true, function () {
             waitCreate();
         });
     });
 
-    var waitCreate = function(){
+    var waitCreate = function () {
         createUI();
         createDrawingArea();
 
@@ -100,54 +101,52 @@ function create() {
         resetData();
         setColor(2);
 
-        for(i=1;i<frameMax;i++){
+        for (i = 1; i < frameMax; i++) {
             nextFrame();
         }
-        for(i=1;i<frameMax;i++){
+        for (i = 1; i < frameMax; i++) {
             prevFrame();
         }
     };
 }
 
 
-function resetFrame(frame){
+function resetFrame(frame) {
     var data = frame;
 
     // console.log(data);
-    if(data == undefined || data.toString() == [].toString()){
+    if (data == undefined || data.toString() == [].toString()) {
         data = [];
 
-        for (var y = 0; y < spriteHeight; y++)
-        {
+        for (var y = 0; y < spriteHeight; y++) {
             var a = [];
 
-            for (var x = 0; x < spriteWidth; x++)
-            {
+            for (var x = 0; x < spriteWidth; x++) {
                 a.push('.');
             }
 
             data.push(a);
         }
 
-    }else{
+    } else {
 
-        if(data[0].length > spriteWidth){      // 多了,要减少
-            for (var x = 0; x < spriteHeight; x++){
-                data[x] = data[x].slice(0,spriteWidth);
+        if (data[0].length > spriteWidth) {      // 多了,要减少
+            for (var x = 0; x < spriteHeight; x++) {
+                data[x] = data[x].slice(0, spriteWidth);
             }
-        }else if(data[0].length < spriteWidth){   // 少了,要增加
-            var plus  = new Array(spriteWidth - data[0].length);
+        } else if (data[0].length < spriteWidth) {   // 少了,要增加
+            var plus = new Array(spriteWidth - data[0].length);
             plus.fill('.');
-            for (var x = 0; x < spriteHeight; x++){
+            for (var x = 0; x < spriteHeight; x++) {
                 data[x] = data[x].concat(plus);
             }
         }
 
-        if(data.length > spriteHeight){      // 多了,要减少
+        if (data.length > spriteHeight) {      // 多了,要减少
             data = data.splice(0, spriteHeight);
 
-        }else if(data.length < spriteHeight){   // 少了,要增加
-            var plusline  = new Array(spriteWidth);
+        } else if (data.length < spriteHeight) {   // 少了,要增加
+            var plusline = new Array(spriteWidth);
             plusline.fill('.');
             var plus = new Array(spriteHeight - data.length);
             plus.fill(plusline);
@@ -163,8 +162,8 @@ function resetData() {
     window.data = resetFrame(window.data);
 }
 
-function resetDataframes(){
-    for(var i = 0;i<frames.length;i++){
+function resetDataframes() {
+    for (var i = 0; i < frames.length; i++) {
         frames[i] = resetFrame(frames[i]);
     }
 }
@@ -173,12 +172,10 @@ function copyToData(src) {
 
     data = [];
 
-    for (var y = 0; y < src.length; y++)
-    {
+    for (var y = 0; y < src.length; y++) {
         var a = [];
 
-        for (var x = 0; x < src[y].length; x++)
-        {
+        for (var x = 0; x < src[y].length; x++) {
             a.push(src[y][x]);
         }
 
@@ -191,12 +188,10 @@ function cloneData() {
 
     var clone = [];
 
-    for (var y = 0; y < data.length; y++)
-    {
+    for (var y = 0; y < data.length; y++) {
         var a = [];
 
-        for (var x = 0; x < data[y].length; x++)
-        {
+        for (var x = 0; x < data[y].length; x++) {
             var v = data[y][x];
             a.push(v);
         }
@@ -207,7 +202,8 @@ function cloneData() {
     return clone;
 
 }
-function preloadUItexture(callback){
+
+function preloadUItexture(callback) {
 
     //  Create some icons
     var arrow = [
@@ -326,6 +322,7 @@ function preloadUItexture(callback){
     // })();
 
 }
+
 function createUI() {
 
     ui = game.make.bitmapData(800, 32);
@@ -334,12 +331,12 @@ function createUI() {
 
     ui.addToWorld();
 
-    var style = { font: "20px Courier", fill: "#fff", tabs: 80 };
+    var style = {font: "20px Courier", fill: "#fff", tabs: 80};
 
     coords = game.add.text(rightCol, 8, "X: 0\tY: 0", style);
 
-    game.add.text(12, 9, pmap.join("\t"), { font: "14px Courier", fill: "#000", tabs: 32 });
-    game.add.text(11, 8, pmap.join("\t"), { font: "14px Courier", fill: "#ffff00", tabs: 32 });
+    game.add.text(12, 9, pmap.join("\t"), {font: "14px Courier", fill: "#000", tabs: 32});
+    game.add.text(11, 8, pmap.join("\t"), {font: "14px Courier", fill: "#ffff00", tabs: 32});
 
     paletteArrow = game.add.sprite(8, 36, 'arrow');
 
@@ -490,13 +487,10 @@ function refresh() {
     canvas.clear();
     preview.clear();
 
-    for (var y = 0; y < spriteHeight; y++)
-    {
-        for (var x = 0; x < spriteWidth; x++)
-        {
+    for (var y = 0; y < spriteHeight; y++) {
+        for (var x = 0; x < spriteWidth; x++) {
             var i = data[y][x];
-            if (i !== '.' && i !== ' ')
-            {
+            if (i !== '.' && i !== ' ') {
                 color = game.create.palettes[palette][i];
                 // console.log(i);
                 // console.log(color);
@@ -550,8 +544,7 @@ function createEventListeners() {
     keys.right.onDown.add(shiftRight, this);
     keys.nextFrame.onDown.add(nextFrame, this);
     keys.prevFrame.onDown.add(prevFrame, this);
-    for (var i = 0; i < 16; i++)
-    {
+    for (var i = 0; i < 16; i++) {
         keys['color' + i].onDown.add(setColor, this, 0, i);
     }
     game.input.mouse.capture = true;
@@ -573,12 +566,9 @@ function nextFrame() {
     frames[frame - 1] = cloneData();
     frame = frame % frameMax + 1;
 
-    if (frames[frame - 1])
-    {
+    if (frames[frame - 1]) {
         copyToData(frames[frame - 1]);
-    }
-    else
-    {
+    } else {
         frames.push(null);
         resetData();
     }
@@ -617,8 +607,7 @@ function drawPalette() {
 
     var x = 0;
 
-    for (var clr in game.create.palettes[palette])
-    {
+    for (var clr in game.create.palettes[palette]) {
         ui.rect(x, 0, 32, 32, game.create.palettes[palette][clr]);
         x += 32;
     }
@@ -631,8 +620,7 @@ function changePalette() {
     palette++;
 
     console.log(game.create.palettes)
-    if (!game.create.palettes[palette])
-    {
+    if (!game.create.palettes[palette]) {
         palette = 0;
     }
 
@@ -643,18 +631,14 @@ function changePalette() {
 
 function setColor(i, p) {
 
-    if (typeof p !== 'undefined')
-    {
+    if (typeof p !== 'undefined') {
         //  It came from a Keyboard Event, in which case the color index is in p, not i.
         i = p;
     }
 
-    if (i < 0)
-    {
+    if (i < 0) {
         i = 15;
-    }
-    else if (i >= 16)
-    {
+    } else if (i >= 16) {
         i = 0;
     }
 
@@ -681,19 +665,14 @@ function prevColor() {
 
 function increaseSize(sprite) {
 
-    if (sprite.name === 'width')
-    {
-        if (spriteWidth === spriteWidthMAX)
-        {
+    if (sprite.name === 'width') {
+        if (spriteWidth === spriteWidthMAX) {
             return;
         }
 
         spriteWidth++;
-    }
-    else if (sprite.name === 'height')
-    {
-        if (spriteHeight === spriteHeightMAX)
-        {
+    } else if (sprite.name === 'height') {
+        if (spriteHeight === spriteHeightMAX) {
             return;
         }
 
@@ -713,19 +692,14 @@ function increaseSize(sprite) {
 
 function decreaseSize(sprite) {
 
-    if (sprite.name === 'width')
-    {
-        if (spriteWidth === spriteWidthMIN)
-        {
+    if (sprite.name === 'width') {
+        if (spriteWidth === spriteWidthMIN) {
             return;
         }
 
         spriteWidth--;
-    }
-    else if (sprite.name === 'height')
-    {
-        if (spriteHeight === spriteHeightMIN)
-        {
+    } else if (sprite.name === 'height') {
+        if (spriteHeight === spriteHeightMIN) {
             return;
         }
 
@@ -745,8 +719,7 @@ function decreaseSize(sprite) {
 
 function increasePreviewSize() {
 
-    if (previewSize === 16)
-    {
+    if (previewSize === 16) {
         return;
     }
 
@@ -760,8 +733,7 @@ function increasePreviewSize() {
 
 function decreasePreviewSize() {
 
-    if (previewSize === 1)
-    {
+    if (previewSize === 1) {
         return;
     }
 
@@ -776,12 +748,12 @@ function decreasePreviewSize() {
 
 function save() {
     var date = new Date();
-    var filename = date.toLocaleDateString().split('/').slice(2,3).concat(
-        date.toLocaleDateString().split('/').splice(0,2)).join('-') + " " + (
-        date.toLocaleTimeString().split(' ')[1]=='AM' ?
+    var filename = date.toLocaleDateString().split('/').slice(2, 3).concat(
+        date.toLocaleDateString().split('/').splice(0, 2)).join('-') + " " + (
+        date.toLocaleTimeString().split(' ')[1] == 'AM' ?
             date.toLocaleTimeString().split(' ')[0] :
             [parseInt(date.toLocaleTimeString().split(' ')[0].split(':')[0]) + 12].concat(
-                date.toLocaleTimeString().split(' ')[0].split(':').splice(1,3)).join(':')
+                date.toLocaleTimeString().split(' ')[0].split(':').splice(1, 3)).join(':')
     ) + " - mapdata.json";
 
     //  Save current frame
@@ -795,33 +767,27 @@ function save() {
         height: spriteHeight,
         map: frames,
     };
-    dataDownload(JSON.stringify(result,null,4),filename);
+    dataDownload(JSON.stringify(result, null, 4), filename);
     // alert("地图数据导出成功");
 
     var output = "";
 
-    for (var f = 0; f < frames.length; f++)
-    {
+    for (var f = 0; f < frames.length; f++) {
         var src = frames[f];
 
-        if (src === null)
-        {
+        if (src === null) {
             continue;
         }
 
         output = output.concat("var frame" + f + " = [\n");
 
-        for (var y = 0; y < src.length; y++)
-        {
+        for (var y = 0; y < src.length; y++) {
             output = output.concat("\t'");
             output = output.concat(src[y].join(''));
 
-            if (y < src.length - 1)
-            {
+            if (y < src.length - 1) {
                 output = output.concat("',\n");
-            }
-            else
-            {
+            } else {
                 output = output.concat("'\n");
             }
         }
@@ -834,13 +800,13 @@ function save() {
     console.log(output);
 
     saveText.alpha = 1;
-    game.add.tween(saveText).to( { alpha: 0 }, 2000, "Linear", true);
+    game.add.tween(saveText).to({alpha: 0}, 2000, "Linear", true);
 
 }
 
 /*========================================================*/
 
-function load(){
+function load() {
     var input = document.createElement('input');
     input.style.display = 'none';
     input.setAttribute("onchange", "fileImport()");
@@ -849,12 +815,13 @@ function load(){
     document.body.appendChild(input);
     input.click();
 }
+
 function fileImport() {
     //获取读取我文件的File对象
     var selectedFile = document.getElementById('filesInput').files[0];
     var name = selectedFile.name;//读取选中文件的文件名
     var size = selectedFile.size;//读取选中文件的大小
-    console.log("文件名:"+name+"大小:"+size);
+    console.log("文件名:" + name + "大小:" + size);
 
     console.log(selectedFile);
     var reader = new FileReader();//这是核心,读取操作就是由它完成.
@@ -885,7 +852,7 @@ function fileImport() {
         //         frames[i][j] = [frames[i][j].join()];
         //     //     console.log(a[i][j]);
         //     }
-            console.log(data);
+        console.log(data);
         // }
 
         // game.input.mouse.capture = false;
@@ -913,25 +880,27 @@ function dataDownload(content, filename) {
         };
     }
 }
-function generate(){
+
+function generate() {
     //  Save current frame
     frames[frame - 1] = cloneData();
 
     /*地图配置生成*/
     // var tilemap_data = {};
-    generate_tilemap_data(frames,function(tilemap_data){
+    generate_tilemap_data(frames, function (tilemap_data) {
         var date = new Date();
-        var filename = date.toLocaleDateString().split('/').slice(2,3).concat(
-            date.toLocaleDateString().split('/').splice(0,2)).join('-') + " " + (
-            date.toLocaleTimeString().split(' ')[1]=='AM' ?
+        var filename = date.toLocaleDateString().split('/').slice(2, 3).concat(
+            date.toLocaleDateString().split('/').splice(0, 2)).join('-') + " " + (
+            date.toLocaleTimeString().split(' ')[1] == 'AM' ?
                 date.toLocaleTimeString().split(' ')[0] :
                 [parseInt(date.toLocaleTimeString().split(' ')[0].split(':')[0]) + 12].concat(
-                    date.toLocaleTimeString().split(' ')[0].split(':').splice(1,3)).join(':')
-        ) + " - "+spriteHeight+" x "+spriteWidth+" - TileMapJson.json";
+                    date.toLocaleTimeString().split(' ')[0].split(':').splice(1, 3)).join(':')
+        ) + " - " + spriteHeight + " x " + spriteWidth + " - TileMapJson.json";
 
         console.log(tilemap_data)
-        dataDownload(JSON.stringify(tilemap_data,null,4),filename);
-    });}
+        dataDownload(JSON.stringify(tilemap_data, null, 4), filename);
+    });
+}
 
 /*===========================================*/
 
@@ -940,8 +909,7 @@ function shiftLeft() {
     canvas.moveH(-canvasZoom);
     preview.moveH(-previewSize);
 
-    for (var y = 0; y < spriteHeight; y++)
-    {
+    for (var y = 0; y < spriteHeight; y++) {
         var r = data[y].shift();
         data[y].push(r);
     }
@@ -953,8 +921,7 @@ function shiftRight() {
     canvas.moveH(canvasZoom);
     preview.moveH(previewSize);
 
-    for (var y = 0; y < spriteHeight; y++)
-    {
+    for (var y = 0; y < spriteHeight; y++) {
         var r = data[y].pop();
         data[y].splice(0, 0, r);
     }
@@ -983,20 +950,14 @@ function shiftDown() {
 
 function onDown(pointer) {
 
-    if (pointer.y <= 32)
-    {
+    if (pointer.y <= 32) {
         setColor(game.math.snapToFloor(pointer.x, 32) / 32);
-    }
-    else
-    {
+    } else {
         isDown = true;
 
-        if (pointer.rightButton.isDown)
-        {
+        if (pointer.rightButton.isDown) {
             isErase = true;
-        }
-        else
-        {
+        } else {
             isErase = false;
         }
 
@@ -1015,26 +976,21 @@ function paint(pointer) {
     var x = game.math.snapToFloor(pointer.x - canvasSprite.x, canvasZoom) / canvasZoom;
     var y = game.math.snapToFloor(pointer.y - canvasSprite.y, canvasZoom) / canvasZoom;
 
-    if (x < 0 || x >= spriteWidth || y < 0 || y >= spriteHeight)
-    {
+    if (x < 0 || x >= spriteWidth || y < 0 || y >= spriteHeight) {
         return;
     }
 
     coords.text = "X: " + x + "\tY: " + y;
 
-    if (!isDown)
-    {
+    if (!isDown) {
         return;
     }
 
-    if (isErase)
-    {
+    if (isErase) {
         data[y][x] = '.';
         canvas.clear(x * canvasZoom, y * canvasZoom, canvasZoom, canvasZoom, color);
         preview.clear(x * previewSize, y * previewSize, previewSize, previewSize, color);
-    }
-    else
-    {
+    } else {
         data[y][x] = pmap[colorIndex];
         canvas.rect(x * canvasZoom, y * canvasZoom, canvasZoom, canvasZoom, color);
         preview.rect(x * previewSize, y * previewSize, previewSize, previewSize, color);
@@ -1042,6 +998,6 @@ function paint(pointer) {
 
 }
 
-function showAll(){
+function showAll() {
 
 }

@@ -10,7 +10,7 @@ APG.Update.listenKey;
  * 按键无效
  * @method APG.Update.listenKey#stopListenKey
  */
-APG.Update.listenKey.stopListenKey = function(){
+APG.Update.listenKey.stopListenKey = function () {
     game.input.keyboard.stop();
 };
 
@@ -18,7 +18,7 @@ APG.Update.listenKey.stopListenKey = function(){
  * 开启按键监听功能
  * @method APG.Update.listenKey#startListenKey
  */
-APG.Update.listenKey.startListenKey = function(){
+APG.Update.listenKey.startListenKey = function () {
     game.input.keyboard.start();
 };
 
@@ -28,7 +28,7 @@ APG.Update.listenKey.startListenKey = function(){
  * @param {string} direction - 方向`up`，`down`，`left`，`right`
  * @param {string} key - 按键
  */
-APG.Update.listenKey.setMoveKey = function(direction, key){
+APG.Update.listenKey.setMoveKey = function (direction, key) {
     var direction = direction.toUpperCase();
     var key = key.toUpperCase();
     APG.Keys.move[direction] = key;
@@ -42,7 +42,7 @@ APG.Update.listenKey.setMoveKey = function(direction, key){
  * @param {Array} context - 函数传入的参数
  * @param {{}} [that = APG.DeveloperModel] - 回调上下文
  */
-APG.Update.listenKey.addKeyEvent = function(key, feedback, context, that=APG.DeveloperModel){
+APG.Update.listenKey.addKeyEvent = function (key, feedback, context, that = APG.DeveloperModel) {
     APG.Update.listenKey.keyEventList.push({
         key: key,
         feedback: feedback,
@@ -51,16 +51,20 @@ APG.Update.listenKey.addKeyEvent = function(key, feedback, context, that=APG.Dev
     });
 };
 
-APG.Update.listenKey.addTouchKey = function(imgKey,x,y, func){
+
+/**
+ *  Deprecated
+ */
+APG.Update.listenKey.addTouchKey = function (imgKey, x, y, func) {
     buttonTool1 = game.add.button(x, y, imgKey);
-    game.input.onTap.add(function(){
+    game.input.onTap.add(function () {
         var clickX = game.input.activePointer.clientX;
         var clickY = game.input.activePointer.clientY;
-        if(APG.Game.isInner(buttonTool1,clickX, clickY)){
-            that=APG.DeveloperModel
+        if (APG.Game.isInner(buttonTool1, clickX, clickY)) {
+            that = APG.DeveloperModel
             func.apply(that)
         }
-    },this)
+    }, this)
 }
 
 /**
@@ -74,12 +78,12 @@ APG.Update.listenKey.addTouchKey = function(imgKey,x,y, func){
  * @param {Array} rejectContext - 失败函数传入的参数
  * @param {{}} [that = APG.DeveloperModel] - 回调上下文
  */
-APG.Update.listenKey.characterMoveEvent = function(playerG, role, resolve, resolveContext, reject, rejectContext, that=APG.DeveloperModel) {
+APG.Update.listenKey.characterMoveEvent = function (playerG, role, resolve, resolveContext, reject, rejectContext, that = APG.DeveloperModel) {
     var secretKey = APG.currentClickKey;
     APG.currentClickKey = '';
     for (var k in APG.Keys.move) {
         if (APG.Keys[APG.Keys.move[k]].justDown || k == secretKey) {
-            console.log(k+" is justDown.")
+            console.log(k + " is justDown.")
             var playerGroup = playerG;
             var player = APG.Character.getCharacterSprite(playerGroup);
 
@@ -92,7 +96,7 @@ APG.Update.listenKey.characterMoveEvent = function(playerG, role, resolve, resol
             /* 预设新的相对坐标 */
             var newX = nowSite.x + player.direction.x;
             var newY = nowSite.y + player.direction.y;
-            let newSite = {x:newX, y:newY};
+            let newSite = {x: newX, y: newY};
             {
                 //  ====== 检测玩家是否可走 =====
                 var canMove = true;
@@ -136,13 +140,13 @@ APG.Update.listenKey.characterMoveEvent = function(playerG, role, resolve, resol
                  * 如果没有返回值, 则canMove不变
                  */
                 if (role) {
-                    var flag = role.apply(that,[newX, newY]);
+                    var flag = role.apply(that, [newX, newY]);
                     canMove = flag == undefined ? canMove : flag;
                 }
 
                 /* 无论能不能走, 都变化方向动画 */
-                if(playerGroup.Assets && playerGroup.Assets.move[k]){
-                    APG.Assets.setAnimations(playerGroup, k,playerGroup.Assets.move[k], 1);
+                if (playerGroup.Assets && playerGroup.Assets.move[k]) {
+                    APG.Assets.setAnimations(playerGroup, k, playerGroup.Assets.move[k], 1);
                 }
                 if (canMove) {
                     console.log('player move from ' + nowSite.x + ", " + nowSite.y + " to " + newX + ", " + newY);
@@ -173,7 +177,7 @@ APG.Update.collision;
  * @method APG.Update.collision#setCollideWorldBounds
  * @param {boolean} [f = false]
  */
-APG.Update.collision.setCollideWorldBounds = function(f){
+APG.Update.collision.setCollideWorldBounds = function (f) {
     APG.Update.collideWorldBounds = f;
 };
 
@@ -203,15 +207,15 @@ APG.Update.collision.active = {
  * @param {Array} context - 函数参数
  * @param {{}} [that = APG.DeveloperModel] - 回调上下文
  */
-APG.Update.collision.blockTileOverlap = function(group, tileIndex, feedback, context, that=APG.DeveloperModel){
-    if(group == APG.CharacterGroups.player){
+APG.Update.collision.blockTileOverlap = function (group, tileIndex, feedback, context, that = APG.DeveloperModel) {
+    if (group == APG.CharacterGroups.player) {
         APG.Update.collision.block.playerTileList.push({
             tileIndex: tileIndex,
             feedback: feedback,
             context: context,
             that: that,
         });
-    }else{
+    } else {
         APG.Update.collision.block.TileList.push({
             group: group,
             tileIndex: tileIndex,
@@ -231,7 +235,7 @@ APG.Update.collision.blockTileOverlap = function(group, tileIndex, feedback, con
  * @param {Array} context - 函数参数
  * @param {{}} [that = APG.DeveloperModel] - 回调上下文
  */
-APG.Update.collision.blockGroupOverlap = function(group1, group2, feedback, context, that=APG.DeveloperModel) {
+APG.Update.collision.blockGroupOverlap = function (group1, group2, feedback, context, that = APG.DeveloperModel) {
     if (group1 == APG.CharacterGroups.player) {
         APG.Update.collision.block.playerGroupList.push({
             group: group2,
@@ -239,7 +243,7 @@ APG.Update.collision.blockGroupOverlap = function(group1, group2, feedback, cont
             context: context,
             that: that,
         });
-    }else{
+    } else {
         APG.Update.collision.block.GroupList.push({
             group1: group1,
             group2: group2,
@@ -260,7 +264,7 @@ APG.Update.collision.blockGroupOverlap = function(group1, group2, feedback, cont
  * @param {Array} context - 函数参数
  * @param {{}} [that = APG.DeveloperModel] - 回调上下文
  */
-APG.Update.collision.activeGroupOverlap = function(group1, group2, feedback, context, that=APG.DeveloperModel){
+APG.Update.collision.activeGroupOverlap = function (group1, group2, feedback, context, that = APG.DeveloperModel) {
     var obj = {
         actor: "",
         feedback: feedback,
@@ -285,8 +289,8 @@ APG.Update.collision.activeGroupOverlap = function(group1, group2, feedback, con
  * @param {Array} context - 函数参数
  * @param {{}} [that = APG.DeveloperModel] - 回调上下文 * @param group
  */
-APG.Update.collision.activeTileOverlap = function(group, tileIndex, feedback, context, that=APG.DeveloperModel){
-    if(group == APG.CharacterGroups.player){
+APG.Update.collision.activeTileOverlap = function (group, tileIndex, feedback, context, that = APG.DeveloperModel) {
+    if (group == APG.CharacterGroups.player) {
         APG.Update.collision.active.TileList.push({
             tileIndex: tileIndex,
             feedback: feedback,
@@ -294,7 +298,7 @@ APG.Update.collision.activeTileOverlap = function(group, tileIndex, feedback, co
             context: context,
             that: that,
         });
-    }else{
+    } else {
         APG.Update.collision.active.TileList.push({
             group: group,
             tileIndex: tileIndex,
@@ -315,7 +319,7 @@ APG.Update.collision.activeTileOverlap = function(group, tileIndex, feedback, co
  * @param {Phaser.Group} group1
  * @param {Phaser.Group} group2
  */
-APG.Update.collision.isCollided = function(group1, group2){
+APG.Update.collision.isCollided = function (group1, group2) {
 
 };
 

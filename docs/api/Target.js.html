@@ -32,6 +32,13 @@
   				</ul>
   			</li>
   			
+  			<li class="dropdown">
+  				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+  				<ul class="dropdown-menu ">
+  					<li><a href="global.html#APG.Character#getCharacterSite%25E9%25BB%2598%25E8%25AE%25A4%25E5%258F%2596%25E5%25BE%2597%25E8%25A7%2592%25E8%2589%25B2%25E7%25BB%2584%25E9%2587%258C%25E7%259A%2584%25E7%25AC%25AC%25E4%25B8%2580%25E4%25B8%25AA%25E8%25A7%2592%25E8%2589%25B2%25E5%258F%25AF%25E4%25BB%25A5%25E4%25BC%25A0%25E5%2585%25A5%25E7%258E%25A9%25E5%25AE%25B6%25E7%25B2%25BE%25E7%2581%25B5">APG.Character#getCharacterSite 默认取得角色组里的第一个角色 可以传入玩家精灵</a></li>
+  				</ul>
+  			</li>
+  			
         <li>
   <a href="https://github.com/SuCicada/Algorithm-PlayGround">
     <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
@@ -103,11 +110,11 @@ APG.Target;
  * @param {string} bg - `TextBitMap`的颜色
  * @returns {Phaser.Sprite} TextBitMap
  */
-APG.Target.addTextBitMap = function(x,y, text, bg, fontColor, fontAlpha){
+APG.Target.addTextBitMap = function (x, y, text, bg, fontColor, fontAlpha) {
     /* 创建一个 TextBitMap */
-    let sprite = APG.Sprite.addSprite(x,y);
+    let sprite = APG.Sprite.addSprite(x, y);
     sprite[0].imgMode = "textbitmap";
-    return APG.Target.loadTextBitMap(sprite,text,bg, fontColor, fontAlpha);
+    return APG.Target.loadTextBitMap(sprite, text, bg, fontColor, fontAlpha);
 };
 
 /**
@@ -116,8 +123,8 @@ APG.Target.addTextBitMap = function(x,y, text, bg, fontColor, fontAlpha){
  * @param {Phaser.Sprite} sprite - 传入的`TextBitMap`对象
  * @returns {{bgColor: (string), text: (string)}}
  */
-APG.Target.aboutTextBitMap = function(sprite){
-    let s = sprite[0]? sprite[0]: {};
+APG.Target.aboutTextBitMap = function (sprite) {
+    let s = sprite[0] ? sprite[0] : {};
     return {
         text: s.text,
         bgColor: s.bgColor,
@@ -133,29 +140,29 @@ APG.Target.aboutTextBitMap = function(sprite){
  * @param {string} bg - `TextBitMap`的颜色
  * @returns {Phaser.Sprite} TextBitMap
  */
-APG.Target.loadTextBitMap = function(sprite, text, bgColor, fontColor, fontAlpha) {
-    if(sprite){
+APG.Target.loadTextBitMap = function (sprite, text, bgColor, fontColor, fontAlpha) {
+    if (sprite) {
         var info = APG.Target.aboutTextBitMap(sprite);
-    }else{
-        var sprite = APG.Sprite.addSprite(0,0);
+    } else {
+        var sprite = APG.Sprite.addSprite(0, 0);
         var info = {};
     }
 
-    if(info.text &amp;&amp; !text){
+    if (info.text &amp;&amp; !text) {
         var text = info.text;
-    }else if(!text){
+    } else if (!text) {
         var text = "";
     }
     // console.log(bgColor )
-    if(info.bgColor &amp;&amp; !bgColor){
+    if (info.bgColor &amp;&amp; !bgColor) {
         var bgColor = info.bgColor;
-    }else if(!bgColor){
+    } else if (!bgColor) {
         var bgColor = "#ffffff";
     }
 
     let bmd = game.add.bitmapData(APG.Tile.width, APG.Tile.height);
     bmd.ctx.beginPath();
-    bmd.ctx.rect(0,0,APG.Tile.width, APG.Tile.height);
+    bmd.ctx.rect(0, 0, APG.Tile.width, APG.Tile.height);
     bmd.ctx.fillStyle = bgColor;
     bmd.ctx.fill();
     bmd.name = "bgColor";
@@ -163,51 +170,51 @@ APG.Target.loadTextBitMap = function(sprite, text, bgColor, fontColor, fontAlpha
     let rect = game.add.graphics(0, 0);
     var color;
 
-    if(fontColor &amp;&amp; fontColor.length){
+    if (fontColor &amp;&amp; fontColor.length) {
         color = fontColor;
-    }else{
-        color = '0x'+bgColor.slice(1);
+    } else {
+        color = '0x' + bgColor.slice(1);
         color = 0xffffff - parseInt(color);
     }
-    rect.lineStyle(APG.Tile.width/20, color, fontAlpha?fontAlpha:1);
-    rect.drawRect(0,0,APG.Tile.width,APG.Tile.height);
+    rect.lineStyle(APG.Tile.width / 20, color, fontAlpha ? fontAlpha : 1);
+    rect.drawRect(0, 0, APG.Tile.width, APG.Tile.height);
     rect.name = "rect";
 
     let oldWidth = sprite.width;
     let oldHeight = sprite.height;
 
-    if(!sprite){
-        var sprite = game.add.sprite(0,0, bmd);
-    }else{
+    if (!sprite) {
+        var sprite = game.add.sprite(0, 0, bmd);
+    } else {
         sprite.loadTexture(bmd);
     }
 
-    let textColor = '#'+parseInt(color).toString(16);
-    if(fontAlpha){
+    let textColor = '#' + ("000000" + parseInt(color).toString(16)).slice(-6);
+    if (fontAlpha) {
         textColor += parseInt(0x100 * fontAlpha).toString(16)
     }
     // console.log(textColor)
 
     let style = {
-        font: "bold "+APG.Tile.width/Math.max(2,text.toString().length)+"px Arial",
+        font: "bold " + APG.Tile.width / Math.max(2, text.toString().length) + "px Arial",
         fill: textColor,
         boundsAlignH: "center",
         wordWrap: true,
         wordWrapWidth: APG.Tile.width * 0.8
     };
 
-    var textObj = game.add.text(0, 0, text,style);
+    var textObj = game.add.text(0, 0, text, style);
     textObj.name = "text";
     textObj.x = (APG.Tile.width - textObj.width) / 2;
     textObj.y = (APG.Tile.height - textObj.height) / 2;
     /* 删除原来的文本, 加入新的*/
     let crash = [];
-    sprite.children.forEach(function(s){
-        if(s.name == "text" || s.name == "rect"){
+    sprite.children.forEach(function (s) {
+        if (s.name == "text" || s.name == "rect") {
             crash.push(s);
         }
     });
-    crash.forEach(function(s){
+    crash.forEach(function (s) {
         s.destroy();
         sprite.removeChild(s);
     });
@@ -231,14 +238,14 @@ APG.Target.loadTextBitMap = function(sprite, text, bgColor, fontColor, fontAlpha
  * @param {integer} [start = 0] - 组中开始编号，从0开始
  * @param {integer} [end = group.children.length] - 组中结束编号，未指定 end 就按最后一个
  */
-APG.Target.loadTextBitMapBetween = function(group, texts, bgs, start, end){
-    var start = start? start: 0;
-    var end = end? end: group.children.length;
-    for(let i = start;i&lt;end;i++){
-        let text = typeof texts == 'object'? texts[i]: texts;
-        let bg = typeof bgs == 'object'? bgs[i]: bgs;
-        text = text? text: null;
-        bg = bg? bg : null;
+APG.Target.loadTextBitMapBetween = function (group, texts, bgs, start, end) {
+    var start = start ? start : 0;
+    var end = end ? end : group.children.length;
+    for (let i = start; i &lt; end; i++) {
+        let text = typeof texts == 'object' ? texts[i] : texts;
+        let bg = typeof bgs == 'object' ? bgs[i] : bgs;
+        text = text ? text : null;
+        bg = bg ? bg : null;
         APG.Target.loadTextBitMap(group.children[i], text, bg);
     }
 };
@@ -269,7 +276,7 @@ APG.Target.loadTextBitMapBetween = function(group, texts, bgs, start, end){
 <p class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
 	
-		on 2019-11-Fr
+		on 2020-03-Su
 	
 	using <a href="https://github.com/photonstorm/phaser-ce/tree/master/resources/docstrap-master">Tomorrow</a>.
 </p>

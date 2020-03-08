@@ -22,11 +22,11 @@ APG.Assets.playMusic = function (keyName) {
  * @method APG.Assets#stopMusic
  * @param {string} keyName - 音乐名
  */
-APG.Assets.stopMusic = function(keyName){
-    let musics = keyName? {keyName:APG.Assets.music[keyName]}: APG.Assets.music;
-    for(m in musics){
+APG.Assets.stopMusic = function (keyName) {
+    let musics = keyName ? {keyName: APG.Assets.music[keyName]} : APG.Assets.music;
+    for (m in musics) {
         APG.Assets.music[m].stop();
-        console.log("Stop music: "+keyName);
+        console.log("Stop music: " + keyName);
     }
 };
 
@@ -39,24 +39,24 @@ APG.Assets.stopMusic = function(keyName){
  * @param {integer} [frameRate = 1] - 帧动画速度
  * @param {boolean} [loop = false] - 循环否
  */
-APG.Assets.setAnimations = function(obj, name, frames, frameRate=1, loop=false){
+APG.Assets.setAnimations = function (obj, name, frames, frameRate = 1, loop = false) {
     /*
     * */
-    if(typeof frames == "number"){
+    if (typeof frames == "number") {
         frames = [frames]
     }
-    if(!obj.forEach){
+    if (!obj.forEach) {
         let s = obj;
-        if(frames){
+        if (frames) {
         }
-        if(!s.animations.getAnimation(name)){
-            s.animations.add(name,frames);
+        if (!s.animations.getAnimation(name)) {
+            s.animations.add(name, frames);
         }
         s.animations.play(name, frameRate, loop);
-    }else{
+    } else {
         let group = obj;
-        group.forEach(function(s){
-            if(!s.animations.getAnimation(name)) {
+        group.forEach(function (s) {
+            if (!s.animations.getAnimation(name)) {
                 s.animations.add(name, frames);
             }
             s.animations.play(name, frameRate, loop);
@@ -76,18 +76,18 @@ APG.Assets.setAnimations = function(obj, name, frames, frameRate=1, loop=false){
  *       up: 3,
  *   }
  */
-APG.Assets.playerMoveAnimations = function(playerG, obj){
+APG.Assets.playerMoveAnimations = function (playerG, obj) {
     var move = {};
-    for(var i in obj){
+    for (var i in obj) {
         var I = i.toUpperCase()
-        move[I] = typeof obj[i] == 'number'?[obj[i]]: obj[i];
+        move[I] = typeof obj[i] == 'number' ? [obj[i]] : obj[i];
 
     }
-    if(playerG.animations){
+    if (playerG.animations) {
         playerG.animations.add(I, move[I], 1);
         playerG.Assets.move = move;
-    }else{
-        playerG.forEach(function(s){
+    } else {
+        playerG.forEach(function (s) {
             s.animations.add(I, move[I], 1);
             s.Assets = {};
             s.Assets.move = move;
@@ -103,14 +103,14 @@ APG.Assets.playerMoveAnimations = function(playerG, obj){
  * @param {Phaser.Group|Phaser.Sprite} obj - 精灵或组或精灵列表
  * @returns {Array|number} 如果传入组或精灵列表，返回frameId 列表
  */
-APG.Assets.getFrame = function(obj){
-    if(obj.animations){
+APG.Assets.getFrame = function (obj) {
+    if (obj.animations) {
         /* sprite */
         return obj.animations.frame;
-    }else{
+    } else {
         /* group or sprite List*/
         var frames = [];
-        obj.forEach(function(s){
+        obj.forEach(function (s) {
             frames.push(s.animations.frame);
         });
         return frames;
@@ -118,8 +118,14 @@ APG.Assets.getFrame = function(obj){
 
 };
 
-
-APG.Assets.setVirtualButton = function(name, x, y, func){
+/**
+ * 用来设置屏幕上虚拟按键的
+ * @param name - 按键的名称
+ * @param x
+ * @param y
+ * @param func - 按下之后执行的操作函数, 即回调函数
+ */
+APG.Assets.setVirtualButton = function (name, x, y, func) {
     // APG.Assets.virtualButton["button"] = button;
     APG.Assets.virtualButton.push({
         "name": name,
@@ -130,8 +136,8 @@ APG.Assets.setVirtualButton = function(name, x, y, func){
     })
 };
 
-APG.Assets.deleteVirtualButton = function(name){
-    for(i = 0;i<APG.Assets.virtualButton.length;i++) {
+APG.Assets.deleteVirtualButton = function (name) {
+    for (i = 0; i < APG.Assets.virtualButton.length; i++) {
         if (APG.Assets.virtualButton[i].name = name) {
             var obj = APG.Assets.virtualButton[i].buttonObj;
             if (obj) {
@@ -143,11 +149,11 @@ APG.Assets.deleteVirtualButton = function(name){
     }
 }
 
-APG.Assets.changeVirtualButton = function(name,newName){
-    var bnt = APG.Assets.virtualButton.find(function(b){
-        return b.name==name;
+APG.Assets.changeVirtualButton = function (name, newName) {
+    var bnt = APG.Assets.virtualButton.find(function (b) {
+        return b.name == name;
     })
-    if(bnt && game.cache.checkImageKey(newName)){
+    if (bnt && game.cache.checkImageKey(newName)) {
         bnt.name = newName;
         bnt.buttonObj.loadTexture(newName)
     }

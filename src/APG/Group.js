@@ -13,7 +13,7 @@ APG.Group;
  * @method APG.Group#setGroup
  * @returns {Phaser.Group}
  */
-APG.Group.setGroup = function(){
+APG.Group.setGroup = function () {
     var group = game.add.group();
     group.enableBody = true;
     game.physics.arcade.enable(group);
@@ -26,8 +26,8 @@ APG.Group.setGroup = function(){
  * @param {Phaser.Group} groupUp
  * @param {Phaser.Group} groupDown
  */
-APG.Group.moveGroupUpTo = function(groupUp, groupDown){
-    while(groupUp.z<=groupDown.z){
+APG.Group.moveGroupUpTo = function (groupUp, groupDown) {
+    while (groupUp.z <= groupDown.z) {
         game.world.moveUp(groupUp);
         console.log(groupUp.z, groupDown.z)
     }
@@ -38,8 +38,8 @@ APG.Group.moveGroupUpTo = function(groupUp, groupDown){
  * @param {Phaser.Group} groupDown
  * @param {Phaser.Group} groupUp
  */
-APG.Group.moveGroupDownTo = function(groupDown, groupUp){
-    while(groupDown.z >= groupUp.z){
+APG.Group.moveGroupDownTo = function (groupDown, groupUp) {
+    while (groupDown.z >= groupUp.z) {
         game.world.moveDown(groupDown);
     }
 };
@@ -50,7 +50,7 @@ APG.Group.moveGroupDownTo = function(groupDown, groupUp){
  * @param {string} name - Target组名
  * @returns {Phaser.Group}
  */
-APG.Group.getTargetGroup = function(name){
+APG.Group.getTargetGroup = function (name) {
     return APG.TargetGroups[name];
 };
 
@@ -60,6 +60,6 @@ APG.Group.getTargetGroup = function(name){
  * @param {string} name - Character组名
  * @returns {Phaser.Group}
  */
-APG.Group.getCharacterGroup = function(name){
+APG.Group.getCharacterGroup = function (name) {
     return APG.CharacterGroups[name];
 };

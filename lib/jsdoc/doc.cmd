@@ -1,0 +1,2 @@
+
+jsdoc -c  ./config.json
