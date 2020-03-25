@@ -549,7 +549,6 @@ var startGame = {
 
 
         /* 开始角色层扫描*/
-        let characterGroup = game.add.group();
         {
             let characterLayer = TileMapJson.layers.find(function (lay) {
                 return lay.name == "Character Layer";
@@ -563,6 +562,7 @@ var startGame = {
                     return s.imgKey == objPro[0].imgKey;
                 }).imgMode;
                 let gid = obj.gid;
+                let characterGroup = game.add.group();
 
                 APG.Tilemap.createFromObjects('Character Layer', gid,
                     imgKey, 0, true, false, characterGroup, Phaser.Sprite, false);
