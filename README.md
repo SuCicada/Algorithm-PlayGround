@@ -15,7 +15,7 @@
 提供可视化的地图编辑方案
 
 <video width="100%" controls>
-  <source src="http://sucicada.tk:39/resource/display.mp4"  type="video/mp4">
+  <source src="http://sucicada.cf:39/resource/display.mp4"  type="video/mp4">
 </video>
 
 视频制作by[@llwwdbd](https://github.com/llwwdbd)
@@ -25,19 +25,19 @@
 ## [API开发者文档](http:./api)
 
 
-## [官网](http://sucicada.tk:39/APG/) 
+## [官网](http://sucicada.cf:39/APG/) 
 [官网(备用)](https://sucicada.github.io/Algorithm-PlayGround/)
 
 ## Demo 演示
 + [git page(可能会慢)](https://sucicada.github.io/Algorithm-PlayGround/docs/#/game-examples/)
-+ [国内使用](http://sucicada.tk:39/APG/docs/#/game-examples/)
++ [国内使用](http://sucicada.cf:39/APG/docs/#/game-examples/)
 
 ![](resource/display1.png)
 ![](resource/display2.png)
 
 ## 使用在线地图编辑器
 + [APG MapEditor](https://sucicada.github.io/Algorithm-PlayGround/src/MapEditor/index.html)
-+ [APG MapEditor(备用)](http://sucicada.tk:39/APG/src/MapEditor/index.html)
++ [APG MapEditor(备用)](http://sucicada.cf:39/APG/src/MapEditor/index.html)
 
 ![](resource/display3.png)
 
@@ -59,7 +59,7 @@ http://apg.sucicada.ml/src/APG/APG-core.js
 
 + 国内使用（更快,更新不及时）
 ```
-http://sucicada.tk:39/APG/dist/APG.js
+http://sucicada.cf:39/APG/dist/APG.js
 ```
 
 ## 最后
