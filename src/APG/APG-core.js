@@ -593,11 +593,11 @@ var startGame = {
                     game.physics.enable(s, Phaser.Physics.ARCADE);
                     APG.Sprite.setBody(s, 0.8, 0.8, 0.1, 0.1);
                 });
+                let keyName = characterGroup.children[0][0].keyName;
+                characterGroup.name = keyName;
+                APG.CharacterGroups[keyName] = characterGroup;
+                console.log("create successfully: " + keyName);
             });
-            let keyName = characterGroup.children[0][0].keyName;
-            characterGroup.name = keyName;
-            APG.CharacterGroups[keyName] = characterGroup;
-            console.log("create successfully: " + keyName);
         }
         console.log("Character Groups has been established successfully.");
 
