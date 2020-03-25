@@ -554,41 +554,45 @@ var startGame = {
             let characterLayer = TileMapJson.layers.find(function (lay) {
                 return lay.name == "Character Layer";
             }).objects;
-            let obj = characterLayer[0];
-            let objPro = obj.properties;
-            let imgKey = objPro[0].imgKey;
-            let imgMode = globalConfig.Assets.spritesImg.find(function (s) {
-                return s.imgKey == objPro[0].imgKey;
-            }).imgMode;
+            characterLayer.forEach(function (character) {
 
-            APG.Tilemap.createFromObjects('Character Layer', 1,
-                imgKey, 0, true, false, characterGroup, Phaser.Sprite, false);
-            characterGroup.forEach(function (s) {
-                s.x *= APG.Tile.scale;
-                s.y *= APG.Tile.scale;
+                let obj = character; //characterLayer[0];
+                let objPro = obj.properties;
+                let imgKey = objPro[0].imgKey;
+                let imgMode = globalConfig.Assets.spritesImg.find(function (s) {
+                    return s.imgKey == objPro[0].imgKey;
+                }).imgMode;
+                let gid = obj.gid;
 
-                s.relx = s.x / APG.Tile.width;
-                s.rely = s.y / APG.Tile.height;
+                APG.Tilemap.createFromObjects('Character Layer', gid,
+                    imgKey, 0, true, false, characterGroup, Phaser.Sprite, false);
+                characterGroup.forEach(function (s) {
+                    s.x *= APG.Tile.scale;
+                    s.y *= APG.Tile.scale;
 
-                s.oldx = s.relx;
-                s.oldy = s.rely;
+                    s.relx = s.x / APG.Tile.width;
+                    s.rely = s.y / APG.Tile.height;
 
-                s.x += APG.MapArea.x;
-                s.y += APG.MapArea.y;
-                s.scale.setTo(1);
-                s.scale.setTo(Math.min(APG.Tile.width / s.width, APG.Tile.height / s.height));
-                /* 设置人物方向 */
-                s.direction = {x: 0, y: 0};
-                // s.x += (APG.Tile.width - s.width ) / 2;
-                // s.y += (APG.Tile.height- s.height) / 2;
-                s.anchor.setTo(-(APG.Tile.width - s.width) / 2 / s.width,
-                    -(APG.Tile.height - s.height) / 2 / s.height);
-                console.log(s.x + "," + s.y + " -> " + s.relx + "," + s.rely);
+                    s.oldx = s.relx;
+                    s.oldy = s.rely;
 
-                s[0].imgMode = imgMode;
+                    s.x += APG.MapArea.x;
+                    s.y += APG.MapArea.y;
+                    s.scale.setTo(1);
+                    s.scale.setTo(Math.min(APG.Tile.width / s.width, APG.Tile.height / s.height));
+                    /* 设置人物方向 */
+                    s.direction = {x: 0, y: 0};
+                    // s.x += (APG.Tile.width - s.width ) / 2;
+                    // s.y += (APG.Tile.height- s.height) / 2;
+                    s.anchor.setTo(-(APG.Tile.width - s.width) / 2 / s.width,
+                        -(APG.Tile.height - s.height) / 2 / s.height);
+                    console.log(s.x + "," + s.y + " -> " + s.relx + "," + s.rely);
 
-                game.physics.enable(s, Phaser.Physics.ARCADE);
-                APG.Sprite.setBody(s, 0.8, 0.8, 0.1, 0.1);
+                    s[0].imgMode = imgMode;
+
+                    game.physics.enable(s, Phaser.Physics.ARCADE);
+                    APG.Sprite.setBody(s, 0.8, 0.8, 0.1, 0.1);
+                });
             });
             let keyName = characterGroup.children[0][0].keyName;
             characterGroup.name = keyName;
