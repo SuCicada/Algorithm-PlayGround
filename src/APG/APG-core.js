@@ -172,7 +172,7 @@ function someboot() {
             // console.error(APG.HEIGHT, APG.WIDTH)
             document.getElementsByTagName("body")[0].style.transform = "rotate(90deg)";
             // document.getElementsByTagName("canvas")[0].style.transform = "rotate(90deg)";
-            game.scale.setGameSize(APG.WIDTH, APG.HEIGHT)
+            game.scale.setGameSize(APG.WIDTH*0.9, APG.HEIGHT)
             // }
             // if (direction == '1') {
             // var flag = 1;
