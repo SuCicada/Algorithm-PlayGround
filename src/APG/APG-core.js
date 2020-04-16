@@ -25,6 +25,12 @@ window.onload = function () {
     // HEIGHT = gege*9;
     console.log(WIDTH, HEIGHT)
 
+    if( is1or_()){
+        HEIGHT
+        WIDTH*=0.8
+    }
+
+
     APG.WIDTH = WIDTH;
     APG.HEIGHT = HEIGHT;
 
@@ -155,24 +161,27 @@ APG.Sprite = {};
 APG.Group = {};
 APG.Target = {};
 APG.Character = {};
-
+function is1or_(){
+    let height = screen.height;
+    let width = screen.width;
+    if (height > width) {
+        var direction = '1'
+        isvertical = 1;
+    } else {
+        var direction = '-'
+        isvertical = 0;
+    }
+    // console.log(direction)
+    return isvertical
+}
 function someboot() {
     Phaser.World.prototype.displayObjectUpdateTransform = function () {
-        let height = screen.height;
-        let width = screen.width;
-        if (height > width) {
-            var direction = '1'
-            isvertical = 1;
-        } else {
-            var direction = '-'
-            isvertical = 0;
-        }
-        // console.log(direction)
+        isvertical = is1or_()
         if (isvertical) {
             // console.error(APG.HEIGHT, APG.WIDTH)
             document.getElementsByTagName("body")[0].style.transform = "rotate(90deg)";
             // document.getElementsByTagName("canvas")[0].style.transform = "rotate(90deg)";
-            game.scale.setGameSize(APG.WIDTH*0.9, APG.HEIGHT)
+            game.scale.setGameSize(APG.WIDTH, APG.HEIGHT)
             // }
             // if (direction == '1') {
             // var flag = 1;
