@@ -202,7 +202,14 @@ function someboot() {
             // this.x = -game.camera.x;
             // this.y = -game.camera.y;
             // this.rotation = 0;
+
+            if (!(globalConfig.ScaleMode == "EXACT_FIT")) {
+                game.scale.pageAlignHorizontally = true;
+                game.scale.pageAlignVertically = true;
+            }
+            game.scale.scaleMode = Phaser.ScaleManager[globalConfig.ScaleMode];
         }
+        game.scale.refresh();
         PIXI.DisplayObject.prototype.updateTransform.call(this);
     }
 }
@@ -211,12 +218,12 @@ function someboot() {
 var bootstrap = {
     init: function () {
 
-        if (!(globalConfig.ScaleMode == "EXACT_FIT")) {
-            game.scale.pageAlignHorizontally = true;
-            game.scale.pageAlignVertically = true;
-        }
-        game.scale.scaleMode = Phaser.ScaleManager[globalConfig.ScaleMode];
-        game.scale.refresh();
+        // if (!(globalConfig.ScaleMode == "EXACT_FIT")) {
+        //     game.scale.pageAlignHorizontally = true;
+        //     game.scale.pageAlignVertically = true;
+        // }
+        // game.scale.scaleMode = Phaser.ScaleManager[globalConfig.ScaleMode];
+        // game.scale.refresh();
 
         // someinit();
         someboot();
