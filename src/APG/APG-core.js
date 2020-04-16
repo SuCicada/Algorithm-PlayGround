@@ -212,10 +212,10 @@ var bootstrap = {
     init: function () {
 
         if (!(globalConfig.ScaleMode == "EXACT_FIT")) {
-            // game.scale.pageAlignHorizontally = true;
-            // game.scale.pageAlignVertically = true;
+            game.scale.pageAlignHorizontally = true;
+            game.scale.pageAlignVertically = true;
         }
-        // game.scale.scaleMode = Phaser.ScaleManager[globalConfig.ScaleMode];
+        game.scale.scaleMode = Phaser.ScaleManager[globalConfig.ScaleMode];
         game.scale.refresh();
 
         // someinit();
