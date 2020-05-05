@@ -63,4 +63,4 @@ http://sucicada.cf:39/APG/dist/APG.js
 ```
 
 ## 最后
-### 十分感谢 [@llwwdbd](https://github.com/llwwdbd), [@lesen-bee](https://github.com/lesen-bee) 在开发期间所提供的帮助
+### 十分感谢 APG团队的小伙伴们
